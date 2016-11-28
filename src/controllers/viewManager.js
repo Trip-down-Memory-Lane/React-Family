@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import $ from 'jquery'
 import ReactDOM from 'react-dom';
-import Login from './LoginView'
-import Register from './RegisterView'
+import Login from '../views/LoginView'
+import Register from '../views/RegisterView'
 
 
 function changeView(view, id) {

@@ -1,9 +1,7 @@
 import React, {Component} from 'react';
-import logo from './logo.svg';
-import './App.css';
-import '../public/loginHelper/css/form-elements.css'
-import '../public/loginHelper/css/style.css'
-import  changeView from './viewManager'
+import '../../public/loginHelper/css/form-elements.css'
+import '../../public/loginHelper/css/style.css'
+import  changeView from '../controllers/viewManager'
 
 
 class Login extends Component {
@@ -14,9 +12,9 @@ class Login extends Component {
             username: ``,
             password: ``
         };
+
         this.onRegisterClicked = this.onRegisterClicked.bind(this)
         this.onLoginClicked = this.onLoginClicked.bind(this)
-
     }
 
     onUserNameClicked(event) {
