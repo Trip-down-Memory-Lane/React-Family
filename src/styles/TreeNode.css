@@ -1,0 +1,58 @@
+/* Layouts */
+.children > *,
+.parents > * {
+    display: inline-block;
+    vertical-align: top;
+    padding:20px;
+}
+.ancestor {
+    padding: 20px 0;
+}
+.spouse {
+    padding: 20px 0 20px 40px;
+}
+.child {
+    padding: 20px 20px 0 20px;
+}
+
+.node {
+    text-align: center;
+    padding: 0;
+}
+
+#top-most .ancestor {
+    padding-top:0;
+}
+#top-most .spouse  {
+    padding: 0 0 0 40px;
+}
+
+/* Styles */
+body {
+    font-size:30px;
+}
+#family-tree h3 {
+    padding: 10px;
+    border-bottom:1px solid teal;
+    text-align: center;
+}
+
+.person {
+    border: 1px solid teal;
+    border-radius: 5px;
+    background-color: whitesmoke;
+    padding: 10px;
+}
+
+.ancestor,
+.child {
+    background-size: cover;
+    background: url("../../public/inheritenceLine.png") no-repeat center center;
+}
+.spouse {
+    background-size: cover;
+    background: url("../../public/spouseLine.png") no-repeat center center;
+}
+.children {
+    border-top:15px solid black;
+}
