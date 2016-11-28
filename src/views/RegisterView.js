@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import  changeView from '../controllers/viewManager'
 
 class Register extends Component{
 
@@ -48,6 +49,8 @@ class Register extends Component{
                                         </div>
                                         <div id="register"
                                               className="btn"><a  >Register !</a></div>
+                                        <div id="toLogin"
+                                             className="btn"><a onClick={() => changeView(`login`)} >Back to Login !</a></div>
                                     </form>
                                 </div>
                             </div>

@@ -29,14 +29,27 @@ input[type="text"]::-moz-placeholder, input[type="password"]::-moz-placeholder {
 input[type="text"]:-ms-input-placeholder, input[type="password"]:-ms-input-placeholder { color: #888; }
 input[type="text"]::-webkit-input-placeholder, input[type="password"]::-webkit-input-placeholder { color: #888; }
 
+#register a{
+    color: black;
+}
 
 
-button.btn {
-	height: 50px;
+#toLogin {
+    background: darkgoldenrod;
+
+}
+#toLogin a{
+    color: blueviolet;
+}
+
+div.btn {
+    width: 100%;
+	height: 38px;
     margin: 0;
     padding: 0 20px;
     vertical-align: middle;
-    background: #e89a3e;
+    /*background: #e89a3e;*/
+    background: #1b6d85;
     border: 0;
     font-family: 'Roboto', sans-serif;
     font-size: 16px;
