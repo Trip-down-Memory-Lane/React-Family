@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import '../../public/loginHelper/css/form-elements.css'
 import '../../public/loginHelper/css/style.css'
-import changeView from '../controllers/viewManager'
+import changeView from '../controllers/ViewManager'
+import Path from '../constants/constant'
 
 
 class LoginView extends Component {
@@ -9,8 +10,8 @@ class LoginView extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            username: ``,
-            password: ``
+            username: Path.initialUsername(),
+            password: Path.initialPassword()
         };
 
         this.onRegisterClicked = this.onRegisterClicked.bind(this);
@@ -18,12 +19,13 @@ class LoginView extends Component {
     }
 
     onRegisterClicked() {
-        changeView('register');
-        console.log('REGISTERED');
+        changeView(Path.registerView());
     }
 
     handleFormSubmit(event) {
         event.preventDefault();
+        console.log(this.usernameField.value);
+        console.log(this.passwordField.value);
         this.props.onsubmit(
             this.usernameField.value, this.passwordField.value);
     }
@@ -73,7 +75,7 @@ class LoginView extends Component {
                                             <button type="submit" className="btn">Sign in !</button>
                                             <div id="register"
 
-                                                 className="btn" onClick={() => changeView(`register`)}><a >Register !</a ></div>
+                                                 className="btn" onClick={() => changeView(Path.registerView())}><a >Register !</a ></div>
                                         </form>
                                     </div>
                                 </div>

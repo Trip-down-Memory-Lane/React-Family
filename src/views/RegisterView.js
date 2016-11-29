@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import  changeView from '../controllers/viewManager'
+import  changeView from '../controllers/ViewManager'
 
 class Register extends Component{
 
