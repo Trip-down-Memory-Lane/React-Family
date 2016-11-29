@@ -14,11 +14,11 @@ const KinveyRequester = (function(){
 
     function registerUser(username, password) {
         return $.ajax({
-            method: "POST",
-            url: consts.baseUrl + "user/" + consts.appKey + "/",
-            headers: consts.kinveyAppAuthHeaders,
-            data: { username, password }
-        });
+                method: "POST",
+                url: consts.baseUrl + "user/" + consts.appKey + "/",
+                headers: consts.kinveyAppAuthHeaders,
+                data: { username, password }
+            });
     }
 
     function getKinveyUserAuthHeaders() {
