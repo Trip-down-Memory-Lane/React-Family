@@ -1,7 +1,7 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import LoginView from './views/LoginView';
 import './index.css';
+import Path from '../src/constants/constant'
 import changeView from './controllers/ViewManager';
 
-changeView('familyTree');
+
+
+changeView(Path.registerView());
