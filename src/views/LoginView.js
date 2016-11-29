@@ -24,8 +24,6 @@ class LoginView extends Component {
 
     handleFormSubmit(event) {
         event.preventDefault();
-        console.log(this.usernameField.value);
-        console.log(this.passwordField.value);
         this.props.onsubmit(
             this.usernameField.value, this.passwordField.value);
     }
