@@ -4,10 +4,14 @@ import TreeNode from "../components/TreeNode";
 // import "../styles/TreeNode.css";
 
 class FamilyTree extends Component {
+    /*
+    * props:
+    *     user: <logged in user>
+    */
+
     constructor(props) {
         super(props);
         this.state = {
-            currentUser: props.user,
             treeRoot: {
                 name: `TreeRoot`,
                 _id: 1,
@@ -36,46 +40,13 @@ class FamilyTree extends Component {
                 ]
             }
         };
-
     }
-
-    // getTreeRoot() {
-    //     return {
-    //         name: `TreeRoot`,
-    //         spouse: `TreeRoot Spouse`,
-    //         children: [
-    //             {
-    //                 name: `SoloChild`
-    //             },
-    //             {
-    //                 name: `FamilyChild`,
-    //                 spouse: `FamilyChild Souse`,
-    //                 children: [
-    //                     {
-    //                         name: `SoloGrandChild 1`
-    //                     },
-    //                     {
-    //                         name: `SoloGrandChild 2`,
-    //                         spouse: `SoloGrandChild 2 spouse`
-    //                     }
-    //                 ]
-    //             }
-    //         ]
-    //     };
-    // }
-
-    // componentWillMount() {
-    //     let treeRoot = this.getTreeRoot();
-    //     this.setState({
-    //         currentUser: this.props.user,
-    //         treeRoot: treeRoot
-    //     });
-    // }
 
     render() {
         let root = this.state.treeRoot;
+        console.log(`In FamilyTree`, root);
         return(
-            <TreeNode key={root._id} nodeRoot={root.name} spouse={root.spouse.name} children={root.children} />
+            <TreeNode key={root._id} id="root" nodeRoot={this.state.treeRoot} />
         );
     }
 }

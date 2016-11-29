@@ -5,80 +5,93 @@ class TreeNode extends Component {
     /*
     * Props must look like this:
     * props:
-    *   nodeRoot: <string>
-    *   spouse: <string>
-    *   children: <JSON> of peoplegit
+    *     nodeRoot: <JSON> object of Node root person
     */
 
     constructor(props) {
         super(props);
+        this.isLoggedInUser = props.nodeRoot.name;
         this.state = {
             nodeRoot: props.nodeRoot,
-            spouse: props.spouse,
-            children: props.children
+            spouse: props.nodeRoot.spouse,
+            children: props.nodeRoot.children
         };
 
-        TreeNode.renderSpouseIfExists = TreeNode.renderSpouseIfExists.bind(this);
+        TreeNode.addSpouseIfExists = TreeNode.addSpouseIfExists.bind(this);
     }
-// Weird
-    // static processChildren(child) {
-    //     // Version 1
-    //     // if (child instanceof TreeNode) {
-    //     //     return <TreeNode nodeRoot={child.nodeRoot} spouse={child.spouse} children={child.children} />
-    //     // } else {
-    //     //     return <Person type="child" name={child} />
-    //     // }
-    //
-    //     // Version 2
-    //     if (this.state.children)
-    //         // Comes with the probably-totally wrong thingy bellow
-    //         // return () => this.state.children.map((x) => TreeNode.addChildWithChildren(x));
-    //         return <TreeNode nodeRoot={child.name} spouse={child.spouse} children={child.children} />;
-    //     else
-    //         return <Person type="child" name={this.state.nodeRoot} />
-    // }
 
-    // This is probably totally wrong and unnecessary.
-    // static addChildWithChildren(child) {
-    //     return <TreeNode nodeRoot={child.name} spouse={child.spouse} children={child.children} />;
-    // }
+    set isLoggedInUser(rootName) { this._isLoggedInUser = rootName === `SoloChild`; } //TODO: Replace with: sessionStorage.getItem(`username`)
+    get isLoggedInUser() { return this._isLoggedInUser; }
 
-    static renderSpouseIfExists(spouse) {
+    static addSpouseIfExists(spouse) {
         if (spouse) {
             return <Person type="spouse" name={this.state.spouse.name} />;
         }
     }
 
-    static mapChildrenIfExist(children) {
+    static addChildrenIfExist(children) {
         if (children)
             return (
             <div className="children">
-                {children.map(x => TreeNode.processChild(x))}
+                {children.map(x => TreeNode.addChild(x))}
             </div>
         );
     }
 
-    static processChild(child) {
-        return <TreeNode key={child._id} nodeRoot={child.name} spouse={child.spouse} children={child.children} />;
+    static addChild(child) {
+        return <TreeNode key={child._id} nodeRoot={child}/>;
+    }
+
+    addNodeRoot(rootName) {
+        let id;
+        if (this.isLoggedInUser) {
+            id = `currentUser`;
+        }
+
+        return <Person type="nodeRoot" tashaci={id} name={rootName} />
+    }
+
+    addNode(node) {
+        if (node.children) {
+            return (
+                <div className="node" id={this.props.id}>
+                    <div className="parents">
+                        {this.addNodeRoot(this.state.nodeRoot.name)}
+                        {TreeNode.addSpouseIfExists(this.state.spouse)}
+                    </div>
+                    {TreeNode.addChildrenIfExist(this.state.children)}
+                </div>
+            );
+        } else {
+            return(
+                <div className="node" id={this.props.id}>
+                    <div className="soloChild">
+                        {this.addNodeRoot(this.state.nodeRoot.name)}
+                        {TreeNode.addSpouseIfExists(this.state.spouse)}
+                    </div>
+                </div>
+            );
+        }
     }
 
     render() {
         return(
-            <div className="node">
-                <div className="parents">
-                    <Person type="nodeRoot" name={this.state.nodeRoot} />
-                    {TreeNode.renderSpouseIfExists(this.state.spouse)}
-                </div>
-                {TreeNode.mapChildrenIfExist(this.state.children)}
+            <div>
+                {this.addNode(this.state.nodeRoot)}
             </div>
-        )
+        );
     }
 }
 
 class Person extends Component {
     render() {
+        console.log(this.props.name, this.props.tashaci);
         return(
-            <div className={this.props.type}><div className="person">{this.props.name}</div></div>
+            <div className={this.props.type} id={this.props.tashaci} >
+                <div className="person">
+                    {this.props.name}
+                </div>
+            </div>
         );
     }
 }

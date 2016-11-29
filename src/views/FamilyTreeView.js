@@ -3,17 +3,12 @@ import {Header, Footer} from "../components/Template.js"
 import FamilyTree from "../components/FamilyTree";
 
 class FamilyTreeView extends Component {
-    constructor(props) {
-        super(props);
-        this.currentUser = `TreeRoot`;
-    }
-
     render() {
         return(
             <div id="wrapper">
                 <Header/>
                 <div id="content">
-                    <FamilyTree user={this.currentUser} />
+                    <FamilyTree />
                 </div>
                 <Footer/>
             </div>

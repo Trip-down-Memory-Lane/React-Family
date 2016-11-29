@@ -1,9 +1,19 @@
 /* Layouts */
+.node#root {
+    margin-top:20px;
+}
+    .node#root > .parents > *{
+        padding-top: 0;
+    }
+.soloChild > .nodeRoot {
+    padding-bottom:0;
+}
 .children > *,
-.parents > * {
+.parents > *,
+.soloChild > *{
     display: inline-block;
     vertical-align: top;
-    padding:20px;
+    /*padding:20px;*/
 }
 .nodeRoot {
     padding: 20px 0;
@@ -18,7 +28,7 @@
 .node {
     text-align: center;
     padding: 0;
-    margin: 20px;
+    margin: 0 20px 0 20px;
     display: inline-block;
 }
 
@@ -39,6 +49,10 @@ body {
     text-align: center;
 }
 
+#currentUser {
+    color:red;
+}
+
 .person {
     border: 1px solid teal;
     border-radius: 5px;
@@ -56,5 +70,5 @@ body {
     /*background: url("../../public/spouseLine.png") no-repeat center center;*/
 /*}*/
 .children {
-    border-top:15px solid black;
+    border-top:5px solid black;
 }
