@@ -1,10 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Login from './views/LoginView';
+import LoginView from './views/LoginView';
 import './index.css';
+import changeView from './controllers/ViewManager';
 
-
-ReactDOM.render(
-  <Login />,
-  document.getElementById('root')
-);
+changeView('login');
