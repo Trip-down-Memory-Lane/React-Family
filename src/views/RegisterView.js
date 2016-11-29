@@ -1,7 +1,30 @@
 import React, {Component} from 'react';
 import  changeView from '../controllers/ViewManager'
+import Path from '../constants/constant'
 
 class Register extends Component{
+
+    constructor(props){
+        super(props);
+        this.state = {
+            username: Path.username,
+            password: Path.password,
+            confirmPassword: Path.confirmPassword
+        };
+
+        this.onLoginClicked = this.onLoginClicked.bind(this);
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    }
+
+    onLoginClicked(){
+        changeView(Path.loginView());
+    }
+
+    handleFormSubmit(event) {
+        event.preventDefault();
+        this.props.onsubmit(
+            this.usernameField.value, this.passwordField.value, this.confirmPasswordField.value);
+    }
 
     render(){
         return(
@@ -30,27 +53,31 @@ class Register extends Component{
                                     </div>
                                 </div>
                                 <div className="form-bottom">
-                                    <form role="form" action="" method="post" className="login-form">
-                                        <div className="form-group">
-                                            <label className="sr-only" >Your name</label>
-                                            <input type="text" name="form-username" placeholder="Your name..." className="form-username form-control" id="form-username"/>
-                                        </div>
+                                    <form role="form" action="" method="post"
+                                          className="login-form" onSubmit={this.handleFormSubmit}>
+                                        {/*<div className="form-group">*/}
+                                            {/*<label className="sr-only" >Your name</label>*/}
+                                            {/*<input type="text" name="form-username" placeholder="Your name..." className="form-username form-control" id="form-username"/>*/}
+                                        {/*</div>*/}
                                         <div className="form-group">
                                             <label className="sr-only" >Username</label>
-                                            <input type="text" name="form-username" placeholder="Username..." className="form-username form-control" id="form-username"/>
+                                            <input type="text" name="form-username"
+                                                   placeholder="Username..." className="form-username form-control"
+                                                   id="form-username" required ref={ e => this.usernameField = e }/>
                                         </div>
                                         <div className="form-group">
                                             <label className="sr-only" >Password</label>
-                                            <input type="password" name="form-password" placeholder="Password..." className="form-password form-control" id="form-password"/>
+                                            <input type="password" name="form-password" placeholder="Password..." className="form-password form-control" id="form-password"
+                                                   required ref={ e => this.passwordField = e }/>
                                         </div>
                                         <div className="form-group">
                                             <label className="sr-only" >Password</label>
-                                            <input type="password" name="form-password" placeholder="Confirm Password..." className="form-password form-control" id="form-password"/>
+                                            <input type="password" name="form-password" placeholder="Confirm Password..." className="form-password form-control" id="form-password"
+                                                   required ref={ e => this.confirmPasswordField = e }/>
                                         </div>
-                                        <div id="register"
-                                              className="btn"><a  >Register !</a></div>
+                                        <div id="register"><button type="submit" className="btn">Register !</button></div>
                                         <div id="toLogin"
-                                             className="btn"><a onClick={() => changeView(`login`)} >Back to Login !</a></div>
+                                             className="btn"><a onClick={this.onLoginClicked} >Back to Login !</a></div>
                                     </form>
                                 </div>
                             </div>
