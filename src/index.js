@@ -4,4 +4,4 @@ import LoginView from './views/LoginView';
 import './index.css';
 import changeView from './controllers/ViewManager';
 
-changeView('login');
+changeView('familyTree');

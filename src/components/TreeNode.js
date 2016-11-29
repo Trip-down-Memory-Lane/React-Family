@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import "../styles/TreeNode.css";
 
 class TreeNode extends Component {
     /*
@@ -15,7 +16,9 @@ class TreeNode extends Component {
             nodeRoot: props.nodeRoot,
             spouse: props.spouse,
             children: props.children
-        }
+        };
+
+        TreeNode.renderSpouseIfExists = TreeNode.renderSpouseIfExists.bind(this);
     }
 // Weird
     // static processChildren(child) {
@@ -40,20 +43,33 @@ class TreeNode extends Component {
     //     return <TreeNode nodeRoot={child.name} spouse={child.spouse} children={child.children} />;
     // }
 
+    static renderSpouseIfExists(spouse) {
+        if (spouse) {
+            return <Person type="spouse" name={this.state.spouse.name} />;
+        }
+    }
+
+    static mapChildrenIfExist(children) {
+        if (children)
+            return (
+            <div className="children">
+                {children.map(x => TreeNode.processChild(x))}
+            </div>
+        );
+    }
+
     static processChild(child) {
-        return <TreeNode nodeRoot={child.name} spouse={child.spouse} children={child.children} />;
+        return <TreeNode key={child._id} nodeRoot={child.name} spouse={child.spouse} children={child.children} />;
     }
 
     render() {
         return(
             <div className="node">
                 <div className="parents">
-                    {() => <Person type="nodeRoot" name={this.state.nodeRoot} />}
-                    {() => <Person type="spouse" name={this.state.spouse} />}
+                    <Person type="nodeRoot" name={this.state.nodeRoot} />
+                    {TreeNode.renderSpouseIfExists(this.state.spouse)}
                 </div>
-                <div className="children">
-                    {this.state.children.map((x) => TreeNode.processChild(x))}
-                </div>
+                {TreeNode.mapChildrenIfExist(this.state.children)}
             </div>
         )
     }
@@ -67,3 +83,4 @@ class Person extends Component {
     }
 }
 
+export default TreeNode;

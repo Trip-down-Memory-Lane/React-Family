@@ -1,6 +1,6 @@
-import React, {Componet} from "react";
+import React, {Component} from "react";
 
-class Header extends Componet {
+class Header extends Component {
     static loggedIn() {
         return sessionStorage.getItem(`username`);
     }
@@ -9,28 +9,30 @@ class Header extends Componet {
         if (Header.loggedIn()) {
             return(
                 <header>
-                    <a href="#" onClick={}>Home</a>
-                    <a href="#" onClick={}>Login</a>
-                    <a href="#" onClick={}>Register</a>
+                    <a href="#">Home</a>
+                    <a href="#">Login</a>
+                    <a href="#">Register</a>
                 </header>
             )
         } else {
             return(
                 <header>
-                    <a href="#" onClick={}>Home</a>
-                    <a href="#" onClick={}>Family Tree</a>
-                    <a href="#" onClick={}>Logout</a>
+                    <a href="#">Home</a>
+                    <a href="#">Family Tree</a>
+                    <a href="#">Logout</a>
                 </header>
             );
         }
     }
 }
 
-class Footer extends Componet {
+class Footer extends Component {
     render() {
         return(
             <footer>jsApplication@SoftUni ReactJS teamwork project.</footer>
         )
     }
 }
+
+export {Header, Footer};
  

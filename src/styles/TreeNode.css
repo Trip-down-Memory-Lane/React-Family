@@ -5,7 +5,7 @@
     vertical-align: top;
     padding:20px;
 }
-.ancestor {
+.nodeRoot {
     padding: 20px 0;
 }
 .spouse {
@@ -18,9 +18,11 @@
 .node {
     text-align: center;
     padding: 0;
+    margin: 20px;
+    display: inline-block;
 }
 
-#top-most .ancestor {
+#top-most .nodeRoot {
     padding-top:0;
 }
 #top-most .spouse  {
@@ -44,15 +46,15 @@ body {
     padding: 10px;
 }
 
-.ancestor,
-.child {
-    background-size: cover;
-    background: url("../../public/inheritenceLine.png") no-repeat center center;
-}
-.spouse {
-    background-size: cover;
-    background: url("../../public/spouseLine.png") no-repeat center center;
-}
+/*.nodeRoot,*/
+/*.child {*/
+    /*background-size: cover;*/
+    /*background: url("../../public/inheritenceLine.png") no-repeat center center;*/
+/*}*/
+/*.spouse {*/
+    /*background-size: cover;*/
+    /*background: url("../../public/spouseLine.png") no-repeat center center;*/
+/*}*/
 .children {
     border-top:15px solid black;
 }
