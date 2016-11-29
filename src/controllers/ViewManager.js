@@ -5,12 +5,12 @@
  import RegisterView from '../views/RegisterView'
  import FamilyTreeView from "../views/FamilyTreeView";
  import Path from '../constants/constant'
- import login from './UserController';
+ import userController from './UserController';
 
 function changeView(view, data) {
     let component;
     switch(view) {
-        case Path.loginView(): component = <LoginView onsubmit={login.bind(this)}/>; break;
+        case Path.loginView(): component = <LoginView onsubmit={userController.login.bind(this)}/>; break;
         case Path.registerView(): component = <RegisterView/>; break;
         case Path.familyTreeView(): component = <FamilyTreeView />; break;
 
