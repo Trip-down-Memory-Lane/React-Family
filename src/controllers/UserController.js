@@ -1,4 +1,4 @@
-import KinveyRequester from '.././KinveyRequester';
+import KinveyRequester from '../services/KinveyRequester';
 
     function login(username, password) {
         KinveyRequester.loginUser(username, password)

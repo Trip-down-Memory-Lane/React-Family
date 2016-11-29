@@ -1,5 +1,5 @@
 import $ from 'jquery';
-import consts from './consts';
+import consts from '../consts';
 
 const KinveyRequester = (function(){
 
