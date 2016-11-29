@@ -14,6 +14,12 @@ class Path {
     static registerView(){
         return 'register';
     }
+    static loginView(){
+        return 'login'
+    }
+    static familyTreeView(){
+        return 'familyTree'
+    }
 }
 
 export default Path

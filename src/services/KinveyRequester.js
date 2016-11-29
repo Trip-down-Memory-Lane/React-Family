@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import consts from '../consts';
-
+import Path from '../constants/constant'
 const KinveyRequester = (function(){
 
     function loginUser(username, password) {
@@ -23,7 +23,7 @@ const KinveyRequester = (function(){
 
     function getKinveyUserAuthHeaders() {
         return {
-            'Authorization': "Kinvey " + sessionStorage.getItem('authToken'),
+            'Authorization': Path.database() + sessionStorage.getItem('authToken'),
         };
     }
 

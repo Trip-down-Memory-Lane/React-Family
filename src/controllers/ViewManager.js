@@ -1,17 +1,18 @@
- import React, {Component} from 'react';
+ import React from 'react';
  import $ from 'jquery'
  import ReactDOM from 'react-dom';
  import LoginView from '../views/LoginView'
  import RegisterView from '../views/RegisterView'
  import FamilyTreeView from "../views/FamilyTreeView";
+ import Path from '../constants/constant'
  import login from './UserController';
 
 function changeView(view, data) {
     let component;
     switch(view) {
-        case`login`: component = <LoginView onsubmit={login.bind(this)}/>; break;
-        case`register`: component = <RegisterView/>; break;
-        case`familyTree`: component = <FamilyTreeView />; break;
+        case Path.loginView(): component = <LoginView onsubmit={login.bind(this)}/>; break;
+        case Path.registerView(): component = <RegisterView/>; break;
+        case Path.familyTreeView(): component = <FamilyTreeView />; break;
 
         default: break;
     }
