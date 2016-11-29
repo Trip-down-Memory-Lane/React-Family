@@ -11,6 +11,11 @@ class Path {
     static initialPassword() {
         return '';
     }
+
+    static initialConfirmPassword(){
+        return '';
+    }
+
     static registerView(){
         return 'register';
     }
