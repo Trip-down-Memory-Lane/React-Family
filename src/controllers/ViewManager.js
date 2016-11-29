@@ -11,7 +11,7 @@ function changeView(view, data) {
     let component;
     switch(view) {
         case Path.loginView(): component = <LoginView onsubmit={userController.login.bind(this)}/>; break;
-        case Path.registerView(): component = <RegisterView/>; break;
+        case Path.registerView(): component = <RegisterView onsubmit={userController.register.bind(this)} />; break;
         case Path.familyTreeView(): component = <FamilyTreeView />; break;
 
         default: break;
