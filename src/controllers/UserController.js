@@ -1,15 +1,25 @@
-import KinveyRequester from '../services/KinveyRequester';
+import kinveyRequester from '../services/KinveyRequester';
+import authenticator from '../utils/authentication';
+import React from 'react';
+import ReactDOM from 'react-dom';
+import LoginView from '../views/LoginView';
+import navigator from '../utils/navigation';
+import Path from '../constants/constant';
 
 class UserController {
 
     login(username, password) {
-        KinveyRequester.loginUser(username, password)
+        kinveyRequester.loginUser(username, password)
             .then(loginSuccess.bind(this));
 
         function loginSuccess(userInfo) {
+
+            // if (authenticator.isAuthenticated()){
+            //     // render
+            // }
+
             UserController.saveAuthInSession(userInfo);
-            // TODO render profile page view
-            console.log(userInfo.username + ' successfully logged in.');
+            navigator.navigate(Path.editProfileView());
         }
     }
 
@@ -20,16 +30,13 @@ class UserController {
         }
         // else will be removed after rendering the error message
         else {
-            KinveyRequester.registerUser(username, password)
+            kinveyRequester.registerUser(username, password)
                 .then(registerSuccess.bind(this));
                 // TODO catch error message
 
-
             function registerSuccess(userInfo) {
                 UserController.saveAuthInSession(userInfo);
-
-                // TODO render edit profile page view
-                console.log(userInfo.username + ' successfully registered.');
+                ReactDOM.render(<LoginView/>, document.getElementById('root'));
             }
         }
     }
