@@ -44,7 +44,6 @@ class EditProfileView extends Component {
     }
 
     render() {
-        console.log(authenticator.isAuthenticated());
         if (authenticator.isAuthenticated()){
             return (
                 <div className="container">
@@ -174,6 +173,7 @@ class EditProfileView extends Component {
         }
         else{
             navigator.navigate(Path.loginView());
+            return null;
         }
 
     }
