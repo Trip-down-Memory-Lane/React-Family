@@ -4,6 +4,7 @@ import '../styles/EditProfile.css';
 import {Button} from 'reactstrap';
 import authenticator from '../utils/authentication';
 import navigator from '../utils/navigation';
+import LoginView from '../views/LoginView';
 
 class EditProfileView extends Component {
 
@@ -173,7 +174,7 @@ class EditProfileView extends Component {
         }
         else{
             navigator.navigate(Path.loginView());
-            return null;
+            return <LoginView/>;
         }
 
     }
