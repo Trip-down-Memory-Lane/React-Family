@@ -1,5 +1,9 @@
 class Path {
 
+    static localhost(){
+        return 'http://localhost:3000/#/';
+    }
+
     static database() {
         return 'Kinvey ';
     }
@@ -16,22 +20,6 @@ class Path {
         return '';
     }
 
-    static initialFirstName(){
-        return '';
-    }
-
-    static initialLastName(){
-        return '';
-    }
-
-    static initialBirthDate(){
-        return '';
-    }
-
-    static initialAboutMe(){
-        return '';
-    }
-
     static registerView(){
         return 'register';
     }
@@ -39,7 +27,7 @@ class Path {
         return 'login'
     }
     static editProfileView(){
-        return 'editProfile';
+        return 'profile/edit';
     }
     static familyTreeView(){
         return 'familyTree'
