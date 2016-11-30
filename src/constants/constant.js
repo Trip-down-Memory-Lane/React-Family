@@ -24,7 +24,7 @@ class Path {
         return 'register';
     }
     static loginView(){
-        return 'login'
+        return ''
     }
     static editProfileView(){
         return 'profile/edit';
