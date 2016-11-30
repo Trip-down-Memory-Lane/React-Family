@@ -1,41 +1,44 @@
 import $ from 'jquery';
-import consts from '../consts';
-import Path from '../constants/constant'
-const KinveyRequester = (function(){
+import credentials from '../constants/credentials';
+import authenticator from '../utils/authentication';
 
-    function loginUser(username, password) {
-        return $.ajax({
-                method: "POST",
-                url: consts.baseUrl + "user/" + consts.appKey + "/login",
-                headers: consts.kinveyAppAuthHeaders,
-                data: { username, password }
-            });
-    }
+class KinveyRequester {
 
-    function registerUser(username, password) {
-        return $.ajax({
-                method: "POST",
-                url: consts.baseUrl + "user/" + consts.appKey + "/",
-                headers: consts.kinveyAppAuthHeaders,
-                data: { username, password }
-            });
-    }
-
-    function getKinveyUserAuthHeaders() {
-        return {
-            'Authorization': Path.database() + sessionStorage.getItem('authToken'),
-        };
-    }
-
-    function logoutUser() {
+    loginUser(username, password) {
         return $.ajax({
             method: "POST",
-            url: consts.baseUrl + "user/" + consts.appKey + "/_logout",
-            headers: getKinveyUserAuthHeaders(),
+            url: credentials.baseUrl + "user/" + credentials.appKey + "/login",
+            headers: credentials.kinveyAppAuthHeaders,
+            data: {username, password}
         });
     }
 
-    return { loginUser, registerUser, logoutUser }
-})();
+    registerUser(username, password){
+        return $.ajax({
+            method: "POST",
+            url: credentials.baseUrl + "user/" + credentials.appKey + "/",
+            headers: credentials.kinveyAppAuthHeaders,
+            data: {username, password}
+        });
+    }
 
-export default KinveyRequester;
+    getUserInfo(userId){
+        return $.ajax({
+            method: "GET",
+            url: credentials.baseUrl + "user/" + credentials.appKey + "/" + userId,
+            headers: authenticator.getKinveyUserAuthHeaders()
+        });
+    }
+
+    logoutUser() {
+        return $.ajax({
+            method: "POST",
+            url: credentials.baseUrl + "user/" + credentials.appKey + "/_logout",
+            headers: authenticator.getKinveyUserAuthHeaders(),
+        });
+    }
+
+}
+
+let kinveyRequester = new KinveyRequester();
+export default kinveyRequester;
