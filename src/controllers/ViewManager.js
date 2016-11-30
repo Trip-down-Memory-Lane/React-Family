@@ -25,7 +25,6 @@ function changeView(view, data) {
     //         break;
     // }
 
-
     ReactDOM.render(
         <Router history={hashHistory}>
             <Route path="/" component={LoginView}></Route>
