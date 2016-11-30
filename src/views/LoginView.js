@@ -60,7 +60,7 @@ class LoginView extends Component {
                                     </div>
                                     <div className="form-bottom">
                                         <form role="form" action="" method="post"
-                                              className="login-form" onSubmit={this.handleFormSubmit.bind(this)}>
+                                              className="login-form" onSubmit={this.handleFormSubmit}>
                                             <div className="form-group">
                                                 <label className="sr-only">Username</label>
                                                 <input type="text" name="form-username" placeholder="Username..."

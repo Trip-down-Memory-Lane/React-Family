@@ -3,32 +3,45 @@ import Path from '../constants/constant'
 import '../styles/EditProfile.css';
 import {Button} from 'reactstrap';
 
+
+
 class EditProfileView extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            firstName: Path.initialFirstName(),
-            lastName: Path.initialLastName(),
-            birthDate: Path.initialBirthDate(),
-            aboutMe: Path.initialAboutMe()
+            firstName: '',
+            lastName: '',
+            email: '',
+            age: '',
+            aboutMe: '',
+            password: Path.initialPassword(),
+            confirmPassword: Path.initialConfirmPassword()
         };
 
         this.handleChangePicClick = this.handleChangePicClick.bind(this);
+        this.handleFormSubmit = this.handleFormSubmit.bind(this);
+    }
+
+    handleFormSubmit(event) {
+        event.preventDefault();
+        alert("kur");
     }
 
     handleChangePicClick() {
-        console.log('AAAAAAAAAAAAAAAAAA')
-        var event = new MouseEvent('click', {
+        this.triggerOnChangeProfilePicClick();
+    }
+
+    triggerOnChangeProfilePicClick(){
+        let event = new MouseEvent('click', {
             'view': window,
             'bubbles': true,
             'cancelable': false
         });
-        var node = document.getElementById('change-picture');
+        let node = document.getElementById('change-picture');
         node.dispatchEvent(event);
     }
-
 
     render() {
         return (
@@ -58,58 +71,86 @@ class EditProfileView extends Component {
                     <div className="col-md-8 well" id="rightPanel">
                         <div className="row">
                             <div className="col-md-12">
-                                <form role="form">
-                                    <h2>Edit your profile.
-                                        <small>It's always easy</small>
-                                    </h2>
+                                <form role="form" method="post" onSubmit={this.handleFormSubmit}>
+                                    <h2>Edit your profile.</h2>
                                     <hr className="colorgraph"/>
                                     <div className="row">
                                         <div className="col-xs-12 col-sm-6 col-md-6">
                                             <div className="form-group">
-                                                <input type="text" name="first_name" id="first_name"
-                                                       className="form-control input-lg" placeholder="First Name"
-                                                       tabIndex="1"/>
+                                                <input type="text"
+                                                       name="first_name" id="first_name"
+                                                       className="form-control input-lg"
+                                                       placeholder="First Name"
+                                                       tabIndex="1"
+                                                       ref={e => this.firstNameField = e}/>
                                             </div>
                                         </div>
                                         <div className="col-xs-12 col-sm-6 col-md-6">
                                             <div className="form-group">
-                                                <input type="text" name="last_name" id="last_name"
-                                                       className="form-control input-lg" placeholder="Last Name"
-                                                       tabIndex="2"/>
+                                                <input type="text"
+                                                       name="last_name"
+                                                       id="last_name"
+                                                       className="form-control input-lg"
+                                                       placeholder="Last Name"
+                                                       tabIndex="2"
+                                                       ref={e => this.lastNameField = e}/>
                                             </div>
                                         </div>
                                     </div>
                                     <div className="form-group">
-                                        <input type="email" name="email" id="email" className="form-control input-lg"
-                                               placeholder="Email Address" tabIndex="4"/>
+                                        <input type="email"
+                                               name="email" id="email"
+                                               className="form-control input-lg"
+                                               placeholder="Email Address"
+                                               tabIndex="4"
+                                               ref={e => this.emailField = e}/>
                                     </div>
 
+                                    <label>Required</label>
                                     <div className="form-group">
-                                        <input type="date" name="birth_date" id="birth-date"
-                                               className="form-control input-lg" placeholder="Date of birth"
-                                               tabIndex="5"/>
+                                        <input type="number"
+                                               name="birth_date"
+                                               id="birth-date"
+                                               className="form-control input-lg"
+                                               placeholder="Age"
+                                               tabIndex="6"
+                                               required
+                                        ref={e => this.ageField = e}/>
+                                    </div>
+
+                                    <div className="col-xs-12">
+                                        <div className="form-group">
+                                                <textarea name="about"
+                                                          rows="5"
+                                                          id="about"
+                                                          className="form-control input-lg"
+                                                          placeholder="About me..."
+                                                          tabIndex="7"
+                                                ref={e => this.aboutField = e}></textarea>
+                                        </div>
                                     </div>
 
                                     <div className="row">
-                                        <div className="col-xs-12">
+                                        <div className="col-xs-12 col-sm-6 col-md-6">
                                             <div className="form-group">
-                                                <textarea name="about" rows="5" id="about"
-                                                          className="form-control input-lg" placeholder="About me..."
-                                                          tabIndex="7"></textarea>
+                                                <input type="password"
+                                                       name="password"
+                                                       id="password"
+                                                       className="form-control input-lg"
+                                                       placeholder="Password"
+                                                       tabIndex="8"
+                                                       ref={e => this.passwordFied = e}/>
                                             </div>
                                         </div>
                                         <div className="col-xs-12 col-sm-6 col-md-6">
                                             <div className="form-group">
-                                                <input type="password" name="password" id="password"
-                                                       className="form-control input-lg" placeholder="Password"
-                                                       tabIndex="5"/>
-                                            </div>
-                                        </div>
-                                        <div className="col-xs-12 col-sm-6 col-md-6">
-                                            <div className="form-group">
-                                                <input type="password" name="password_confirmation"
-                                                       id="password_confirmation" className="form-control input-lg"
-                                                       placeholder="Confirm Password" tabIndex="6"/>
+                                                <input type="password"
+                                                       name="password_confirmation"
+                                                       id="password_confirmation"
+                                                       className="form-control input-lg"
+                                                       placeholder="Confirm Password"
+                                                       tabIndex="9"
+                                                       ref={e => this.confirmPasswordField = e}/>
                                             </div>
                                         </div>
 
@@ -118,58 +159,10 @@ class EditProfileView extends Component {
                                     <hr className="colorgraph"/>
                                     <div className="row">
                                         <div className="col-xs-12 col-md-6"></div>
-                                        <div className="col-xs-12 col-md-6"><a href="#"
-                                                                               className="btn btn-success btn-block btn-lg">Save</a>
+                                        <div className="col-xs-12 col-md-6"><button className="btn btn-success btn-block btn-lg">Save</button>
                                         </div>
                                     </div>
                                 </form>
-                            </div>
-                        </div>
-                        <div className="modal fade" id="t_and_c_m" tabIndex="-1" role="dialog"
-                             aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div className="modal-dialog modal-lg">
-                                <div className="modal-content">
-                                    <div className="modal-header">
-                                        <button type="button" className="close" data-dismiss="modal" aria-hidden="true">
-                                            ×
-                                        </button>
-                                        <h4 className="modal-title" id="myModalLabel">Terms & Conditions</h4>
-                                    </div>
-                                    <div className="modal-body">
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque,
-                                            modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis
-                                            perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem
-                                            ad.</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque,
-                                            modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis
-                                            perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem
-                                            ad.</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque,
-                                            modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis
-                                            perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem
-                                            ad.</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque,
-                                            modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis
-                                            perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem
-                                            ad.</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque,
-                                            modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis
-                                            perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem
-                                            ad.</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque,
-                                            modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis
-                                            perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem
-                                            ad.</p>
-                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Similique, itaque,
-                                            modi, aliquam nostrum at sapiente consequuntur natus odio reiciendis
-                                            perferendis rem nisi tempore possimus ipsa porro delectus quidem dolorem
-                                            ad.</p>
-                                    </div>
-                                    <div className="modal-footer">
-                                        <button type="button" className="btn btn-primary" data-dismiss="modal">I Agree
-                                        </button>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>

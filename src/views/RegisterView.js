@@ -11,9 +11,7 @@ class Register extends Component{
             password: Path.password,
             confirmPassword: Path.confirmPassword
         };
-
     }
-
 
     handleFormSubmit(event) {
         event.preventDefault();
@@ -25,7 +23,6 @@ class Register extends Component{
     render(){
         return(
             <div className="top-content">
-
                 <div className="inner-bg">
                     <div className="container">
                         <div className="row">
@@ -51,10 +48,6 @@ class Register extends Component{
                                 <div className="form-bottom">
                                     <form role="form" action="" method="post"
                                           className="login-form" onSubmit={this.handleFormSubmit.bind(this)}>
-                                        {/*<div className="form-group">*/}
-                                            {/*<label className="sr-only" >Your name</label>*/}
-                                            {/*<input type="text" name="form-username" placeholder="Your name..." className="form-username form-control" id="form-username"/>*/}
-                                        {/*</div>*/}
                                         <div className="form-group">
                                             <label className="sr-only" >Username</label>
                                             <input type="text" name="form-username"
