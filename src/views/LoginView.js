@@ -3,7 +3,10 @@ import '../../public/loginHelper/css/form-elements.css'
 import '../../public/loginHelper/css/style.css'
 import changeView from '../controllers/ViewManager'
 import Path from '../constants/constant'
-import Register from '../components/Register'
+import RegisterButton from '../components/RegisterButton'
+import {Router, Route, hashHistory, Link} from 'react-router';
+import userController from '../controllers/UserController';
+
 
 class LoginView extends Component {
 
@@ -24,8 +27,9 @@ class LoginView extends Component {
 
     handleFormSubmit(event) {
         event.preventDefault();
-        this.props.onsubmit(
-            this.usernameField.value, this.passwordField.value);
+        console.log('SUBMITTING');
+        userController.login(this.usernameField.value, this.passwordField.value);
+
     }
 
     render() {
@@ -56,7 +60,7 @@ class LoginView extends Component {
                                     </div>
                                     <div className="form-bottom">
                                         <form role="form" action="" method="post"
-                                              className="login-form" onSubmit={this.handleFormSubmit}>
+                                              className="login-form" onSubmit={this.handleFormSubmit.bind(this)}>
                                             <div className="form-group">
                                                 <label className="sr-only">Username</label>
                                                 <input type="text" name="form-username" placeholder="Username..."
@@ -70,8 +74,10 @@ class LoginView extends Component {
                                                        className="form-password form-control" id="form-password"
                                                        required ref={e => this.passwordField = e}/>
                                             </div>
-                                            <button type="submit" className="btn">Sign in !</button>
-                                            <Register/>
+                                            <button  type="submit" className="btn">Sign in !</button>
+
+                                                <RegisterButton/>
+
                                         </form>
                                     </div>
                                 </div>

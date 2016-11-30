@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import  changeView from '../controllers/ViewManager'
+import userController from '../controllers/UserController';
 import Path from '../constants/constant'
-
+import BackToLogin from '../components/BackToLogin'
 class Register extends Component{
 
     constructor(props){
@@ -12,18 +12,14 @@ class Register extends Component{
             confirmPassword: Path.confirmPassword
         };
 
-        this.onLoginClicked = this.onLoginClicked.bind(this);
-        this.handleFormSubmit = this.handleFormSubmit.bind(this);
     }
 
-    onLoginClicked(){
-        changeView(Path.loginView());
-    }
 
     handleFormSubmit(event) {
         event.preventDefault();
-        this.props.onsubmit(
-            this.usernameField.value, this.passwordField.value, this.confirmPasswordField.value);
+        console.log('REGISTERING');
+        userController.register(
+        this.usernameField.value, this.passwordField.value, this.confirmPasswordField.value)
     }
 
     render(){
@@ -54,7 +50,7 @@ class Register extends Component{
                                 </div>
                                 <div className="form-bottom">
                                     <form role="form" action="" method="post"
-                                          className="login-form" onSubmit={this.handleFormSubmit}>
+                                          className="login-form" onSubmit={this.handleFormSubmit.bind(this)}>
                                         {/*<div className="form-group">*/}
                                             {/*<label className="sr-only" >Your name</label>*/}
                                             {/*<input type="text" name="form-username" placeholder="Your name..." className="form-username form-control" id="form-username"/>*/}
@@ -76,8 +72,7 @@ class Register extends Component{
                                                    required ref={ e => this.confirmPasswordField = e }/>
                                         </div>
                                         <div id="register"><button type="submit" className="btn">Register !</button></div>
-                                        <div id="toLogin"
-                                             className="btn"><a onClick={this.onLoginClicked} >Back to Login !</a></div>
+                                       <BackToLogin></BackToLogin>
                                     </form>
                                 </div>
                             </div>
