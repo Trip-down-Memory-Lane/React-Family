@@ -3,7 +3,7 @@ import '../../public/loginHelper/css/form-elements.css'
 import '../../public/loginHelper/css/style.css'
 import changeView from '../controllers/ViewManager'
 import Path from '../constants/constant'
-
+import Register from '../components/Register'
 
 class LoginView extends Component {
 
@@ -71,9 +71,7 @@ class LoginView extends Component {
                                                        required ref={e => this.passwordField = e}/>
                                             </div>
                                             <button type="submit" className="btn">Sign in !</button>
-                                            <div id="register"
-
-                                                 className="btn" onClick={() => changeView(Path.registerView())}><a >Register !</a ></div>
+                                            <Register/>
                                         </form>
                                     </div>
                                 </div>
