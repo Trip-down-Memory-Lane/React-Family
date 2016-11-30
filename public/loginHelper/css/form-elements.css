@@ -17,7 +17,8 @@ input[type="password"] {
     -o-transition: all .3s; -moz-transition: all .3s; -webkit-transition: all .3s; -ms-transition: all .3s; transition: all .3s;
 }
 
-input[type="text"]:focus, 
+
+input[type="text"]:focus,
 input[type="password"]:focus {
 	outline: 0;
 	background: #fff;
@@ -32,8 +33,9 @@ input[type="text"]::-webkit-input-placeholder, input[type="password"]::-webkit-i
 #register a{
     color: black;
 }
-
-
+#change-picture{
+    visibility: hidden;
+}
 #toLogin {
     background: darkgoldenrod;
 
