@@ -16,11 +16,30 @@ class Path {
         return '';
     }
 
+    static initialFirstName(){
+        return '';
+    }
+
+    static initialLastName(){
+        return '';
+    }
+
+    static initialBirthDate(){
+        return '';
+    }
+
+    static initialAboutMe(){
+        return '';
+    }
+
     static registerView(){
         return 'register';
     }
     static loginView(){
         return 'login'
+    }
+    static editProfileView(){
+        return 'editProfile';
     }
     static familyTreeView(){
         return 'familyTree'
