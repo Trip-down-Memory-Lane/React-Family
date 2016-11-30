@@ -13,13 +13,14 @@ class UserController {
             .then(loginSuccess.bind(this));
 
         function loginSuccess(userInfo) {
-
-            // if (authenticator.isAuthenticated()){
-            //     // render
-            // }
+            // If user is already authenticated it means that he/she is redirected from register view
+            if (authenticator.isAuthenticated()){
+                navigator.navigate(Path.editProfileView());
+            }
 
             UserController.saveAuthInSession(userInfo);
-            navigator.navigate(Path.editProfileView());
+            // Will navigate to profile page view
+            // navigator.navigate(Path.profileView());
         }
     }
 
@@ -36,7 +37,7 @@ class UserController {
 
             function registerSuccess(userInfo) {
                 UserController.saveAuthInSession(userInfo);
-                ReactDOM.render(<LoginView/>, document.getElementById('root'));
+                navigator.navigate(Path.loginView());
             }
         }
     }
