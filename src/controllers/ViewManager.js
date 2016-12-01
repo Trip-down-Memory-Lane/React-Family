@@ -8,7 +8,6 @@ import FamilyTreeView from "../views/FamilyTreeView";
 import Nav from '../views/Nav';
 import {Router, Route, hashHistory, Link} from 'react-router';
 
-
 function changeView() {
     ReactDOM.render(
         <Router history={hashHistory}>

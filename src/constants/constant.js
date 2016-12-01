@@ -1,7 +1,7 @@
 class Path {
 
     static localhost(){
-        return 'http://localhost:3000/#/';
+        return 'http://localhost:3000/#';
     }
 
     static database() {

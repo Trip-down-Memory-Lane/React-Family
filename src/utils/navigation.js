@@ -1,10 +1,15 @@
 import Path from '../constants/constant';
 
 class Navigator {
-    navigate(pathName){
-        window.location.href = Path.localhost() + pathName;
+    static redirect(){
+        let pathname = window.location.pathname;
+        window.location.href = Path.localhost() + pathname;
+    }
+
+    static navigate(pathname){
+
+        window.location.href = Path.localhost() + pathname;
     }
 }
 
-let navigator = new Navigator();
-export default navigator;
+export default Navigator;

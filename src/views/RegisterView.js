@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import userController from '../controllers/UserController';
 import Path from '../constants/constant'
 import BackToLogin from '../components/BackToLogin'
+
 class Register extends Component{
 
     constructor(props){
@@ -75,8 +76,7 @@ class Register extends Component{
                 </div>
 
             </div>
-
-    )
+        )
     }
 }
 
