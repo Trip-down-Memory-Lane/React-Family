@@ -13,12 +13,14 @@ class UserController {
             .then(loginSuccess.bind(this));
 
         function loginSuccess(userInfo) {
-            // If user is already authenticated it means that he/she is redirected from register view
-            if (authenticator.isAuthenticated()){
-                navigator.navigate(Path.editProfileView());
-            }
+            console.log('login success');
 
             UserController.saveAuthInSession(userInfo);
+            /**
+             * ToDO if checking for first time logging , else profile view
+             */
+                navigator.navigate(Path.editProfileView());
+
             // Will navigate to profile page view
             // navigator.navigate(Path.profileView());
         }
