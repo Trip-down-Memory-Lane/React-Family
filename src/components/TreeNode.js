@@ -48,7 +48,7 @@ class TreeNode extends Component {
             id = `currentUser`;
         }
 
-        return <Person type="nodeRoot" tashaci={id} name={rootName} />
+        return <Person type="nodeRoot" id={id} name={rootName} />
     }
 
     addNode(node) {
@@ -85,9 +85,9 @@ class TreeNode extends Component {
 
 class Person extends Component {
     render() {
-        console.log(this.props.name, this.props.tashaci);
+        console.log(this.props.name, this.props.id);
         return(
-            <div className={this.props.type} id={this.props.tashaci} >
+            <div className={this.props.type} id={this.props.id} >
                 <div className="person">
                     {this.props.name}
                 </div>

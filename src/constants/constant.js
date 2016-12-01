@@ -33,7 +33,7 @@ class Path {
         return 'profile';
     }
     static familyTreeView(){
-        return 'familyTree'
+        return 'tree'
     }
 }
 

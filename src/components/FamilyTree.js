@@ -44,6 +44,7 @@ function createRooTest() {
     }
 
 }
+
 class FamilyTree extends Component {
     /*
     * props:

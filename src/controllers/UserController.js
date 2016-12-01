@@ -9,7 +9,8 @@ import Path from '../constants/constant';
 class UserController {
 
     login(username, password) {
-        kinveyRequester.loginUser(username, password)
+        kinveyRequester
+            .loginUser(username, password)
             .then(loginSuccess.bind(this));
 
         function loginSuccess(userInfo) {

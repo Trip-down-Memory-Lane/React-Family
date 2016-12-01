@@ -1,16 +1,16 @@
 import Path from '../constants/constant';
 
-class Authenticator{
+class Authenticator {
 
-    isAuthenticated(){
-        return sessionStorage.getItem('userId') ;
+    isAuthenticated() {
+        return sessionStorage.getItem('userId');
     }
 
     getKinveyUserAuthHeaders() {
-    return {
-        'Authorization': Path.database() + sessionStorage.getItem('authToken'),
-    };
-}
+        return {
+            'Authorization': Path.database() + sessionStorage.getItem('authToken'),
+        }
+    }
 }
 
 let authenticator = new Authenticator();

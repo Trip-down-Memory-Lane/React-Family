@@ -17,7 +17,7 @@ class RegisterButton extends Component {
     }
 
     handleRegister(event) {
-        event.preventDefault;
+        event.preventDefault();
         console.log('REGISTERING');
         userController.register(this.usernameField.value,
             this.passwordField.value, this.confirmPasswordField.value
@@ -27,8 +27,10 @@ class RegisterButton extends Component {
     render() {
         return (
             <Link to="/register">
-            <Button id="register" color="primary"
-                    className="btn" onClick={() => this.handleRegister.bind(this)}>
+            <Button id="register"
+                    color="primary"
+                    className="btn"
+                    onClick={() => this.handleRegister.bind(this)}>
                 <div >REGISTER!</div >
             </Button>
             </Link>
