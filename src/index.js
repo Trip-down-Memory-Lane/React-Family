@@ -1,5 +1,6 @@
 import './index.css';
-import changeView from './controllers/ViewManager';
+import ViewManager from './controllers/ViewManager';
 
-changeView();
+sessionStorage.clear();
+ViewManager.changeView();
 

@@ -3,7 +3,6 @@ import { Navbar, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import Authenticator from '../utils/authentication';
 import Navigator from '../utils/navigation';
 import Path from '../constants/constant';
-
 import LoginView from './LoginView';
 
  class NavigationBar extends React.Component {
