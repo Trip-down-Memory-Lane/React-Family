@@ -4,9 +4,10 @@ import '../../public/loginHelper/css/style.css'
 import changeView from '../controllers/ViewManager'
 import Path from '../constants/constant'
 import RegisterButton from '../components/RegisterButton'
-import {Router, Route, hashHistory, Link} from 'react-router';
-import userController from '../controllers/UserController';
-
+import UserController from '../controllers/UserController';
+import Authenticator from '../utils/authentication';
+import Navigator from '../utils/navigation';
+import AlreadyLoggedInView from '../views/AlreadyLoggedInView';
 
 class LoginView extends Component {
 
@@ -28,12 +29,13 @@ class LoginView extends Component {
     handleFormSubmit(event) {
         event.preventDefault();
         console.log('SUBMITTING');
-        userController.login(this.usernameField.value, this.passwordField.value);
+        UserController.login(this.usernameField.value, this.passwordField.value);
 
     }
 
     render() {
-        return (
+        if (!Authenticator.isAuthenticated()){
+            return (
                 <div className="top-content">
                     <div className="inner-bg">
                         <div className="container">
@@ -76,7 +78,7 @@ class LoginView extends Component {
                                             </div>
                                             <button  type="submit" className="btn">Sign in !</button>
 
-                                                <RegisterButton/>
+                                            <RegisterButton/>
 
                                         </form>
                                     </div>
@@ -102,7 +104,11 @@ class LoginView extends Component {
                         </div>
                     </div>
                 </div>
-        );
+            );
+        }
+        else{
+            return <AlreadyLoggedInView />
+        }
     }
 }
 

@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import Path from '../constants/constant'
 import '../styles/EditProfile.css';
 import {Button} from 'reactstrap';
-import authenticator from '../utils/authentication';
-import navigator from '../utils/navigation';
+import Authenticator from '../utils/authentication';
+import Navigator from '../utils/navigation';
 import LoginView from '../views/LoginView';
 
 class EditProfileView extends Component {
@@ -45,7 +45,7 @@ class EditProfileView extends Component {
     }
 
     render() {
-        if (authenticator.isAuthenticated()){
+        if (Authenticator.isAuthenticated()){
             return (
                 <div className="container">
                     <br />
@@ -108,13 +108,12 @@ class EditProfileView extends Component {
                                                    ref={e => this.emailField = e}/>
                                         </div>
 
-                                        <label>Required</label>
                                         <div className="form-group">
                                             <input type="number"
                                                    name="birth_date"
                                                    id="birth-date"
                                                    className="form-control input-lg"
-                                                   placeholder="Age"
+                                                   placeholder="Age*"
                                                    tabIndex="6"
                                                    required
                                                    ref={e => this.ageField = e}/>
@@ -173,7 +172,7 @@ class EditProfileView extends Component {
             )
         }
         else{
-            navigator.navigate(Path.loginView());
+            Navigator.navigate(Path.loginView());
             return <LoginView/>;
         }
 
