@@ -4,7 +4,7 @@ import Authenticator from '../utils/authentication';
 import Navigator from '../utils/navigation';
 import Path from '../constants/constant';
 import LoginView from './LoginView';
-import PhotoAlbum from  '../components/PhotoAlbum'
+ import PhotoAlbum from  '../components/PhotoAlbum'
 import Gallery from '../views/gallery'
 
 
@@ -28,9 +28,9 @@ import Gallery from '../views/gallery'
 
                         </Nav>
                     </Navbar>
-                    <div className="row" style={{"paddingLeft":"100px"}}>
+                    <div className="row" style={{"paddingLeft":"40px"}}>
                         <div style={{"width":"500px","height":"100px"}}>
-                            <Gallery></Gallery></div>
+                            <PhotoAlbum></PhotoAlbum></div>
 
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 import React from 'react';
-import Gallery from 'react-photo-gallery';
+ import Gallery from 'react-photo-gallery';
 
 import $ from 'jquery';
 
