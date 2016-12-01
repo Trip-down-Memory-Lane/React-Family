@@ -29,6 +29,9 @@ class Path {
     static editProfileView(){
         return 'profile/edit';
     }
+    static profileView(){
+        return 'profile';
+    }
     static familyTreeView(){
         return 'familyTree'
     }

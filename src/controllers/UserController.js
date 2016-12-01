@@ -16,13 +16,14 @@ class UserController {
             console.log('login success');
 
             UserController.saveAuthInSession(userInfo);
-            /**
-             * ToDO if checking for first time logging , else profile view
-             */
-                navigator.navigate(Path.editProfileView());
 
-            // Will navigate to profile page view
-            // navigator.navigate(Path.profileView());
+            if (sessionStorage.getItem('firstTimeLogin')){
+                sessionStorage.removeItem('firstTimeLogin');
+                navigator.navigate(Path.editProfileView());
+            }
+            else{
+                navigator.navigate(Path.profileView());
+            }
         }
     }
 
@@ -37,8 +38,8 @@ class UserController {
                 .then(registerSuccess.bind(this));
                 // TODO catch error message
 
-            function registerSuccess(userInfo) {
-                UserController.saveAuthInSession(userInfo);
+            function registerSuccess() {
+                UserController.saveFirstTimeLogin();
                 navigator.navigate(Path.loginView());
             }
         }
@@ -48,6 +49,10 @@ class UserController {
         sessionStorage.setItem('authToken', userInfo._kmd.authtoken);
         sessionStorage.setItem('userId', userInfo._id);
         sessionStorage.setItem('username', userInfo.username);
+    }
+
+    static saveFirstTimeLogin(){
+        sessionStorage.setItem('firstTimeLogin', true);
     }
 }
 

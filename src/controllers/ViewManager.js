@@ -5,33 +5,18 @@ import LoginView from '../views/LoginView'
 import RegisterView from '../views/RegisterView'
 import EditProfileView from '../views/EditProfileView'
 import FamilyTreeView from "../views/FamilyTreeView";
-import Path from '../constants/constant'
+import Nav from '../views/Nav';
 import {Router, Route, hashHistory, Link} from 'react-router';
 
 
-function changeView(view, data) {
-    // let reactComponent =  LoginView ;
-    // switch (view) {
-    //     case Path.loginView():
-    //         reactComponent = <LoginView onsubmit={userController.login.bind(this)}/>;
-    //         break;
-        // case Path.registerView():
-        //     reactComponent = <RegisterView onsubmit={userController.register.bind(this)}/>;
-        //     break;
-        // case Path.familyTreeView():
-        //     reactComponent = <FamilyTreeView />;
-        //     break;
-    //     default:
-    //         break;
-    // }
-
+function changeView() {
     ReactDOM.render(
         <Router history={hashHistory}>
             <Route path="/" component={LoginView}></Route>
             <Route path="/register" component={RegisterView}></Route>
             <Route path="/profile/edit" component={EditProfileView}></Route>
             <Route path="/tree" component={FamilyTreeView}></Route>
-
+            <Route path="/profile" component={Nav}></Route>
         </Router>,
         $(`#root`)[0]
     );
