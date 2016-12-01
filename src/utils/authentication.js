@@ -3,7 +3,7 @@ import Path from '../constants/constant';
 class Authenticator {
 
     static isAuthenticated(){
-        console.log(sessionStorage.getItem('userId'));
+        //console.log(sessionStorage.getItem('userId'));
         return sessionStorage.getItem('userId') ;
     }
 

@@ -1,6 +1,7 @@
 import kinveyRequester from '../services/KinveyRequester';
 import Navigator from '../utils/navigation';
 import Path from '../constants/constant';
+import ViewManager from './ViewManager';
 
 class UserController {
 
@@ -16,9 +17,11 @@ class UserController {
             if (sessionStorage.getItem('firstTimeLogin')){
                 sessionStorage.removeItem('firstTimeLogin');
                 Navigator.navigate(Path.editProfileView());
+                ViewManager.renderSuccessMessage('Login successful.');
             }
             else{
                 Navigator.navigate(Path.profileView());
+                ViewManager.renderSuccessMessage('Login successful.');
             }
         }
     }
