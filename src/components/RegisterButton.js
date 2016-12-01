@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import userController from '../controllers/UserController';
 import {Button} from 'reactstrap';
 import Path from '../constants/constant'
-import {Router, Route, hashHistory, Link} from 'react-router';
+import {Link} from 'react-router';
 
 
 class RegisterButton extends Component {

@@ -60,7 +60,6 @@ class FamilyTree extends Component {
 
     render() {
         let root = this.state.treeRoot;
-        console.log(`In FamilyTree`, root);
         return(
             <TreeNode key={root._id} id="root" nodeRoot={this.state.treeRoot} />
         );

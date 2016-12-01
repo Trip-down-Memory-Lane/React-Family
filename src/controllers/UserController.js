@@ -1,5 +1,4 @@
 import kinveyRequester from '../services/KinveyRequester';
-import React from 'react';
 import Navigator from '../utils/navigation';
 import Path from '../constants/constant';
 

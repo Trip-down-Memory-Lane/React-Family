@@ -1,5 +1,7 @@
 import React, {Component} from "react";
 import "../styles/TreeNode.css";
+import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, Button } from "reactstrap";
+import Path from "../constants/constant";
 
 class TreeNode extends Component {
     /*
@@ -14,10 +16,14 @@ class TreeNode extends Component {
         this.state = {
             nodeRoot: props.nodeRoot,
             spouse: props.nodeRoot.spouse,
-            children: props.nodeRoot.children
+            children: props.nodeRoot.children,
+            selected: false
         };
 
         TreeNode.addSpouseIfExists = TreeNode.addSpouseIfExists.bind(this);
+        this.addNode = this.addNode.bind(this);
+        this.addNodeRoot = this.addNodeRoot.bind(this);
+        this.viewEditTree = this.viewEditTree.bind(this);
     }
 
     set isLoggedInUser(rootName) { this._isLoggedInUser = rootName === `SoloChild`; } //TODO: Replace with: sessionStorage.getItem(`username`)
@@ -47,8 +53,7 @@ class TreeNode extends Component {
         if (this.isLoggedInUser) {
             id = `currentUser`;
         }
-
-        return <Person type="nodeRoot" id={id} name={rootName} />
+        return <Person selected={this.state.selected} viewEditTree={this.viewEditTree} type="nodeRoot" id={id} name={rootName} />
     }
 
     addNode(node) {
@@ -74,6 +79,15 @@ class TreeNode extends Component {
         }
     }
 
+    viewEditTree() {
+        this.setState({
+            nodeRoot: this.state.nodeRoot,
+            spouse: this.state.spouse,
+            children: this.state.children,
+            selected: true //TODO: Implement proper logic
+        });
+    }
+
     render() {
         return(
             <div>
@@ -83,16 +97,176 @@ class TreeNode extends Component {
     }
 }
 
+// Dependencies
 class Person extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            selected: props.selected
+        };
+    }
+
+    componentWillReceiveProps(props) {
+        this.setState({
+            selected: props.selected
+        });
+    }
+
+    getClassName() {
+        if (this.state.selected) {
+            return `person selected`;
+        } else {
+            return `person`;
+        }
+    }
+
     render() {
-        console.log(this.props.name, this.props.id);
         return(
-            <div className={this.props.type} id={this.props.id} >
-                <div className="person">
-                    {this.props.name}
+            <div onClick={this.props.viewEditTree} className={this.props.type} id={this.props.id}>
+                <div className={this.getClassName()}>
+                    <span>{this.props.name}</span>
+                    {this.props.selected? <EditTree /> : null}
                 </div>
             </div>
         );
+    }
+}
+
+class EditTree extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            dropdownOpen: false,
+            editForm: null
+        };
+
+        this.toggle = this.toggle.bind(this);
+        this.selectEditForm = this.selectEditForm.bind(this);
+    }
+
+    toggle() {
+        this.setState((prevState) => {
+            return {
+                dropdownOpen: !prevState.dropdownOpen,
+                editForm: prevState.editForm
+            }
+        });
+    }
+
+    selectEditForm(type) {
+        this.setState((prevState) => {
+            return {
+                dropdownOpen: prevState.dropdownOpen,
+                editForm: type
+            }
+        });
+    }
+
+    render() {
+        return(
+            <div id="edit-tree">
+                <ButtonDropdown onClick={this.toggle} color="info" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                    <DropdownToggle caret>
+                        Add relative
+                    </DropdownToggle>
+                    <DropdownMenu>
+                        <DropdownItem onClick={() => this.selectEditForm(`parent`)}>Parent</DropdownItem>
+                        <DropdownItem divider />
+                        <DropdownItem onClick={() => this.selectEditForm(`sibling`)}>Sibling</DropdownItem>
+                        <DropdownItem divider />
+                        <DropdownItem onClick={() => this.selectEditForm(`child`)}>Child</DropdownItem>
+                    </DropdownMenu>
+                </ButtonDropdown>
+                {this.state.editForm? <AddRelativeForm type={this.state.editForm} /> : null}
+            </div>
+        );
+    }
+}
+
+class AddRelativeForm extends Component {
+    constructor(props) {
+        console.log(`__DEV__AddRelativeForm`);
+        super(props);
+        this.state = {
+            name: Path.initialUsername(),
+            type: props.type,
+            nodeRoot: false
+        };
+
+        this.handleCheckBoxInput = this.handleCheckBoxInput.bind(this);
+        this.handleNameInput = this.handleNameInput.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleNameInput(event) {
+        let name = event.target.value;
+        this.setState((prevState) => {
+            return {
+                name: name,
+                type: prevState.type,
+                nodeRoot: prevState.nodeRoot
+            }
+        });
+    }
+
+    handleCheckBoxInput(state) {
+        this.setState((prevState) => {
+            return {
+                name: prevState.name,
+                type: prevState.type,
+                nodeRoot: state
+            }
+        });
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        //TODO: HTTP via kinveyRequester service.
+        console.log(this.state);
+    }
+
+    addCheckBox() {
+        return (
+            <div>
+                <span>nodeRoot</span>
+                <CheckBox type="checkbox" handleChange={this.handleCheckBoxInput} value="nodeRoot" />
+            </div>
+        );
+    }
+
+    render() {
+        return(
+            <form id="add-relative" onSubmit={this.handleSubmit}>
+                <input type="text" onKeyUp={this.handleNameInput} placeholder="name" required />
+                {this.state.type === `parent`? this.addCheckBox(): null}
+                <Button color="success">Submit</Button>
+            </form>
+        );
+    }
+}
+
+class CheckBox extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            selected: false
+        };
+
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    handleChange() {
+        this.setState((prevState) => {
+            return {
+                selected: !prevState.selected
+            };
+        }, () => this.props.handleChange(this.state.selected));
+    }
+
+    render() {
+        return(
+            <input type="checkbox" onChange={this.handleChange} />
+        )
     }
 }
 

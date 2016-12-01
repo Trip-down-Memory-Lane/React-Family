@@ -6,7 +6,6 @@ import Path from '../constants/constant'
 import RegisterButton from '../components/RegisterButton'
 import UserController from '../controllers/UserController';
 import Authenticator from '../utils/authentication';
-import Navigator from '../utils/navigation';
 import AlreadyLoggedInView from '../views/AlreadyLoggedInView';
 
 class LoginView extends Component {

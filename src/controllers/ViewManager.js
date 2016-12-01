@@ -6,7 +6,7 @@ import RegisterView from '../views/RegisterView'
 import EditProfileView from '../views/EditProfileView'
 import FamilyTreeView from "../views/FamilyTreeView";
 import Nav from '../views/Nav';
-import {Router, Route, hashHistory, Link} from 'react-router';
+import {Router, Route, hashHistory} from 'react-router';
 
 function changeView() {
     ReactDOM.render(

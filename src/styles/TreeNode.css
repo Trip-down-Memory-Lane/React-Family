@@ -49,7 +49,7 @@ body {
     text-align: center;
 }
 
-#currentUser {
+#currentUser .person{
     color:red;
 }
 
@@ -72,3 +72,50 @@ body {
 .children {
     border-top:5px solid black;
 }
+
+/* Edit Tree*/
+.person.selected {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.72);
+}
+    .person.selected > h2 {
+        font-size: 30px;
+        color: orange;
+        border-bottom: 1px solid orange;
+        padding: 5px 20px;
+        border-top-left-radius: 7px;
+        border-top-right-radius: 7px;
+        width: 400px;
+        margin: 50px auto 30px auto;
+    }
+    .person.selected #edit-tree {
+        position: relative;
+        margin: auto;
+        width: 400px;
+        border: 2px solid black;
+        border-radius: 7px;
+        background: orange;
+        transition: all 0.3s ease-in-out;
+        color: white;
+    }
+        #edit-tree .btn-group > button {
+            background:rgb(2,117,216);
+        }
+        #edit-tree .btn-group,
+        #edit-tree  #add-relative {
+            margin: 10px;
+            width: calc(100% - 20px);
+        }
+        #edit-tree .btn,
+        #edit-tree input,
+        #edit-tree div {
+            width:100%;
+            margin: 0 0 5px 0;
+        }
+        #edit-tree input {
+            height: 35px;
+        }

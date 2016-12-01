@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import { Button } from 'reactstrap';
-import {Router, Route, hashHistory, Link} from 'react-router';
+import {Link} from 'react-router';
 
 class BackToLogin extends Component{
 
