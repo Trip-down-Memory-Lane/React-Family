@@ -84,7 +84,7 @@ class TreeNode extends Component {
             nodeRoot: this.state.nodeRoot,
             spouse: this.state.spouse,
             children: this.state.children,
-            selected: true //TODO: Implement proper logic
+            selected: !this.state.selected //TODO: Implement proper logic
         });
     }
 
@@ -162,23 +162,27 @@ class EditTree extends Component {
         });
     }
 
+    preventEventPropagation(event) {
+        event.stopPropagation();
+    }
+
     render() {
         return(
-            <div id="edit-tree">
-                <ButtonDropdown onClick={this.toggle} color="info" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                    <DropdownToggle caret>
-                        Add relative
-                    </DropdownToggle>
-                    <DropdownMenu>
-                        <DropdownItem onClick={() => this.selectEditForm(`parent`)}>Parent</DropdownItem>
-                        <DropdownItem divider />
-                        <DropdownItem onClick={() => this.selectEditForm(`sibling`)}>Sibling</DropdownItem>
-                        <DropdownItem divider />
-                        <DropdownItem onClick={() => this.selectEditForm(`child`)}>Child</DropdownItem>
-                    </DropdownMenu>
-                </ButtonDropdown>
-                {this.state.editForm? <AddRelativeForm type={this.state.editForm} /> : null}
-            </div>
+                <div id="edit-tree" onClick={this.preventEventPropagation}>
+                    <ButtonDropdown onClick={this.toggle} color="info" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                        <DropdownToggle caret>
+                            Add relative
+                        </DropdownToggle>
+                        <DropdownMenu>
+                            <DropdownItem onClick={() => this.selectEditForm(`parent`)}>Parent</DropdownItem>
+                            <DropdownItem divider />
+                            <DropdownItem onClick={() => this.selectEditForm(`sibling`)}>Sibling</DropdownItem>
+                            <DropdownItem divider />
+                            <DropdownItem onClick={() => this.selectEditForm(`child`)}>Child</DropdownItem>
+                        </DropdownMenu>
+                    </ButtonDropdown>
+                    {this.state.editForm? <AddRelativeForm type={this.state.editForm} /> : null}
+                </div>
         );
     }
 }
@@ -196,6 +200,16 @@ class AddRelativeForm extends Component {
         this.handleCheckBoxInput = this.handleCheckBoxInput.bind(this);
         this.handleNameInput = this.handleNameInput.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    componentWillReceiveProps(props) {
+        this.setState((prevState) => {
+            return {
+                name: prevState.name,
+                type: props.type,
+                nodeRoot: prevState.nodeRoot
+            };
+        });
     }
 
     handleNameInput(event) {
@@ -235,9 +249,10 @@ class AddRelativeForm extends Component {
     }
 
     render() {
+        console.log(this.state.type);
         return(
             <form id="add-relative" onSubmit={this.handleSubmit}>
-                <input type="text" onKeyUp={this.handleNameInput} placeholder="name" required />
+                <input type="text" onKeyUp={this.handleNameInput} placeholder={this.state.type + ` name...`} required />
                 {this.state.type === `parent`? this.addCheckBox(): null}
                 <Button color="success">Submit</Button>
             </form>

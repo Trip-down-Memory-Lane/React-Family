@@ -81,11 +81,14 @@ body {
     width: 100%;
     height: 100%;
     background: rgba(0, 0, 0, 0.72);
+    z-index: 0;
+    padding-top:100px;
 }
-    .person.selected > h2 {
+    .person.selected > span {
         font-size: 30px;
+        font-weight: bold;
         color: orange;
-        border-bottom: 1px solid orange;
+        border-bottom: 3px solid orange;
         padding: 5px 20px;
         border-top-left-radius: 7px;
         border-top-right-radius: 7px;
@@ -94,17 +97,35 @@ body {
     }
     .person.selected #edit-tree {
         position: relative;
-        margin: auto;
+        margin: 30px auto 0 auto;
         width: 400px;
         border: 2px solid black;
         border-radius: 7px;
         background: orange;
         transition: all 0.3s ease-in-out;
         color: white;
+        z-index: 1;
     }
         #edit-tree .btn-group > button {
             background:rgb(2,117,216);
         }
+            #edit-tree .btn-group .dropdown-divider {
+                border-top: 2px solid rgba(0, 0, 0, 0.2);
+                margin: 0 5px;
+                width: calc(100% - 10px);
+            }
+            #edit-tree .btn-group .dropdown-item {
+                background: none;
+                border: none;
+                margin: 5px 0;
+                padding: 5px 0;
+                width:100%;
+                color: #373a3c;
+            }
+            #edit-tree .btn-group .dropdown-item:hover {
+                background: whitesmoke;
+            }
+
         #edit-tree .btn-group,
         #edit-tree  #add-relative {
             margin: 10px;
