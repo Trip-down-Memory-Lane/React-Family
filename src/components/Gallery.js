@@ -2,22 +2,11 @@ import React, {Component} from 'react';
 import ImageGallery from 'react-image-gallery';
  import "../../node_modules/react-image-gallery/styles/css/image-gallery.css";
 import $ from 'jquery';
+import AddPhotoButton from '../components/AddPhotoButton'
 
 class Gallery extends React.Component {
     constructor(){
         super();
-        $('.backstretch').remove();
-
-    }
-
-    handleImageLoad(event) {
-        $('.backstretch').remove();
-        $('body').css('background', '#d0e5e2')
-
-        console.log('Image loaded ', event.target)
-    }
-
-    render() {
         const images = [
             {
                 original:  'loginHelper/img/backgrounds/11.jpg',
@@ -44,19 +33,35 @@ class Gallery extends React.Component {
                 thumbnail: 'loginHelper/img/backgrounds/image2.jpg',
             }
         ]
+        this.state={
+            images: images
+        }
+
+    }
+
+    handleImageLoad(event) {
+        $('.backstretch').remove();
+        $('body').css('background', '#d0e5e2')
+
+        console.log('Image loaded ', event.target)
+    }
+
+    render() {
 
         return (
             <div  >
                 <ImageGallery
                     ref={i => this._imageGallery = i}
-                    items={images}
+                    items={this.state.images}
                     autoPlay={true}
 
                     showFullscreenButton={false}
                     slideInterval={3500}
                     onImageLoad={this.handleImageLoad}/>
                 <div className="container">
-
+                    <div className="row" style={{"paddingRight":"75%"}}>
+                        <AddPhotoButton/>
+                    </div>
                     <div >
                         SOME TEXTSOME TEXTSOME TEXTSOME TEXTSOME TEXTSOME TEXTSOME TEXTSOME TEXTSOME TEXT
                     </div>
