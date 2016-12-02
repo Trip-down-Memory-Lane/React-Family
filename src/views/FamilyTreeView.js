@@ -5,23 +5,42 @@ import FamilyTree from "../components/FamilyTree";
 import $ from "jquery";
 
 class FamilyTreeView extends Component {
-    constructor() {
-        super();
+    /*
+    * props:
+    *   -tree: <JSON> object, representing family tree
+    * */
+    constructor(props) {
+        super(props);
         this.state = {
             clickX: null,
-            clicked: false
+            clicked: false,
         };
 
         this.handleMouseDown = this.handleMouseDown.bind(this);
         this.handleMouseMove = this.handleMouseMove.bind(this);
         this.handleMouseUp = this.handleMouseUp.bind(this);
         this.updateScrollPosition = this.updateScrollPosition.bind(this);
+        this.handleSelectedPerson = this.handleSelectedPerson.bind(this);
+    }
+
+    handleSelectedPerson() {
+        this.setState(prevState => {
+            return {
+                clickX: prevState.clickX,
+                clicked: prevState.clicked,
+            }
+        })
     }
 
     handleMouseDown(event) {
-        this.setState({
-            clickX: event.pageX,
-            clicked: true
+        let pageX = event.pageX;
+        let pageY = event.pageY;
+        this.setState(prevState => {
+            return {
+                clickX: pageX,
+                clickY: pageY,
+                clicked: true
+            }
         });
     }
 
@@ -42,15 +61,14 @@ class FamilyTreeView extends Component {
     }
 
     updateScrollPosition(event) {
-        console.log($(window).scrollLeft(), this.state.clickX, event.pageX);
         $(document).css(`cursor`, `row-resize`);
-        $(window).scrollLeft($(window).scrollLeft() + (this.state.clickX - event.pageX))
+        $(window).scrollLeft($(window).scrollLeft() + (this.state.clickX - event.pageX));
+        $(window).scrollTop($(window).scrollTop() + (this.state.clickY - event.pageY));
     }
 
     render() {
         return(
             <div id="wrapper">
-                <Header/>
                 <div
                     onMouseMove={this.handleMouseMove}
                     onMouseDown={this.handleMouseDown}

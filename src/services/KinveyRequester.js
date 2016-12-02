@@ -4,7 +4,7 @@ import Authenticator from '../utils/authentication';
 
 class KinveyRequester {
 
-    loginUser(username, password) {
+    static loginUser(username, password) {
         return $.ajax({
             method: "POST",
             url: credentials.baseUrl + "user/" + credentials.appKey + "/login",
@@ -13,7 +13,7 @@ class KinveyRequester {
         });
     }
 
-    registerUser(username, password){
+    static registerUser(username, password){
         return $.ajax({
             method: "POST",
             url: credentials.baseUrl + "user/" + credentials.appKey + "/",
@@ -22,7 +22,7 @@ class KinveyRequester {
         });
     }
 
-    getUserInfo(userId){
+    static getUserInfo(userId){
         return $.ajax({
             method: "GET",
             url: credentials.baseUrl + "user/" + credentials.appKey + "/" + userId,
@@ -30,14 +30,48 @@ class KinveyRequester {
         });
     }
 
-    logoutUser() {
+    static logoutUser() {
         return $.ajax({
             method: "POST",
             url: credentials.baseUrl + "user/" + credentials.appKey + "/_logout",
             headers: Authenticator.getKinveyAuthHeaders(),
         });
     }
+
+
+    static getCurrentUserInfo(){
+        return $.ajax({
+            method: "GET",
+            url: credentials.baseUrl + '/user/' + credentials.appKey + '/' + sessionStorage.getItem('userId'),
+            headers: Authenticator.getKinveyUserAuthHeaders()
+        })
+    }
+
+    /*
+    * PUTs the new parentRoot, containing the whole family-tree inside {userId}/treeRoot
+    * TODO: in later stages if we implement search on user registration, another request must be sent to separate collection for the unregistered newRoot.
+    * */
+    static addNewRootToUser(prevRoot, newRoot) {
+        let newTreeRoot = {
+            name: newRoot.name,
+            spouse: newRoot.spouse,
+            children: prevRoot
+        };
+        let data = {
+            name: prevRoot.name,
+            spouse: prevRoot.spouse,
+            children: prevRoot.children,
+            treeRoot: newTreeRoot
+        };
+
+        return $.ajax({
+            method: "PUT",
+            url: credentials.baseUrl + `user/${credentials.appKey}/${sessionStorage.getItem(`id`)}`,
+            headers: authenticator.getKinveyUserAuthHeaders(),
+            data: JSON.stringify(data)
+        });
+    } 
+
 }
 
-let kinveyRequester = new KinveyRequester();
-export default kinveyRequester;
+export default KinveyRequester;

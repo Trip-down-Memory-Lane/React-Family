@@ -1,13 +1,13 @@
 import React, {Component} from "react";
 import "../styles/TreeNode.css";
-import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, Button } from "reactstrap";
+import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, Button, FormGroup, Input, Label, Form, FormFeedback, FormText } from "reactstrap";
 import Path from "../constants/constant";
 
 class TreeNode extends Component {
     /*
     * Props must look like this:
     * props:
-    *     nodeRoot: <JSON> object of Node root person
+    *     nodeRoot: <JSON> representing tree node.
     */
 
     constructor(props) {
@@ -96,7 +96,7 @@ class TreeNode extends Component {
         }
     }
 
-    viewEditTree() {
+    viewEditTree(event) {
         this.setState({
             nodeRoot: this.state.nodeRoot,
             spouse: this.state.spouse,
@@ -140,7 +140,7 @@ class Person extends Component {
     render() {
         return(
             <div onClick={this.props.viewEditTree} className={this.props.type} id={this.props.id}>
-                <div className={this.getClassName()}>
+                <div className={this.getClassName()} onClick={Person.preventEventPropagation}>
                     <span>{this.props.name}</span>
                     {this.props.selected? <EditTree refreshFamilyTreeState={this.props.refreshFamilyTreeState}/> : null}
                 </div>
@@ -179,12 +179,19 @@ class EditTree extends Component {
         });
     }
 
+    addRelativeForm() {
+        switch (this.state.editForm) {
+            case`parents`: return <AddParentsForm />;
+            case`siblings`: return <AddSiblingsForm type="siblings"/>;
+            case`children`: return <AddChildrenForm type="children"/>;
+        }
+    }
+
     static preventEventPropagation(event) {
         event.stopPropagation();
     }
 
     componentWillUnmount() {
-        console.log(`__EditTree componentWillUnmount__`);
         this.props.refreshFamilyTreeState();
     }
 
@@ -196,112 +203,392 @@ class EditTree extends Component {
                         Add relative
                     </DropdownToggle>
                     <DropdownMenu>
-                        <DropdownItem onClick={() => this.selectEditForm(`parent`)}>Parent</DropdownItem>
+                        <DropdownItem onClick={() => this.selectEditForm(`parents`)}>Parent</DropdownItem>
                         <DropdownItem divider />
-                        <DropdownItem onClick={() => this.selectEditForm(`sibling`)}>Sibling</DropdownItem>
+                        <DropdownItem onClick={() => this.selectEditForm(`siblings`)}>Sibling</DropdownItem>
                         <DropdownItem divider />
-                        <DropdownItem onClick={() => this.selectEditForm(`child`)}>Child</DropdownItem>
+                        <DropdownItem onClick={() => this.selectEditForm(`children`)}>Child</DropdownItem>
                     </DropdownMenu>
                 </ButtonDropdown>
-                {this.state.editForm? <AddRelativeForm type={this.state.editForm} /> : null}
+                {this.addRelativeForm()}
             </div>
         );
     }
+// {this.state.editForm? <AddRelativeForm type={this.state.editForm} /> : null}
 }
 
-class AddRelativeForm extends Component {
-    constructor(props) {
-        super(props);
+class AddParentsForm extends Component {
+    constructor() {
+        super();
         this.state = {
-            name: Path.initialUsername(),
-            type: props.type,
-            nodeRoot: false
+            nodeRoot: Path.initialUsername(),
+            father: Path.initialUsername(),
+            mother: Path.initialUsername()
         };
 
-        this.handleCheckBoxInput = this.handleCheckBoxInput.bind(this);
-        this.handleNameInput = this.handleNameInput.bind(this);
+        this.handleFatherNameInput = this.handleFatherNameInput.bind(this);
+        this.handleMotherNameInput = this.handleMotherNameInput.bind(this);
+        this.handleSelectRootInput = this.handleSelectRootInput.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    componentWillReceiveProps(props) {
-        this.setState((prevState) => {
-            return {
-                name: prevState.name,
-                type: props.type,
-                nodeRoot: prevState.nodeRoot
-            };
-        });
-    }
-
-    handleNameInput(event) {
+    handleFatherNameInput(event) {
         let name = event.target.value;
         this.setState((prevState) => {
             return {
-                name: name,
-                type: prevState.type,
+                father: name,
+                mother: prevState.mother,
                 nodeRoot: prevState.nodeRoot
             }
         });
     }
 
-    handleCheckBoxInput(state) {
+    handleMotherNameInput(event) {
+        let name = event.target.value;
         this.setState((prevState) => {
             return {
-                name: prevState.name,
-                type: prevState.type,
-                nodeRoot: state
+                father: prevState.father,
+                mother: name,
+                nodeRoot: prevState.nodeRoot
             }
         });
     }
 
+    handleSelectRootInput(event) {
+        let value = event.target.value;
+        this.setState(prevState => {
+            return {
+                father: prevState.father,
+                mother: prevState.mother,
+                nodeRoot: value
+            };
+        })
+    }
+
     handleSubmit(event) {
+        //TODO: KinveyRequester
         event.preventDefault();
-        //TODO: HTTP via kinveyRequester service.
+        if (this.state.nodeRoot === Path.initialUsername()) {
+            alert(`Please select root parent!`);
+            return;
+        } else {
+            console.log(this.state);
+        }
     }
 
-    addCheckBox() {
-        return (
-            <div>
-                <span>nodeRoot</span>
-                <CheckBox type="checkbox" handleChange={this.handleCheckBoxInput} value="nodeRoot" />
-            </div>
-        );
-    }
-
+    //TODO: Implement required for Mather of Father input
     render() {
         return(
-            <form id="add-relative" onSubmit={this.handleSubmit}>
-                <input type="text" onKeyUp={this.handleNameInput} placeholder={this.state.type + ` name...`} required />
-                {this.state.type === `parent`? this.addCheckBox(): null}
+            <form onSubmit={this.handleSubmit}>
+                <FormGroup tag="fieldset">
+                    <legend>Your parents</legend>
+                    <FormGroup>
+                        <Label for="exampleSelect">Select</Label>
+                        <Input
+                            type="select"
+                            name="select"
+                            id="exampleSelect"
+                            onChange={this.handleSelectRootInput}
+                            required>
+                            <option disabled selected value>Select root parent</option>
+                            <option>Father</option>
+                            <option>Mother</option>
+                        </Input>
+                    </FormGroup>
+                    <input type="text" onKeyUp={this.handleFatherNameInput} placeholder="Father name.." />
+                    <input type="text" onKeyUp={this.handleMotherNameInput} placeholder="Mother name.." />
+                </FormGroup>
                 <Button color="success">Submit</Button>
             </form>
         );
     }
 }
 
-class CheckBox extends Component {
+class AddSiblingsForm extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selected: false
+            siblingsCount: 1,
+            siblings: {
+                0: {
+                    id: 0,
+                    name: Path.initialUsername()
+                }
+            }
         };
 
-        this.handleChange = this.handleChange.bind(this);
+        this.addSiblingToState = this.addSiblingToState.bind(this);
+        this.updateState = this.updateState.bind(this);
+        this.getSiblings = this.getSiblings.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange() {
-        this.setState((prevState) => {
+    handleSubmit() {
+        switch (this.props.type) {
+            case`children`: //TODO children request;
+            case`siblings`: //TODO: siblings request;
+        }
+        console.log(this.state);
+    }
+
+    addSiblingToState(event) {
+        event.preventDefault(); // Form submission.
+        let newSibling = {
+            id: this.state.siblingsCount,
+            name: Path.initialUsername(),
+        };
+        let siblings = this.state.siblings;
+        siblings[newSibling.id] = newSibling;
+        this.setState(prevState => {
             return {
-                selected: !prevState.selected
+                siblingsCount: prevState.siblingsCount + 1,
+                siblings: siblings
             };
-        }, () => this.props.handleChange(this.state.selected));
+        })
+    }
+
+    getSiblings() {
+        let arr = [];
+        let siblings = this.state.siblings;
+        for (let sibling in siblings) {
+            arr.push(siblings[sibling]);
+        }
+        return arr;
+    }
+
+    updateState(sibling) {
+        let siblings = this.state.siblings;
+        siblings[sibling.id] = {
+            id: sibling.id,
+            name: sibling.name
+        };
+        this.setState(prevState => {
+            return {
+                siblingsCount: prevState.siblingsCount,
+                siblings: siblings
+            }
+        });
     }
 
     render() {
         return(
-            <input type="checkbox" onChange={this.handleChange} />
+            <form onSubmit={this.handleSubmit}>
+                <FormGroup tag="fieldset">
+                    <legend>Your {this.props.type}</legend>
+                    <Button onClick={this.addSiblingToState} color="info">Add Child</Button>
+                    {this.getSiblings().map(x => <SiblingForm id={x.id} key={x.id} type="children" updateParentState={this.updateState} />)}
+                    <Button color="success">Submit</Button>
+                </FormGroup>
+            </form>
         );
     }
 }
+
+class AddChildrenForm extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            childrenCount: 1,
+            children: {
+                0: {
+                    id: 0,
+                    name: Path.initialUsername()
+                }
+            }
+        };
+
+        this.addChildToState = this.addChildToState.bind(this);
+        this.updateState = this.updateState.bind(this);
+        this.getChildren = this.getChildren.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    handleSubmit() {
+        //TODO: children submit.
+        console.log(this.state);
+    }
+
+    addChildToState(event) {
+        event.preventDefault(); // Form submission.
+        let newChild = {
+            id: this.state.childrenCount,
+            name: Path.initialUsername(),
+        };
+        let children = this.state.children;
+        children[newChild.id] = newChild;
+        this.setState(prevState => {
+            return {
+                childrenCount: prevState.childrenCount + 1,
+                children: children
+            };
+        })
+    }
+
+    getChildren() {
+        let arr = [];
+        let children = this.state.children;
+        for (let child in children) {
+            arr.push(children[child]);
+        }
+        return arr;
+    }
+
+    updateState(sibling) {
+        let children = this.state.children;
+        children[sibling.id] = {
+            id: sibling.id,
+            name: sibling.name
+        };
+        this.setState(prevState => {
+            return {
+                childrenCount: prevState.childrenCount,
+                children: children
+            }
+        });
+    }
+
+    render() {
+        return(
+            <form onSubmit={this.handleSubmit}>
+                <FormGroup tag="fieldset">
+                    <legend>Your {this.props.type}</legend>
+                    <Button onClick={this.addChildToState} color="info">Add Child</Button>
+                    {this.getChildren().map(x => <SiblingForm id={x.id} key={x.id} type="children" updateParentState={this.updateState} />)}
+                    <Button color="success">Submit</Button>
+                </FormGroup>
+            </form>
+        );
+    }
+}
+
+class SiblingForm extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            id: props.id,
+            name: Path.initialUsername()
+        };
+        this.handleNameInput = this.handleNameInput.bind(this);
+    }
+
+    handleNameInput(event) {
+        let name = event.target.value;
+        this.setState(prevState => {
+            return {
+                id: prevState.id,
+                name: name
+            }
+        }, () => this.props.updateParentState(this.state));
+    }
+
+    getPlaceholder() {
+        if (this.props.type === `children`) {
+            return `Child name..`;
+        } else {
+            return `Sibling name..`;
+        }
+    }
+
+    render() {
+        return(
+            <input key={this.props.key} type="text" onKeyUp={this.handleNameInput} placeholder={this.getPlaceholder()} />
+        )
+    }
+}
+
+// class AddRelativeForm extends Component {
+//     constructor(props) {
+//         super(props);
+//         this.state = {
+//             nodeRoot: Path.initialUsername(),
+//             spouse: Path.initialUsername(),
+//             // nodeRoot: false
+//         };
+//
+//         this.handleCheckBoxInput = this.handleCheckBoxInput.bind(this);
+//         this.handleNameInput = this.handleNameInput.bind(this);
+//         this.handleSubmit = this.handleSubmit.bind(this);
+//     }
+//
+//     componentWillReceiveProps(props) {
+//         this.setState((prevState) => {
+//             return {
+//                 name: prevState.name,
+//                 type: props.type,
+//                 nodeRoot: prevState.nodeRoot
+//             };
+//         });
+//     }
+//
+//     handleNameInput(event) {
+//         let name = event.target.value;
+//         this.setState((prevState) => {
+//             return {
+//                 name: name,
+//                 type: prevState.type,
+//                 nodeRoot: prevState.nodeRoot
+//             }
+//         });
+//     }
+//
+//     handleCheckBoxInput(state) {
+//         this.setState((prevState) => {
+//             return {
+//                 name: prevState.name,
+//                 type: prevState.type,
+//                 nodeRoot: state
+//             }
+//         });
+//     }
+//
+//     handleSubmit(event) {
+//         event.preventDefault();
+//         //TODO: HTTP via kinveyRequester service.
+//     }
+//
+//     addCheckBox() {
+//         return (
+//             <div>
+//                 <span>nodeRoot</span>
+//                 <CheckBox type="checkbox" handleChange={this.handleCheckBoxInput} value="nodeRoot" />
+//             </div>
+//         );
+//     }
+//
+//     render() {
+//         return(
+//             <form id="add-relative" onSubmit={this.handleSubmit}>
+//                 <input type="text" onKeyUp={this.handleNameInput} placeholder={this.state.type + ` name...`} required />
+//                 {this.state.type === `parents`? this.addCheckBox(): null}
+//                 <Button color="success">Submit</Button>
+//             </form>
+//         );
+//     }
+// }
+
+// class CheckBox extends Component {
+//     constructor(props) {
+//         super(props);
+//         this.state = {
+//             selected: false
+//         };
+//
+//         this.handleChange = this.handleChange.bind(this);
+//     }
+//
+//     handleChange() {
+//         this.setState((prevState) => {
+//             return {
+//                 selected: !prevState.selected
+//             };
+//         }, () => this.props.handleChange(this.state.selected));
+//     }
+//
+//     render() {
+//         return(
+//             <input type="checkbox" onChange={this.handleChange} />
+//         );
+//     }
+// }
 
 export default TreeNode;

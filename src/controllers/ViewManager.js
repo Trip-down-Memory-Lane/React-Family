@@ -5,6 +5,7 @@ import LoginView from '../views/LoginView'
 import RegisterView from '../views/RegisterView'
 import EditProfileView from '../views/EditProfileView'
 import FamilyTreeView from "../views/FamilyTreeView";
+
 import ProfileView from '../views/ProfileView';
 import {Router, Route, browserHistory} from 'react-router';
 import Message from '../components/Message';

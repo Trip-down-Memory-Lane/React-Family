@@ -95,13 +95,13 @@ const measureBlacklist = [`height`, `top`, `right`, `bottom`];
 class FamilyTree extends Component {
     /*
     * props:
-    *     user: <logged in user>
+    *   -tree: <JSON> representing family tree
     */
 
     constructor(props) {
         super(props);
         this.state = {
-            root: createRooTest(),
+            root: createRooTest(), //TODO: replace with props.tree for production.
             width: 10000
         };
 
@@ -121,6 +121,11 @@ class FamilyTree extends Component {
         $(`body`).width(this.state.width);
     }
 
+    // Same as above. It executes only on first render, while componentDidMount would execute only on change.
+    componentWillMount() {
+        $(`body`).width(this.state.width);
+    }
+
     // As TreeNode renders onMeasure is triggered and sets body width to the measured width of the root TreeNode
     handleTreeWidth(dimensions) {
         this.setState(prevState => {
@@ -137,7 +142,11 @@ class FamilyTree extends Component {
         let root = this.state.root;
         return(
             <Measure onMeasure={this.handleTreeWidth} blacklist={measureBlacklist}>
-                <TreeNode refreshFamilyTreeState={this.refreshStateWidth} key={root._id} id="root" nodeRoot={this.state.root} />
+                <TreeNode refreshFamilyTreeState={this.refreshStateWidth}
+                          key={root._id}
+                          id="root"
+                          nodeRoot={root}
+                          handlePersonSelected={this.props.handleSelectedPerson}/>
             </Measure>
         );
     }

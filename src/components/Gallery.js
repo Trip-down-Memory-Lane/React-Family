@@ -7,37 +7,9 @@ import AddPhotoButton from '../components/AddPhotoButton'
 
 
 class Gallery extends React.Component {
-    constructor(){
-        super();
-        const images = [
-            {
-                original:  'loginHelper/img/backgrounds/11.jpg',
-                thumbnail:  'loginHelper/img/backgrounds/11.jpg',
-                originalclassName: 'featured-slide',
-                thumbnailclassName: 'featured-thumb',
-                originalAlt: 'original-alt',
-                thumbnailAlt: 'thumbnail-alt',
-                thumbnailLabel: 'Optional',
-                description: 'My Sweet Family...',
-                srcSet: 'Optional srcSet (responsive images src)',
-                sizes: ''
-            },
-            {
-                original: 'loginHelper/img/backgrounds/22.jpg',
-                description: 'My Sweet Family 2...',
+    constructor(props){
+        super(props);
 
-                thumbnail: 'loginHelper/img/backgrounds/22.jpg',
-            },
-            {
-                original:'loginHelper/img/backgrounds/image2.jpg',
-                description: 'My Sweet Family 3...',
-
-                thumbnail: 'loginHelper/img/backgrounds/image2.jpg',
-            }
-        ]
-        this.state={
-            images: images
-        }
 
     }
 
@@ -54,7 +26,7 @@ class Gallery extends React.Component {
             <div  >
                 <ImageGallery
                     ref={i => this._imageGallery = i}
-                    items={this.state.images}
+                    items={this.props.images}
                     autoPlay={true}
 
                     showFullscreenButton={false}
@@ -62,7 +34,7 @@ class Gallery extends React.Component {
                     onImageLoad={this.handleImageLoad}/>
                 <div className="container">
                     <div className="row" style={{"paddingRight":"75%"}}>
-                        <AddPhotoButton/>
+                        <AddPhotoButton pictures={this.props.images}/>
                     </div>
                     <div >
                         SOME TEXTSOME TEXTSOME TEXTSOME TEXTSOME TEXTSOME TEXTSOME TEXTSOME TEXTSOME TEXT
