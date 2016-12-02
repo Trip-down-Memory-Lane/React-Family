@@ -3,11 +3,40 @@ import React, {Component} from 'react';
 import ImageGallery from 'react-image-gallery';
  import "../../node_modules/react-image-gallery/styles/css/image-gallery.css";
 import $ from 'jquery';
+import AddPhotoButton from '../components/AddPhotoButton'
 
 class Gallery extends React.Component {
     constructor(){
         super();
-        $('.backstretch').remove();
+        const images = [
+            {
+                original:  'loginHelper/img/backgrounds/11.jpg',
+                thumbnail:  'loginHelper/img/backgrounds/11.jpg',
+                originalclassName: 'featured-slide',
+                thumbnailclassName: 'featured-thumb',
+                originalAlt: 'original-alt',
+                thumbnailAlt: 'thumbnail-alt',
+                thumbnailLabel: 'Optional',
+                description: 'My Sweet Family...',
+                srcSet: 'Optional srcSet (responsive images src)',
+                sizes: ''
+            },
+            {
+                original: 'loginHelper/img/backgrounds/22.jpg',
+                description: 'My Sweet Family 2...',
+
+                thumbnail: 'loginHelper/img/backgrounds/22.jpg',
+            },
+            {
+                original:'loginHelper/img/backgrounds/image2.jpg',
+                description: 'My Sweet Family 3...',
+
+                thumbnail: 'loginHelper/img/backgrounds/image2.jpg',
+            }
+        ]
+        this.state={
+            images: images
+        }
 
     }
 
@@ -19,45 +48,21 @@ class Gallery extends React.Component {
     }
 
     render() {
-        const images = [
-            {
-                original: 'http://lorempixel.com/1000/600/nature/1/',
-                thumbnail: 'http://lorempixel.com/250/150/nature/1/',
-                originalclassName: 'featured-slide',
-                thumbnailclassName: 'featured-thumb',
-                originalAlt: 'original-alt',
-                thumbnailAlt: 'thumbnail-alt',
-                thumbnailLabel: 'Optional',
-                description: 'My Sweet Family...',
-                srcSet: 'Optional srcSet (responsive images src)',
-                sizes: '400px'
-            },
-            {
-                original: 'http://lorempixel.com/1000/600/nature/2/',
-                description: 'My Sweet Family 2...',
-
-                thumbnail: 'http://lorempixel.com/250/150/nature/2/'
-            },
-            {
-                original: 'http://lorempixel.com/1000/600/nature/3/',
-                description: 'My Sweet Family 3...',
-
-                thumbnail: 'http://lorempixel.com/250/150/nature/3/'
-            }
-        ]
 
         return (
             <div  >
                 <ImageGallery
                     ref={i => this._imageGallery = i}
-                    items={images}
+                    items={this.state.images}
                     autoPlay={true}
 
                     showFullscreenButton={false}
                     slideInterval={3500}
                     onImageLoad={this.handleImageLoad}/>
                 <div className="container">
-
+                    <div className="row" style={{"paddingRight":"75%"}}>
+                        <AddPhotoButton/>
+                    </div>
                     <div >
                         SOME TEXTSOME TEXTSOME TEXTSOME TEXTSOME TEXTSOME TEXTSOME TEXTSOME TEXTSOME TEXT
                     </div>

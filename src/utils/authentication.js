@@ -1,9 +1,10 @@
 import Path from '../constants/constant';
+import { browserHistory } from 'react-router';
+import ViewManager from '../controllers/ViewManager';
 
 class Authenticator {
 
     static isAuthenticated(){
-        //console.log(sessionStorage.getItem('userId'));
         return sessionStorage.getItem('userId') ;
     }
 
@@ -11,6 +12,19 @@ class Authenticator {
         return {
             'Authorization': Path.database() + sessionStorage.getItem('authToken'),
         };
+    }
+
+    static requireAuth(replace){
+        if (!Authenticator.isAuthenticated()){
+            browserHistory.push(replace);
+        }
+    }
+
+    static isLoggedIn(){
+        if (Authenticator.isAuthenticated()){
+            ViewManager.renderWarningMessage('You are already logged in.');
+            browserHistory.back();
+        }
     }
 }
 

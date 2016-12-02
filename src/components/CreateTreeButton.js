@@ -5,7 +5,7 @@ export default class CreateTreeButton extends React.Component {
     render() {
         return (
             <div >
-                {' Create'}  <Button size="lg" outline color="danger" >NOW</Button>{' your own family tree'}
+                 <Button size="lg" style={{"backgroundColor":"#00aeff","font-family":"Comic Sans MS"}}  outline color="primary" block >CREATE YOUR FAMILY TREE</Button>
 
             </div>
         );

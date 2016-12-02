@@ -1,6 +1,6 @@
 import kinveyRequester from '../services/KinveyRequester';
-import Navigator from '../utils/navigation';
 import Path from '../constants/constant';
+import {browserHistory} from 'react-router';
 import ViewManager from './ViewManager';
 
 class UserController {
@@ -16,11 +16,11 @@ class UserController {
 
             if (sessionStorage.getItem('firstTimeLogin')){
                 sessionStorage.removeItem('firstTimeLogin');
-                Navigator.navigate(Path.editProfileView());
+                browserHistory.push(Path.editProfileView());
                 ViewManager.renderSuccessMessage('Login successful.');
             }
             else{
-                Navigator.navigate(Path.profileView());
+                browserHistory.push(Path.profileView());
                 ViewManager.renderSuccessMessage('Login successful.');
             }
         }
@@ -28,21 +28,21 @@ class UserController {
 
     static register(username, password, confirmPassword) {
         if (password !== confirmPassword) {
-            // TODO error message
-            alert("Passwords don't match.");
+            ViewManager.renderErrorMessage('Passwords do not match.');
         }
-        // else will be removed after rendering the error message
         else {
             kinveyRequester.registerUser(username, password)
-                .then(registerSuccess.bind(this));
-                // TODO catch error message
+                .then(registerSuccess.bind(this))
+                .catch(ViewManager.renderErrorMessage('Registration failed.'));
 
             function registerSuccess() {
                 UserController.saveFirstTimeLogin();
-                Navigator.navigate(Path.loginView());
+                browserHistory.push(Path.loginView());
             }
         }
     }
+
+
 
     static saveAuthInSession(userInfo) {
         sessionStorage.setItem('authToken', userInfo._kmd.authtoken);

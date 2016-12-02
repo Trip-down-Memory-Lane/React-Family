@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import {Header, Footer} from "../components/Template.js"
+import Footer from "../components/Footer.js"
 import FamilyTree from "../components/FamilyTree";
 import $ from "jquery";
 
