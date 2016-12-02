@@ -38,6 +38,7 @@ class UserController {
             function registerSuccess() {
                 UserController.saveFirstTimeLogin();
                 browserHistory.push(Path.loginView());
+                ViewManager.renderMessage('Thank yoy for your registration. Please login to proceed.', 'success');
             }
         }
     }
@@ -50,6 +51,28 @@ class UserController {
             sessionStorage.clear();
             browserHistory.push(Path.loginView());
         }
+    }
+
+    static addPicture(pictureUrl){
+
+        let userId = sessionStorage.getItem('userId');
+
+        kinveyRequester.addPicture(pictureUrl, userId)
+            .then(addPictureSuccess.bind(this))
+            .catch();
+
+        function addPictureSuccess() {
+            ViewManager.renderMessage('Picture successfully added.', 'success');
+            console.log('Picture added');
+        }
+    }
+
+    static getUserPictures(){
+        let userId = sessionStorage.getItem('userId');
+
+        let userPictures = kinveyRequester.getUserPictures(userId);
+
+        return userPictures;
     }
 
 

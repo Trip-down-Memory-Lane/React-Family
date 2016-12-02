@@ -38,14 +38,23 @@ class KinveyRequester {
         });
     }
 
+    static addPicture(pictureUrl, userId){
+        return $.ajax(({
+            method: "POST",
+            url: credentials.baseUrl + 'appdata/' + credentials.appKey + "/pictures",
+            headers: Authenticator.getKinveyUserAuthHeaders(),
+            data: {imageUrl: pictureUrl, userID: userId}
+        }));
+    }
 
-    static getCurrentUserInfo(){
+    static getUserPictures(userId){
         return $.ajax({
             method: "GET",
-            url: credentials.baseUrl + '/user/' + credentials.appKey + '/' + sessionStorage.getItem('userId'),
+            url: credentials.baseUrl + 'appdata/' + credentials.appKey + '/pictures?userID=' + userId,
             headers: Authenticator.getKinveyUserAuthHeaders()
-        })
+        });
     }
+
 
     /*
     * PUTs the new parentRoot, containing the whole family-tree inside {userId}/treeRoot
