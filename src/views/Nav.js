@@ -14,7 +14,7 @@ class NavigationBar extends React.Component {
                     {/*<NavbarBrand href="/#/profile/edit">Edit</NavbarBrand>*/}
                     <Nav className="float-xs-right" navbar>
                         <NavItem style={{"fontSize": "25px"}}>
-                            <NavLink href="/#">Logout</NavLink>
+                            <NavLink href="/#" >Logout</NavLink>
                         </NavItem>
                         <NavItem style={{"fontSize": "25px","width":"800px"}}>
                             <NavLink href="/tree"><CreateTreeButton/></NavLink>
