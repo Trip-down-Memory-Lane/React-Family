@@ -29,7 +29,6 @@ class LoginView extends Component {
         event.preventDefault();
         console.log('SUBMITTING');
         UserController.login(this.usernameField.value, this.passwordField.value);
-
     }
 
     render() {

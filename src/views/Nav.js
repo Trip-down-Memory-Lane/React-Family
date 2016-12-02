@@ -5,7 +5,6 @@ import Navigator from '../utils/navigation';
 import Path from '../constants/constant';
 import LoginView from './LoginView';
  import PhotoAlbum from  '../components/PhotoAlbum'
-import Gallery from '../views/gallery'
 
 
  class NavigationBar extends React.Component {

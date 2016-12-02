@@ -3,22 +3,6 @@ import React from 'react';
 
 import $ from 'jquery';
 
-export default class PhotoAlbum extends React.Component {
-    constructor(){
-        super();
-        $('.backstretch').remove();
-        $('body').css('background', '#d0e5e2')
-    }
-
-    render() {
-
-
-        return (
-
-            <Gallery photos={PHOTO_SET} />
-        );
-    }
-}
 
 const PHOTO_SET = [
     {
@@ -80,3 +64,17 @@ const PHOTO_SET = [
         }
     }
 ];
+
+export default class PhotoAlbum extends React.Component {
+    constructor(){
+        super();
+        $('.backstretch').remove();
+        $('body').css('background', '#d0e5e2')
+    }
+
+    render() {
+        return (
+            <Gallery photos={PHOTO_SET} />
+        );
+    }
+}

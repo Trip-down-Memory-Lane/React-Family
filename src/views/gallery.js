@@ -1,3 +1,4 @@
+/*
 import React, {Component} from 'react';
 import ImageGallery from 'react-image-gallery';
 import "../../node_modules/react-image-gallery/styles/css/image-gallery.css";
@@ -71,4 +72,4 @@ class Gallery extends React.Component {
 
 }
 
-export default Gallery
+export default Gallery*/
