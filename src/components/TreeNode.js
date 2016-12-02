@@ -323,11 +323,9 @@ class AddSiblingsForm extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSubmit() {
-        switch (this.props.type) {
-            case`children`: //TODO children request;
-            case`siblings`: //TODO: siblings request;
-        }
+    handleSubmit(event) {
+        event.preventDefault();
+        //TODO: siblings request;
         console.log(this.state);
     }
 
@@ -403,7 +401,8 @@ class AddChildrenForm extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleSubmit() {
+    handleSubmit(event) {
+        event.preventDefault();
         //TODO: children submit.
         console.log(this.state);
     }
