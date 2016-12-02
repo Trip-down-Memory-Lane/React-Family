@@ -1,6 +1,6 @@
 import $ from 'jquery';
 import credentials from '../constants/credentials';
-import authenticator from '../utils/authentication';
+import Authenticator from '../utils/authentication';
 
 class KinveyRequester {
 
@@ -26,7 +26,7 @@ class KinveyRequester {
         return $.ajax({
             method: "GET",
             url: credentials.baseUrl + "user/" + credentials.appKey + "/" + userId,
-            headers: authenticator.getKinveyUserAuthHeaders()
+            headers: Authenticator.getKinveyUserAuthHeaders()
         });
     }
 
@@ -34,10 +34,9 @@ class KinveyRequester {
         return $.ajax({
             method: "POST",
             url: credentials.baseUrl + "user/" + credentials.appKey + "/_logout",
-            headers: authenticator.getKinveyUserAuthHeaders(),
+            headers: Authenticator.getKinveyAuthHeaders(),
         });
     }
-
 }
 
 let kinveyRequester = new KinveyRequester();

@@ -44,8 +44,7 @@ class UserController {
 
     static logout(){
         kinveyRequester.logoutUser()
-            .then(logoutSuccess.bind(this))
-            .catch(ViewManager.renderMessage('Logout failed.', 'error'));
+            .then(logoutSuccess.bind(this));
 
         function logoutSuccess() {
             sessionStorage.clear();
