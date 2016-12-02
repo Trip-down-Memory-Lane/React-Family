@@ -6,15 +6,29 @@ import Person from '../components/ProfileInfo'
 import AboutMe from '../components/Aboutme'
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import UserController from '../controllers/UserController'
 
 
 import CreateTreeButton from '../components/CreateTreeButton'
 import {Button, Form, FormGroup, Label, Input, FormText} from 'reactstrap'
 import '../styles/profileView.css';
+import '../../public/loginHelper/img/backgrounds/Tree.png'
 
 class ProfileView extends React.Component {
     constructor(props) {
         super(props);
+        let pictures=UserController.getUserPictures();
+        console.log(pictures);
+        let userPictures=[];
+        for(let i=0;i<pictures.length;i++){
+            let pic={};
+            pic.original=pictures[i];
+            pic.thumbnail=pictures[i];
+            if(pictures[i].hasOwnProperty('description')){
+                pic.description=pictures[i].description;
+            }
+            userPictures.push(pic);
+        }
         const images = [
             {
                 original: 'loginHelper/img/backgrounds/11.jpg',
@@ -40,10 +54,11 @@ class ProfileView extends React.Component {
 
                 thumbnail: 'loginHelper/img/backgrounds/image2.jpg',
             }
-        ]
+        ];
+
         this.state = {
             images: images
-        }
+        };
         this.updatePics = this.updatePics.bind(this);
     }
 
@@ -79,18 +94,25 @@ class ProfileView extends React.Component {
                         </div>
                         <div className="row">
                             <div className="col-md-6">
-                                <div style={{"paddingTop": "6%", "paddingBottom": "2%", "paddingLeft": "30%"}}>
+
+                                <div className="col-md-6" style={{"paddingTop":"10%","paddingRight":"20%","backgroundColor":"","width":"50%"}}>
+                                    <img id="tree" src="http://www.freeiconspng.com/uploads/forest-icon-png-20.png" href="#" style={{"width":"100%","height":"100%","cursor":"pointer"}} />
+                                    <div style={{"margiTop":""}}>
+                                        VIEW FAMILY TREE
+                                    </div>
+                                </div>
+
+                                <div className="col-md-6" style={{"paddingTop": "7%", "paddingBottom": "2%","paddingRight":"10%","backgroundColor":""}}>
                                     <Person/>
                                     <AboutMe></AboutMe>
                                 </div>
                             </div>
 
-                            <div className="col-md-6">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
+                            <div className="col-md-6">
+                                <div></div>
+                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
                                 eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                                quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis
-                                aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-                                pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
-                                deserunt mollit anim id est laborum.
+
                             </div>
                         </div>
                     </div>

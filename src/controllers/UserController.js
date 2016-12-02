@@ -14,12 +14,12 @@ class UserController {
             console.log('login success');
             UserController.saveAuthInSession(userInfo);
 
-            if (sessionStorage.getItem('firstTimeLogin')){
+            if (sessionStorage.getItem('firstTimeLogin')) {
                 sessionStorage.removeItem('firstTimeLogin');
                 browserHistory.push(Path.editProfileView());
                 ViewManager.renderMessage('Login successful.', 'success');
             }
-            else{
+            else {
                 browserHistory.push(Path.profileView());
                 ViewManager.renderMessage('Login successful.', 'success');
             }
@@ -36,6 +36,9 @@ class UserController {
                 .catch(ViewManager.renderMessage('Registration failed.', 'error'));
 
             function registerSuccess() {
+                UserController.addPicture('loginHelper/img/backgrounds/11.jpg');
+                UserController.addPicture('loginHelper/img/backgrounds/22.jpg');
+                UserController.addPicture('loginHelper/img/backgrounds/image2.jpg');
                 UserController.saveFirstTimeLogin();
                 browserHistory.push(Path.loginView());
                 ViewManager.renderMessage('Thank yoy for your registration. Please login to proceed.', 'success');
@@ -43,7 +46,7 @@ class UserController {
         }
     }
 
-    static logout(){
+    static logout() {
         kinveyRequester.logoutUser()
             .then(logoutSuccess.bind(this));
 
@@ -53,7 +56,7 @@ class UserController {
         }
     }
 
-    static addPicture(pictureUrl){
+    static addPicture(pictureUrl) {
 
         let userId = sessionStorage.getItem('userId');
 
@@ -67,17 +70,18 @@ class UserController {
         }
     }
 
-    static getUserPictures(){
+    static getUserPictures() {
+        console.log('AAAAAAAAA');
         let userId = sessionStorage.getItem('userId');
 
         let userPictures = kinveyRequester.getUserPictures(userId);
-
+        console.log('BBBBBBBBBBBB');
         let picturesUrls = [];
-
-        for (let picture of userPictures){
-            picturesUrls.push(picture.imageUrl)
+        for (let i = 0; i < userPictures.length; i++) {
+            picturesUrls.push(userPictures[i])
         }
 
+        console.log('CCCCCCCCCCCCC');
         return picturesUrls;
     }
 
@@ -88,7 +92,7 @@ class UserController {
         sessionStorage.setItem('username', userInfo.username);
     }
 
-    static saveFirstTimeLogin(){
+    static saveFirstTimeLogin() {
         sessionStorage.setItem('firstTimeLogin', true);
     }
 }
