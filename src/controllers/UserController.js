@@ -72,7 +72,7 @@ class UserController {
 
         let userPictures = kinveyRequester.getUserPictures(userId);
 
-        return userPictures;
+        return userPictures.imageUrl;
     }
 
 
