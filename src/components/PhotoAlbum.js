@@ -3,7 +3,6 @@ import React from 'react';
 
 import $ from 'jquery';
 
-
 const PHOTO_SET = [
     {
 

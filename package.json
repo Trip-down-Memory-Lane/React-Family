@@ -10,6 +10,7 @@
     "react": "^15.4.1",
     "react-addons-css-transition-group": "^15.4.1",
     "react-addons-transition-group": "^15.4.1",
+    "react-avatar": "^2.2.1",
     "react-dom": "^15.4.1",
     "react-image-gallery": "^0.7.4",
     "react-photo-gallery": "^4.2.15",
