@@ -14,17 +14,35 @@ class AddPhotoButton extends React.Component {
         this.addPhoto = this.addPhoto.bind(this);
     }
 
-    addPhoto() {
+    addPhoto(e) {
+        // e.preventDefault();
         console.log('choose picture');
-        $('#addPhoto').click();
+        let picUrl = ($('#photoUrl').val());
+        if (!picUrl.includes('http')) {
+            picUrl = 'https://' + picUrl;
+        }
+
+        console.log(picUrl);
+        let description=$('#description').val();
+
+        let newPhoto = {
+            original: picUrl,
+            description: description,
+            thumbnail: picUrl
+
+        };
+        this.props.pictures.push(newPhoto);
+        console.log(this.props.pictures);
+        this.toggle()
+
     }
 
     toggle() {
-
         this.setState({
             modal: !this.state.modal
         });
-        this.hideDefaultChoosing()
+        // this.hideDefaultChoosing()
+
 
     }
 
@@ -46,21 +64,18 @@ class AddPhotoButton extends React.Component {
                     more photos</Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                     <ModalHeader toggle={this.toggle}></ModalHeader>
-                    <ModalBody>
-                        <Button outline color="primary" style={{"backgroundColor":"#337ab7","color":"white"}} onClick={this.addPhoto}>CHOOSE PICTURE</Button>
-                        <div id="inputt">
-                            <Input type="file" name="file" id="addPhoto"/>
+                    <ModalBody >
+                        {/*<Button outline color="primary" style={{"backgroundColor":"#337ab7","color":"white"}} onClick={this.addPhoto}>CHOOSE PICTURE</Button>*/}
 
-                        </div>
-                        <div>
-                            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                            labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
+                        <Input type="email" name="file" id="photoUrl" placeholder="Enter url http://"/>
 
-                        </div>
+                        <Input type="textArea" id="description" placeholder="Put some description">
+
+                        </Input>
 
                     </ModalBody>
                     <ModalFooter>
-                        <Button color="primary" onClick={this.toggle}>APPLY CHANGES</Button>{' '}
+                        <Button color="primary" id="addPhoto" onClick={this.addPhoto}>ADD PHOTO</Button>{' '}
                         <Button color="secondary" onClick={this.toggle}>Cancel</Button>
                     </ModalFooter>
                 </Modal>
