@@ -5,8 +5,10 @@ jQuery(document).ready(function() {
         Fullscreen background
     */
 	$.backstretch([
-                   "loginHelper/img/backgrounds/11.jpg"
-                 , "loginHelper/img/backgrounds/22.jpg"
+        			"loginHelper/img/backgrounds/image2.jpg",
+        			"loginHelper/img/backgrounds/image3.jpg",
+                   "loginHelper/img/backgrounds/image.jpg",
+                   "loginHelper/img/backgrounds/image4.jpg",
 
                 ], {duration: 3000, fade: 750});
     

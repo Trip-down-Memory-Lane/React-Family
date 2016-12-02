@@ -12,10 +12,9 @@ export default class PhotoAlbum extends React.Component {
 
     render() {
 
-
         return (
 
-            <Gallery photos={PHOTO_SET} />
+            < Gallery photos={PHOTO_SET} />
         );
     }
 }

@@ -1,8 +1,7 @@
 import React, {Component} from 'react';
 import ImageGallery from 'react-image-gallery';
-import "../../node_modules/react-image-gallery/styles/css/image-gallery.css";
+ import "../../node_modules/react-image-gallery/styles/css/image-gallery.css";
 import $ from 'jquery';
-
 
 class Gallery extends React.Component {
     constructor(){
