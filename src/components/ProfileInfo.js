@@ -4,7 +4,7 @@ class Person extends Component{
 
     render(){
         return(
-                <img  width="65%" height="65%" src="loginHelper/img/backgrounds/baby.jpg"/>
+                <img  width="45%" height="45%" src="loginHelper/img/backgrounds/baby.jpg"/>
         )
     }
 
