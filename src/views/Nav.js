@@ -1,6 +1,6 @@
 import React from 'react';
-import {Navbar, NavbarBrand, Nav, NavItem, NavLink} from 'reactstrap';
-import PhotoAlbum from  '../components/PhotoAlbum'
+//import {Navbar, NavbarBrand, Nav, NavItem, NavLink} from 'reactstrap';
+//import PhotoAlbum from  '../components/PhotoAlbum'
 import Gallery from '../components/Gallery'
 import Person from '../components/ProfileInfo'
 import AboutMe from '../components/Aboutme'
