@@ -72,12 +72,12 @@ body {
     padding: 10px;
     box-shadow: 2px 2px 5px gray;
     font-size: 20px;
-    transition: all 0.3s ease-in-out;
+    /*transition: all 0.3s ease-in-out;*/
 }
-.person:hover {
+/*.person:hover {
     transition: all 0.3s ease-in-out;
     box-shadow: 0 0 10px gray inset;
-}
+}*/
 /*.nodeRoot,*/
 /*.child {*/
     /*background-size: cover;*/
@@ -93,7 +93,7 @@ body {
 
 /* Edit Tree*/
 .person.selected {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     width: 100%;

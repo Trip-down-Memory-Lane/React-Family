@@ -33,10 +33,13 @@ class FamilyTreeView extends Component {
     }
 
     handleMouseDown(event) {
+        let pageX = event.pageX;
+        let pageY = event.pageY;
         this.setState(prevState => {
             return {
-                clickX: event.pageX,
-                clicked: true,
+                clickX: pageX,
+                clickY: pageY,
+                clicked: true
             }
         });
     }
@@ -59,7 +62,8 @@ class FamilyTreeView extends Component {
 
     updateScrollPosition(event) {
         $(document).css(`cursor`, `row-resize`);
-        $(window).scrollLeft($(window).scrollLeft() + (this.state.clickX - event.pageX))
+        $(window).scrollLeft($(window).scrollLeft() + (this.state.clickX - event.pageX));
+        $(window).scrollTop($(window).scrollTop() + (this.state.clickY - event.pageY));
     }
 
     render() {
