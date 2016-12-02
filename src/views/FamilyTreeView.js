@@ -45,7 +45,6 @@ class FamilyTreeView extends Component {
     }
 
     updateScrollPosition(event) {
-        console.log($(window).scrollLeft(), this.state.clickX, event.pageX);
         $(document).css(`cursor`, `row-resize`);
         $(window).scrollLeft($(window).scrollLeft() + (this.state.clickX - event.pageX))
     }
@@ -53,13 +52,12 @@ class FamilyTreeView extends Component {
     render() {
         return(
             <div id="wrapper">
-                <Header/>
                 <div
                     onMouseMove={this.handleMouseMove}
                     onMouseDown={this.handleMouseDown}
                     onMouseUp={this.handleMouseUp}
                     id="content">
-                    <FamilyTree tree={this.props.tree} />
+                    <FamilyTree />
                 </div>
                 <Footer/>
             </div>

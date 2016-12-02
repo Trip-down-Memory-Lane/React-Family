@@ -121,6 +121,11 @@ class FamilyTree extends Component {
         $(`body`).width(this.state.width);
     }
 
+    // Same as above. It executes only on first render, while componentDidMount would execute only on change.
+    componentWillMount() {
+        $(`body`).width(this.state.width);
+    }
+
     // As TreeNode renders onMeasure is triggered and sets body width to the measured width of the root TreeNode
     handleTreeWidth(dimensions) {
         this.setState(prevState => {
