@@ -22,7 +22,7 @@ class Authenticator {
 
     static isLoggedIn(){
         if (Authenticator.isAuthenticated()){
-            ViewManager.renderWarningMessage('You are already logged in.');
+            ViewManager.renderMessage('You are already logged in.', 'warning');
             browserHistory.back();
         }
     }

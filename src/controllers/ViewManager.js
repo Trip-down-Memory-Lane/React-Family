@@ -5,12 +5,10 @@ import LoginView from '../views/LoginView'
 import RegisterView from '../views/RegisterView'
 import EditProfileView from '../views/EditProfileView'
 import FamilyTreeView from "../views/FamilyTreeView";
-import Nav from '../views/Nav';
+
+import ProfileView from '../views/ProfileView';
 import {Router, Route, browserHistory} from 'react-router';
-import SuccessMessage from '../components/messages/successMessage';
-import InfoMessage from '../components/messages/infoMessage';
-import ErrorMessage from '../components/messages/errorMessage';
-import WarningMessage from '../components/messages/warningMessage';
+import Message from '../components/Message';
 import Authenticator from '../utils/authentication';
 import Path from '../constants/constant';
 
@@ -19,57 +17,26 @@ class ViewManager{
         ReactDOM.render(
             <Router history={browserHistory}>
                 <Route path="/" component={LoginView}
-                       onEnter={Authenticator.isLoggedIn}>
-                    Login
-                </Route>
+                       onEnter={Authenticator.isLoggedIn} />
                 <Route path="/register"
-                       component={RegisterView}>
-                    Register
-                </Route>
+                       component={RegisterView} />
                 <Route path="/profile/edit"
                        component={EditProfileView}
-                       onEnter={(a, b) => Authenticator.requireAuth(Path.loginView())}>
-                    Edit profile
-                </Route>
+                       onEnter={(a, b) => Authenticator.requireAuth(Path.loginView())} />
                 <Route path="/tree"
                        component={FamilyTreeView}
-                       onEnter={(a, b) => Authenticator.requireAuth(Path.loginView())}>
-                    Tree
-                </Route>
+                       onEnter={(a, b) => Authenticator.requireAuth(Path.loginView())} />
                 <Route path="/profile"
-                       component={Nav}
-                       onEnter={(a, b) => Authenticator.requireAuth(Path.loginView())}>
-                    Profile
-                </Route>
+                       component={ProfileView}
+                       onEnter={(a, b) => Authenticator.requireAuth(Path.loginView())} />
             </Router>,
             $(`#root`)[0]
         );
     }
 
-    static renderSuccessMessage(message) {
+    static renderMessage(message, type) {
         ReactDOM.render(
-            <SuccessMessage message={message}/>,
-            $('#message')[0]
-        );
-    }
-
-    static renderErrorMessage(message) {
-        ReactDOM.render(
-            <ErrorMessage message={message}/>,
-            $('#message')[0]
-        );
-    }
-
-    static renderInfoMessage(message) {
-        ReactDOM.render(
-            <InfoMessage message={message}/>,
-            $('#message')[0]
-        );
-    }
-
-    static renderWarningMessage(message) {
-        ReactDOM.render(
-            <WarningMessage message={message}/>,
+            <Message message={message} type={type}/>,
             $('#message')[0]
         );
     }

@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
 import Path from '../constants/constant'
 import '../styles/EditProfile.css';
-import {Button} from 'reactstrap';
+import {Button} from 'reactstrap'
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 class EditProfileView extends Component {
 
@@ -44,6 +46,7 @@ class EditProfileView extends Component {
     render() {
         return (
             <div className="container">
+                <Header/>
                 <br />
                 <br />
                 <div className="row" id="main">
@@ -164,6 +167,7 @@ class EditProfileView extends Component {
                         </div>
                     </div>
                 </div>
+                <Footer/>
             </div>
         )
     }

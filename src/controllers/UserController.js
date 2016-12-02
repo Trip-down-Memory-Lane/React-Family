@@ -17,23 +17,23 @@ class UserController {
             if (sessionStorage.getItem('firstTimeLogin')){
                 sessionStorage.removeItem('firstTimeLogin');
                 browserHistory.push(Path.editProfileView());
-                ViewManager.renderSuccessMessage('Login successful.');
+                ViewManager.renderMessage('Login successful.', 'success');
             }
             else{
                 browserHistory.push(Path.profileView());
-                ViewManager.renderSuccessMessage('Login successful.');
+                ViewManager.renderMessage('Login successful.', 'success');
             }
         }
     }
 
     static register(username, password, confirmPassword) {
         if (password !== confirmPassword) {
-            ViewManager.renderErrorMessage('Passwords do not match.');
+            ViewManager.renderMessage('Passwords do not match.', 'error');
         }
         else {
             kinveyRequester.registerUser(username, password)
                 .then(registerSuccess.bind(this))
-                .catch(ViewManager.renderErrorMessage('Registration failed.'));
+                .catch(ViewManager.renderMessage('Registration failed.', 'error'));
 
             function registerSuccess() {
                 UserController.saveFirstTimeLogin();
@@ -42,6 +42,16 @@ class UserController {
         }
     }
 
+    static logout(){
+        kinveyRequester.logoutUser()
+            .then(logoutSuccess.bind(this))
+            .catch(ViewManager.renderMessage('Logout failed.', 'error'));
+
+        function logoutSuccess() {
+            sessionStorage.clear();
+            browserHistory.push(Path.loginView());
+        }
+    }
 
 
     static saveAuthInSession(userInfo) {
