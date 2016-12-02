@@ -1,7 +1,7 @@
 import React from 'react';
 import { Alert } from 'reactstrap';
 
-class InfoMessage extends React.Component {
+class ErrorMessage extends React.Component {
     constructor(props) {
         super(props);
 
@@ -16,9 +16,11 @@ class InfoMessage extends React.Component {
 
     render() {
         return (
-            <Alert color="info" isOpen={this.state.visible} toggle={this.onDismiss}>{this.props.message}</Alert>
+            <Alert color={this.props.type} isOpen={this.state.visible} toggle={this.onDismiss}>
+                {this.props.message}
+            </Alert>
         );
     }
 }
 
-export default InfoMessage;
+export default ErrorMessage;

@@ -1,20 +1,39 @@
 import React from 'react';
-import {Navbar, NavbarBrand, Nav, NavItem, NavLink} from 'reactstrap';
-import {Button, Form, FormGroup, Label, Input, FormText} from 'reactstrap';
+import UserController from '../controllers/UserController';
+import {Navbar, Nav, NavItem, NavLink} from 'reactstrap';
+import {Link} from 'react-router';
 
-class NavigBar extends React.Component {
+class NavigationBar extends React.Component {
+
+    constructor(props){
+        super(props);
+
+        this.handleLogoutClicked = this.handleLogoutClicked.bind(this);
+    }
+
+    handleLogoutClicked(){
+        UserController.logout();
+    }
+
     render() {
         return (
-            <Navbar color="faded" light>
-                {/*<NavbarBrand href="/#/profile/edit">Edit</NavbarBrand>*/}
-                <Nav className="float-xs-right" navbar>
-                    <NavItem style={{"fontSize": "25px"}}>
-                        <NavLink href="/" >Logout</NavLink>
-                    </NavItem>
-                </Nav>
-            </Navbar>
+            <div style={{"fontSize": "25px", "fontFamily": "Comic Sans MS"}}>
+                <Navbar color="faded" light>
+                    <Nav className="float-xs-right" navbar>
+                        <NavItem style={{"fontSize": "25px"}}>
+                            <Link to="/profile">View profile</Link>
+                        </NavItem>
+                        <NavItem style={{"fontSize": "25px"}}>
+                            <Link to="/profile/edit">Edit profile</Link>
+                        </NavItem>
+                        <NavItem style={{"fontSize": "25px"}}>
+                            <NavLink href="#" onClick={this.handleLogoutClicked}>Logout</NavLink>
+                        </NavItem>
+                    </Nav>
+                </Navbar>
+            </div>
         );
     }
 }
 
-export default  NavigBar
+export default  NavigationBar
