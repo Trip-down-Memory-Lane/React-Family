@@ -1,7 +1,8 @@
 import React, {Component} from "react";
 
 import TreeNode from "../components/TreeNode";
-// import "../styles/TreeNode.css";
+import Measure from "react-measure";
+import $ from "jquery";
 
 function createRooTest() {
     // let root={};
@@ -31,12 +32,56 @@ function createRooTest() {
                 children: [
                     {
                         name: `SoloGrandChild 1`,
-                        _id: 4
+                        _id: 4,
+                        children: [
+                            {
+                                name: `SoloChild`,
+                                _id: 2
+                            },
+                            {
+                                name: `FamilyChild`,
+                                _id: 3,
+                                spouse: {name: `FamilyChild Souse`},
+                                children: [
+                                    {
+                                        name: `SoloGrandChild 1`,
+                                        _id: 4
+                                    },
+                                    {
+                                        name: `SoloGrandChild 2`,
+                                        _id: 5,
+                                        spouse: {name: `SoloGrandChild 2 spouse`}
+                                    }
+                                ]
+                            }
+                        ]
                     },
                     {
                         name: `SoloGrandChild 2`,
                         _id: 5,
-                        spouse: {name: `SoloGrandChild 2 spouse`}
+                        spouse: {name: `SoloGrandChild 2 spouse`},
+                        children: [
+                            {
+                                name: `SoloChild`,
+                                _id: 2
+                            },
+                            {
+                                name: `FamilyChild`,
+                                _id: 3,
+                                spouse: {name: `FamilyChild Souse`},
+                                children: [
+                                    {
+                                        name: `SoloGrandChild 1`,
+                                        _id: 4
+                                    },
+                                    {
+                                        name: `SoloGrandChild 2`,
+                                        _id: 5,
+                                        spouse: {name: `SoloGrandChild 2 spouse`}
+                                    }
+                                ]
+                            }
+                        ]
                     }
                 ]
             }
@@ -44,6 +89,8 @@ function createRooTest() {
     }
 
 }
+
+const measureBlacklist = [`height`, `top`, `right`, `bottom`];
 
 class FamilyTree extends Component {
     /*
@@ -54,14 +101,44 @@ class FamilyTree extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            treeRoot: createRooTest()
+            root: createRooTest(),
+            width: 10000
         };
+
+        this.refreshStateWidth = this.refreshStateWidth.bind(this);
+        this.handleTreeWidth = this.handleTreeWidth.bind(this);
+    }
+
+    refreshStateWidth() {
+        this.setState({
+            root: this.state.root,
+            width: 10000
+        });
+    }
+
+    // Called after state is updated. Sets initial body width to absurdly large value, which would hold any tree.
+    componentDidUpdate() {
+        $(`body`).width(this.state.width);
+    }
+
+    // As TreeNode renders onMeasure is triggered and sets body width to the measured width of the root TreeNode
+    handleTreeWidth(dimensions) {
+        this.setState(prevState => {
+            return {
+                root: prevState.root,
+                width: dimensions.width
+            }
+        }, () => {
+            $(`body`).width(this.state.width);
+        });
     }
 
     render() {
-        let root = this.state.treeRoot;
+        let root = this.state.root;
         return(
-            <TreeNode key={root._id} id="root" nodeRoot={this.state.treeRoot} />
+            <Measure onMeasure={this.handleTreeWidth} blacklist={measureBlacklist}>
+                <TreeNode refreshFamilyTreeState={this.refreshStateWidth} key={root._id} id="root" nodeRoot={this.state.root} />
+            </Measure>
         );
     }
 }

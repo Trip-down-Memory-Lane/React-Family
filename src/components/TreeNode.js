@@ -20,32 +20,41 @@ class TreeNode extends Component {
             selected: false
         };
 
-        TreeNode.addSpouseIfExists = TreeNode.addSpouseIfExists.bind(this);
+        this.addSpouseIfExists = this.addSpouseIfExists.bind(this);
         this.addNode = this.addNode.bind(this);
         this.addNodeRoot = this.addNodeRoot.bind(this);
+        this.addChildrenIfExist = this.addChildrenIfExist.bind(this);
+        this.addChild = this.addChild.bind(this);
+        this.addNodeRoot = this.addNodeRoot.bind(this);
         this.viewEditTree = this.viewEditTree.bind(this);
+        this.addSpouseIfExists = this.addSpouseIfExists.bind(this);
     }
 
     set isLoggedInUser(rootName) { this._isLoggedInUser = rootName === `SoloChild`; } //TODO: Replace with: sessionStorage.getItem(`username`)
     get isLoggedInUser() { return this._isLoggedInUser; }
 
-    static addSpouseIfExists(spouse) {
+    addSpouseIfExists(spouse) {
         if (spouse) {
-            return <Person type="spouse" name={this.state.spouse.name} />;
+            return (
+                <Person
+                    refreshFamilyTreeState={this.props.refreshFamilyTreeState}
+                    type="spouse"
+                    name={this.state.spouse.name} />
+            );
         }
     }
 
-    static addChildrenIfExist(children) {
+    addChildrenIfExist(children) {
         if (children)
             return (
-            <div className="children">
-                {children.map(x => TreeNode.addChild(x))}
-            </div>
+                <div className="children">
+                    {children.map(x => this.addChild(x))}
+                </div>
         );
     }
 
-    static addChild(child) {
-        return <TreeNode key={child._id} nodeRoot={child}/>;
+    addChild(child) {
+        return <TreeNode refreshFamilyTreeState={this.props.refreshFamilyTreeState} key={child._id} nodeRoot={child}/>;
     }
 
     addNodeRoot(rootName) {
@@ -53,7 +62,15 @@ class TreeNode extends Component {
         if (this.isLoggedInUser) {
             id = `currentUser`;
         }
-        return <Person selected={this.state.selected} viewEditTree={this.viewEditTree} type="nodeRoot" id={id} name={rootName} />
+        return (
+            <Person
+                refreshFamilyTreeState={this.props.refreshFamilyTreeState}
+                selected={this.state.selected}
+                viewEditTree={this.viewEditTree}
+                type="nodeRoot"
+                id={id}
+                name={rootName} />
+        );
     }
 
     addNode(node) {
@@ -62,9 +79,9 @@ class TreeNode extends Component {
                 <div className="node" id={this.props.id}>
                     <div className="parents">
                         {this.addNodeRoot(this.state.nodeRoot.name)}
-                        {TreeNode.addSpouseIfExists(this.state.spouse)}
+                        {this.addSpouseIfExists(this.state.spouse)}
                     </div>
-                    {TreeNode.addChildrenIfExist(this.state.children)}
+                    {this.addChildrenIfExist(this.state.children)}
                 </div>
             );
         } else {
@@ -72,7 +89,7 @@ class TreeNode extends Component {
                 <div className="node" id={this.props.id}>
                     <div className="soloChild">
                         {this.addNodeRoot(this.state.nodeRoot.name)}
-                        {TreeNode.addSpouseIfExists(this.state.spouse)}
+                        {this.addSpouseIfExists(this.state.spouse)}
                     </div>
                 </div>
             );
@@ -125,7 +142,7 @@ class Person extends Component {
             <div onClick={this.props.viewEditTree} className={this.props.type} id={this.props.id}>
                 <div className={this.getClassName()}>
                     <span>{this.props.name}</span>
-                    {this.props.selected? <EditTree /> : null}
+                    {this.props.selected? <EditTree refreshFamilyTreeState={this.props.refreshFamilyTreeState}/> : null}
                 </div>
             </div>
         );
@@ -162,34 +179,38 @@ class EditTree extends Component {
         });
     }
 
-    preventEventPropagation(event) {
+    static preventEventPropagation(event) {
         event.stopPropagation();
+    }
+
+    componentWillUnmount() {
+        console.log(`__EditTree componentWillUnmount__`);
+        this.props.refreshFamilyTreeState();
     }
 
     render() {
         return(
-                <div id="edit-tree" onClick={this.preventEventPropagation}>
-                    <ButtonDropdown onClick={this.toggle} color="info" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
-                        <DropdownToggle caret>
-                            Add relative
-                        </DropdownToggle>
-                        <DropdownMenu>
-                            <DropdownItem onClick={() => this.selectEditForm(`parent`)}>Parent</DropdownItem>
-                            <DropdownItem divider />
-                            <DropdownItem onClick={() => this.selectEditForm(`sibling`)}>Sibling</DropdownItem>
-                            <DropdownItem divider />
-                            <DropdownItem onClick={() => this.selectEditForm(`child`)}>Child</DropdownItem>
-                        </DropdownMenu>
-                    </ButtonDropdown>
-                    {this.state.editForm? <AddRelativeForm type={this.state.editForm} /> : null}
-                </div>
+            <div id="edit-tree" onClick={EditTree.preventEventPropagation}>
+                <ButtonDropdown onClick={this.toggle} color="info" isOpen={this.state.dropdownOpen} toggle={this.toggle}>
+                    <DropdownToggle caret>
+                        Add relative
+                    </DropdownToggle>
+                    <DropdownMenu>
+                        <DropdownItem onClick={() => this.selectEditForm(`parent`)}>Parent</DropdownItem>
+                        <DropdownItem divider />
+                        <DropdownItem onClick={() => this.selectEditForm(`sibling`)}>Sibling</DropdownItem>
+                        <DropdownItem divider />
+                        <DropdownItem onClick={() => this.selectEditForm(`child`)}>Child</DropdownItem>
+                    </DropdownMenu>
+                </ButtonDropdown>
+                {this.state.editForm? <AddRelativeForm type={this.state.editForm} /> : null}
+            </div>
         );
     }
 }
 
 class AddRelativeForm extends Component {
     constructor(props) {
-        console.log(`__DEV__AddRelativeForm`);
         super(props);
         this.state = {
             name: Path.initialUsername(),
@@ -236,7 +257,6 @@ class AddRelativeForm extends Component {
     handleSubmit(event) {
         event.preventDefault();
         //TODO: HTTP via kinveyRequester service.
-        console.log(this.state);
     }
 
     addCheckBox() {
@@ -249,7 +269,6 @@ class AddRelativeForm extends Component {
     }
 
     render() {
-        console.log(this.state.type);
         return(
             <form id="add-relative" onSubmit={this.handleSubmit}>
                 <input type="text" onKeyUp={this.handleNameInput} placeholder={this.state.type + ` name...`} required />
@@ -281,7 +300,7 @@ class CheckBox extends Component {
     render() {
         return(
             <input type="checkbox" onChange={this.handleChange} />
-        )
+        );
     }
 }
 
