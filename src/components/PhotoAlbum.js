@@ -6,7 +6,7 @@ import $ from 'jquery';
 export default class PhotoAlbum extends React.Component {
     constructor(){
         super();
-        $('.backstretch').remove();
+        $('.backstretch').remove().delay(2000)
         $('body').css('background', '#d0e5e2')
     }
 

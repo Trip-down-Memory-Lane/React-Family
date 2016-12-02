@@ -20,7 +20,7 @@ class AboutMe extends React.Component {
     render() {
         return (
             <div>
-                <Button color="danger" onClick={this.toggle}>{this.props.buttonLabel}MOre Aboute me baby</Button>
+                <Button style={{"fontSize":"20px"}} color="danger" onClick={this.toggle}> {this.props.buttonLabel}MOre Aboute me baby</Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                     <ModalHeader toggle={this.toggle}>ABOUT ME</ModalHeader>
                     <ModalBody>

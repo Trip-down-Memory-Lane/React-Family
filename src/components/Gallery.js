@@ -20,8 +20,8 @@ class Gallery extends React.Component {
     render() {
         const images = [
             {
-                original: 'http://lorempixel.com/1000/600/nature/1/',
-                thumbnail: 'http://lorempixel.com/250/150/nature/1/',
+                original:  'loginHelper/img/backgrounds/11.jpg',
+                thumbnail:  'loginHelper/img/backgrounds/11.jpg',
                 originalclassName: 'featured-slide',
                 thumbnailclassName: 'featured-thumb',
                 originalAlt: 'original-alt',
@@ -29,19 +29,19 @@ class Gallery extends React.Component {
                 thumbnailLabel: 'Optional',
                 description: 'My Sweet Family...',
                 srcSet: 'Optional srcSet (responsive images src)',
-                sizes: '400px'
+                sizes: ''
             },
             {
-                original: 'http://lorempixel.com/1000/600/nature/2/',
+                original: 'loginHelper/img/backgrounds/22.jpg',
                 description: 'My Sweet Family 2...',
 
-                thumbnail: 'http://lorempixel.com/250/150/nature/2/'
+                thumbnail: 'loginHelper/img/backgrounds/22.jpg',
             },
             {
-                original: 'http://lorempixel.com/1000/600/nature/3/',
+                original:'loginHelper/img/backgrounds/image2.jpg',
                 description: 'My Sweet Family 3...',
 
-                thumbnail: 'http://lorempixel.com/250/150/nature/3/'
+                thumbnail: 'loginHelper/img/backgrounds/image2.jpg',
             }
         ]
 
