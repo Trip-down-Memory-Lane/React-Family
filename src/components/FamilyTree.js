@@ -145,7 +145,8 @@ class FamilyTree extends Component {
                 <TreeNode refreshFamilyTreeState={this.refreshStateWidth}
                           key={root._id}
                           id="root"
-                          nodeRoot={root} />
+                          nodeRoot={root}
+                          handlePersonSelected={this.props.handleSelectedPerson}/>
             </Measure>
         );
     }

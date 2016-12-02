@@ -13,19 +13,31 @@ class FamilyTreeView extends Component {
         super(props);
         this.state = {
             clickX: null,
-            clicked: false
+            clicked: false,
         };
 
         this.handleMouseDown = this.handleMouseDown.bind(this);
         this.handleMouseMove = this.handleMouseMove.bind(this);
         this.handleMouseUp = this.handleMouseUp.bind(this);
         this.updateScrollPosition = this.updateScrollPosition.bind(this);
+        this.handleSelectedPerson = this.handleSelectedPerson.bind(this);
+    }
+
+    handleSelectedPerson() {
+        this.setState(prevState => {
+            return {
+                clickX: prevState.clickX,
+                clicked: prevState.clicked,
+            }
+        })
     }
 
     handleMouseDown(event) {
-        this.setState({
-            clickX: event.pageX,
-            clicked: true
+        this.setState(prevState => {
+            return {
+                clickX: event.pageX,
+                clicked: true,
+            }
         });
     }
 
