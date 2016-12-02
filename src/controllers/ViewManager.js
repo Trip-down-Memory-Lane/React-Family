@@ -6,7 +6,7 @@ import RegisterView from '../views/RegisterView'
 import EditProfileView from '../views/EditProfileView'
 import FamilyTreeView from "../views/FamilyTreeView";
 import Nav from '../views/Nav';
-import {Router, Route, hashHistory} from 'react-router';
+import {Router, Route, browserHistory} from 'react-router';
 import SuccessMessage from '../components/messages/successMessage';
 import InfoMessage from '../components/messages/infoMessage';
 import ErrorMessage from '../components/messages/errorMessage';

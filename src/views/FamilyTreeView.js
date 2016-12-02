@@ -4,8 +4,12 @@ import FamilyTree from "../components/FamilyTree";
 import $ from "jquery";
 
 class FamilyTreeView extends Component {
-    constructor() {
-        super();
+    /*
+    * props:
+    *   -tree: <JSON> object, representing family tree
+    * */
+    constructor(props) {
+        super(props);
         this.state = {
             clickX: null,
             clicked: false
@@ -55,7 +59,7 @@ class FamilyTreeView extends Component {
                     onMouseDown={this.handleMouseDown}
                     onMouseUp={this.handleMouseUp}
                     id="content">
-                    <FamilyTree />
+                    <FamilyTree tree={this.props.tree} />
                 </div>
                 <Footer/>
             </div>

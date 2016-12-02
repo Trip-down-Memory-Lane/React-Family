@@ -7,7 +7,7 @@ class TreeNode extends Component {
     /*
     * Props must look like this:
     * props:
-    *     nodeRoot: <JSON> object of Node root person
+    *     nodeRoot: <JSON> representing tree node.
     */
 
     constructor(props) {
