@@ -16,6 +16,11 @@ class UserController {
 
             if (sessionStorage.getItem('firstTimeLogin')) {
                 sessionStorage.removeItem('firstTimeLogin');
+
+                UserController.addPicture('loginHelper/img/backgrounds/11.jpg');
+                UserController.addPicture('loginHelper/img/backgrounds/22.jpg');
+                UserController.addPicture('loginHelper/img/backgrounds/image2.jpg');
+
                 browserHistory.push(Path.editProfileView());
                 ViewManager.renderMessage('Login successful.', 'success');
             }
@@ -36,9 +41,6 @@ class UserController {
                 .catch(ViewManager.renderMessage('Registration failed.', 'error'));
 
             function registerSuccess() {
-                UserController.addPicture('loginHelper/img/backgrounds/11.jpg');
-                UserController.addPicture('loginHelper/img/backgrounds/22.jpg');
-                UserController.addPicture('loginHelper/img/backgrounds/image2.jpg');
                 UserController.saveFirstTimeLogin();
                 browserHistory.push(Path.loginView());
                 ViewManager.renderMessage('Thank yoy for your registration. Please login to proceed.', 'success');
