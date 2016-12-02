@@ -7,7 +7,6 @@ class RegisterChecker{
 
         let userId = sessionStorage.getItem('userId');
         return KinveyRequester.getUserInfo(userId).age;
-
     }
 }
 

@@ -16,9 +16,7 @@ class SuccessMessage extends React.Component {
 
     render() {
         return (
-            <Alert color="success" isOpen={this.state.visible} toggle={this.onDismiss}>
-                {this.props.message}
-            </Alert>
+            <Alert color="success" isOpen={this.state.visible} toggle={this.onDismiss}>{this.props.message}</Alert>
         );
     }
 }

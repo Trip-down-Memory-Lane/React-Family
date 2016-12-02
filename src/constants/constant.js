@@ -1,8 +1,8 @@
 class Path {
 
-    static localhost(){
-        return 'http://localhost:3000/#';
-    }
+    // static localhost(){
+    //     return 'http://localhost:3000/#';
+    // }
 
     static database() {
         return 'Kinvey ';
@@ -24,7 +24,7 @@ class Path {
         return 'register';
     }
     static loginView(){
-        return ''
+        return '/'
     }
     static editProfileView(){
         return 'profile/edit';
