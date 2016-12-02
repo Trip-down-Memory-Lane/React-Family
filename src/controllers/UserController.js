@@ -72,7 +72,13 @@ class UserController {
 
         let userPictures = kinveyRequester.getUserPictures(userId);
 
-        return userPictures.imageUrl;
+        let picturesUrls = [];
+
+        for (let picture of userPictures){
+            picturesUrls.push(picture.imageUrl)
+        }
+
+        return picturesUrls;
     }
 
 
