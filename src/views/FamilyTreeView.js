@@ -15,12 +15,6 @@ class FamilyTreeView extends Component {
             clickX: null,
             clicked: false,
         };
-
-        // this.handleMouseDown = this.handleMouseDown.bind(this);
-        // this.handleMouseMove = this.handleMouseMove.bind(this);
-        // this.handleMouseUp = this.handleMouseUp.bind(this);
-        // this.updateScrollPosition = this.updateScrollPosition.bind(this);
-        // this.handleSelectedPerson = this.handleSelectedPerson.bind(this);
     }
 
     // handleSelectedPerson() {

@@ -12,13 +12,12 @@ class TreeNode extends Component {
 
     constructor(props) {
         super(props);
-        this.treeRoot = props.treeRoot;
+        this.isTreeRoot = props.isTreeRoot;
         this.isLoggedInUser = props.nodeRoot.name;
         this.state = {
             nodeRoot: props.nodeRoot,
             spouse: props.nodeRoot.spouse,
             children: props.nodeRoot.children,
-            selected: false
         };
 
         this.addSpouseIfExists = this.addSpouseIfExists.bind(this);
@@ -27,7 +26,7 @@ class TreeNode extends Component {
         this.addChildrenIfExist = this.addChildrenIfExist.bind(this);
         this.addChild = this.addChild.bind(this);
         this.addNodeRoot = this.addNodeRoot.bind(this);
-        this.viewEditTree = this.viewEditTree.bind(this);
+        // this.viewEditTree = this.viewEditTree.bind(this);
         this.addSpouseIfExists = this.addSpouseIfExists.bind(this);
     }
 
@@ -65,7 +64,7 @@ class TreeNode extends Component {
         return (
             <Person
                 refreshFamilyTreeState={this.props.refreshFamilyTreeState}
-                selected={this.state.selected}
+                isTreeRoot={this.isTreeRoot}
                 viewEditTree={this.viewEditTree}
                 type="nodeRoot"
                 id={id}
@@ -96,16 +95,16 @@ class TreeNode extends Component {
         }
     }
 
-    viewEditTree() {
-        this.setState(prevState => {
-            return {
-                nodeRoot: prevState.nodeRoot,
-                spouse: prevState.spouse,
-                children: prevState.children,
-                selected: !prevState.selected
-            }
-        });
-    }
+    // viewEditTree() {
+    //     this.setState(prevState => {
+    //         return {
+    //             nodeRoot: prevState.nodeRoot,
+    //             spouse: prevState.spouse,
+    //             children: prevState.children,
+    //             selected: !prevState.selected
+    //         }
+    //     });
+    // }
 
     render() {
         return(
@@ -120,9 +119,12 @@ class TreeNode extends Component {
 class Person extends Component {
     constructor(props) {
         super(props);
+        this.isTreeRoot = props.isTreeRoot;
         this.state = {
-            selected: props.selected
+            selected: false
         };
+
+        this.updateState = this.updateState.bind(this);
     }
 
     componentWillReceiveProps(props) {
@@ -139,12 +141,20 @@ class Person extends Component {
         }
     }
 
+    updateState() {
+        this.setState(prevState => {
+            return {
+                selected: !prevState.selected
+            }
+        });
+    }
+
     render() {
         return(
-            <div onClick={this.props.viewEditTree} className={this.props.type} id={this.props.id}>
+            <div onClick={this.updateState} className={this.props.type} id={this.props.id}>
                 <div className={this.getClassName()} onClick={Person.preventEventPropagation}>
                     <span>{this.props.name}</span>
-                    {this.props.selected? <EditTree refreshFamilyTreeState={this.props.refreshFamilyTreeState}/> : null}
+                    {this.state.selected? <EditTree isTreeRoot={this.isTreeRoot} refreshFamilyTreeState={this.props.refreshFamilyTreeState}/> : null}
                 </div>
             </div>
         );
@@ -154,6 +164,7 @@ class Person extends Component {
 class EditTree extends Component {
     constructor(props) {
         super(props);
+        this.isTreeRoot = props.isTreeRoot;
         this.state = {
             dropdownOpen: false,
             editForm: null
@@ -161,6 +172,7 @@ class EditTree extends Component {
 
         this.toggle = this.toggle.bind(this);
         this.selectEditForm = this.selectEditForm.bind(this);
+        this.isThisPersonTreeRoot = this.isThisPersonTreeRoot.bind(this);
     }
 
     toggle() {
@@ -193,9 +205,17 @@ class EditTree extends Component {
         event.stopPropagation();
     }
 
+    // Called FamilyTree's refreshTreeState(), received from props. When user wants to remove EditTree view, it triggers refreshFamilyState, which sets
+    // body width to 10 000px, which is large enough for the tree to fit inside.
     componentWillUnmount() {
         console.log(`unmounting`);
         this.props.refreshFamilyTreeState();
+    }
+
+    isThisPersonTreeRoot() {
+        if (this.isTreeRoot) {
+            return <DropdownItem onClick={() => this.selectEditForm(`parents`)}>Parent</DropdownItem>;
+        }
     }
 
     render() {
@@ -206,7 +226,7 @@ class EditTree extends Component {
                         Add relative
                     </DropdownToggle>
                     <DropdownMenu>
-                        <DropdownItem onClick={() => this.selectEditForm(`parents`)}>Parent</DropdownItem>
+                        {this.isThisPersonTreeRoot()}
                         <DropdownItem divider />
                         <DropdownItem onClick={() => this.selectEditForm(`siblings`)}>Sibling</DropdownItem>
                         <DropdownItem divider />

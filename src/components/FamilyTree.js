@@ -111,62 +111,47 @@ class FamilyTree extends Component {
         // this.componentWillMount = this.componentWillMount.bind(this);
     }
 
+    // refreshStateWidth is passed as prop down the chain and is called in TreeNode.js > EditTree component.
     refreshStateWidth() {
         console.log(`updateState`);
         this.setState({
             root: this.state.root,
             width: 10000
         }, () => {
-            $(`body`).width(this.state.width);
+            $(`body`).width(this.state.width); // Supposed to set body width to 10000px.
             console.log(`updated state`);
         });
     }
 
+    // This is supposed to trigger measurement. This triggers after every refreshStateWidth()
+    componentDidUpdate() {
+        console.log(`measuring after mount`);
+        this.measureComponent.measure();
+    }
+
+    // Same as above. Only it fires 1st time.
     componentDidMount() {
         console.log(`measuring after mount`);
+        this.measureComponent.measure();
     }
 
-    // Called after state is updated. Sets initial body width to absurdly large value, which would hold any tree.
-    componentDidUpdate() {
-        console.log(`measuring after update`);
-        this.measure();
-    }
-
-    // Same as above. It executes only on first render, while componentDidMount would execute only on change.
-    // componentWillMount() {
-    //     console.log(`COMPONENT WILL MOUNT`);
-    //     $(`body`).width(this.state.width);
-    // }
-
-    // componentDidMount() {
-    //     console.log(`COMPONENT DID MOUNT`, this.state);
-    //     $(`body`).width(this.state.width);
-    // }
-
-    // As TreeNode renders onMeasure is triggered and sets body width to the measured width of the root TreeNode
+    // Triggered by onMeasure. This sets body width to the proper measurement.
     handleTreeWidth(dimensions) {
         console.log(`updating sate after measurement`);
-        // this.setState(prevState => {
-        //     return {
-        //         root: prevState.root,
-        //         width: dimensions.width
-        //     }
-        // }, () => {
-        //     console.log(`setting body width to measured.`);
-        //     $(`body`).width(this.state.width)
-        // });
         $(`body`).width(dimensions.width);
     }
 
     render() {
         let root = this.state.root;
-        console.log(`rendering`);
         return(
-            <Measure onMeasure={this.handleTreeWidth} blacklist={measureBlacklist}>
+            <Measure
+                onMeasure={this.handleTreeWidth}
+                blacklist={measureBlacklist}
+                ref={x => this.measureComponent = x}>
                 <TreeNode key={root._id}
                           id="root"
                           nodeRoot={root}
-                          treeRoot={true}
+                          isTreeRoot={true}
                           refreshFamilyTreeState={this.refreshStateWidth}/>
             </Measure>
         );
