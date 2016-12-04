@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 
-class Person extends Component{
+class Avatar extends Component{
 
     render(){
         return(
@@ -10,4 +10,4 @@ class Person extends Component{
 
 }
 
-export  default Person
+export  default Avatar

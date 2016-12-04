@@ -1,8 +1,8 @@
 import React from 'react';
 // import {Navbar, NavbarBrand, Nav, NavItem, NavLink} from 'reactstrap';
- import PhotoAlbum from  '../components/PhotoAlbum'
+import PhotoAlbum from  '../components/PhotoAlbum'
 import Gallery from '../components/Gallery'
-import Person from '../components/ProfileInfo'
+import Avatar from '../components/ProfileInfo'
 import AboutMe from '../components/Aboutme'
 import Header from '../components/Header';
 import Footer from '../components/Footer';
@@ -17,18 +17,7 @@ import '../../public/loginHelper/img/backgrounds/Tree.png'
 class ProfileView extends React.Component {
     constructor(props) {
         super(props);
-        let pictures=UserController.getUserPictures();
-        console.log(pictures);
-        let userPictures=[];
-        for(let i=0;i<pictures.length;i++){
-            let pic={};
-            pic.original=pictures[i];
-            pic.thumbnail=pictures[i];
-            if(pictures[i].hasOwnProperty('description')){
-                pic.description=pictures[i].description;
-            }
-            userPictures.push(pic);
-        }
+
         const images = [
             {
                 original: 'loginHelper/img/backgrounds/11.jpg',
@@ -57,16 +46,54 @@ class ProfileView extends React.Component {
         ];
 
         this.state = {
-            images: images
+            images: images,
+            firstName: '',
+            lastName: '',
+            basicInfo: ''
         };
         this.updatePics = this.updatePics.bind(this);
+        this.onLoadSuccess = this.onLoadSuccess.bind(this);
     }
 
     updatePics(e) {
         console.log('UPDATE PICS');
     }
 
+    componentWillMount() {
+
+        UserController.loadUserInfo(sessionStorage.getItem('userId'), this.onLoadSuccess);
+        let pictures = UserController.getUserPictures();
+
+        console.log(pictures);
+        let userPictures = [];
+        for (let i = 0; i < pictures.length; i++) {
+            let pic = {};
+            pic.original = pictures[i];
+            pic.thumbnail = pictures[i];
+            if (pictures[i].hasOwnProperty('description')) {
+                pic.description = pictures[i].description;
+            }
+            userPictures.push(pic);
+        }
+        console.log(userPictures);
+        // this.setState({images:userPictures})
+
+    }
+
+    onLoadSuccess(data) {
+
+        this.setState({
+            firstName: data.firstName,
+            lastName: data.lastName,
+            basicInfo: data.basicInfo
+        })
+    }
+
     render() {
+        console.log('tuk');
+        console.log(UserController.loadUserInfo(sessionStorage.getItem('userId'),function (data) {
+            //console.log(data);
+        }));
         return (
             <div>
                 <Header/>
@@ -74,7 +101,7 @@ class ProfileView extends React.Component {
                     <div className="row">
                         <div id="profileBar">
                             <FormGroup>
-                                <Label id="profileSearchLabel"   for="exampleSearch">Find your family members</Label>
+                                <Label id="profileSearchLabel" for="exampleSearch">Find your family members</Label>
                                 <Input type="search" name="search" id="exampleSearch"
                                        placeholder="     search placeholder"/>
                             </FormGroup>
@@ -95,16 +122,27 @@ class ProfileView extends React.Component {
                         <div className="row">
                             <div className="col-md-6">
 
-                                <div className="col-md-6" style={{"paddingTop":"10%","paddingRight":"20%","backgroundColor":"","width":"50%"}}>
-                                    <img id="tree" src="http://www.freeiconspng.com/uploads/forest-icon-png-20.png" href="#" style={{"width":"100%","height":"100%","cursor":"pointer"}} />
-                                    <div style={{"margiTop":""}}>
+                                <div className="col-md-6" style={{
+                                    "paddingTop": "10%",
+                                    "paddingRight": "20%",
+                                    "backgroundColor": "",
+                                    "width": "50%"
+                                }}>
+                                    <img id="tree" src="http://www.freeiconspng.com/uploads/forest-icon-png-20.png"
+                                         href="#" style={{"width": "100%", "height": "100%", "cursor": "pointer"}}/>
+                                    <div style={{"margiTop": ""}}>
                                         VIEW FAMILY TREE
                                     </div>
                                 </div>
 
-                                <div className="col-md-6" style={{"paddingTop": "7%", "paddingBottom": "2%","paddingRight":"10%","backgroundColor":""}}>
-                                    <Person/>
-                                    <AboutMe></AboutMe>
+                                <div className="col-md-6" style={{
+                                    "paddingTop": "7%",
+                                    "paddingBottom": "2%",
+                                    "paddingRight": "10%",
+                                    "backgroundColor": ""
+                                }}>
+                                    <Avatar />
+                                    <AboutMe name={this.state.firstName +' '+ this.state.lastName}></AboutMe>
                                 </div>
                             </div>
 
