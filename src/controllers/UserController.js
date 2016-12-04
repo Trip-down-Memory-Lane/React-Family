@@ -87,6 +87,16 @@ class UserController {
         return picturesUrls;
     }
 
+    static loadUserInfo(userId, callback){
+        kinveyRequester.getUserInfo(userId)
+            .then(callback);
+    }
+
+    static editUser(userId, firstName, lastName, basicInfo, callback){
+        console.log('edit user');
+        kinveyRequester.editUserInfo(userId, firstName, lastName, basicInfo)
+            .then(callback);
+    }
 
     static saveAuthInSession(userInfo) {
         sessionStorage.setItem('authToken', userInfo._kmd.authtoken);

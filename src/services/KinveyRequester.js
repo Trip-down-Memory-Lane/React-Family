@@ -14,8 +14,6 @@ class KinveyRequester {
     }
 
     static registerUser(username, password){
-
-
         return $.ajax({
             method: "POST",
             url: credentials.baseUrl + "user/" + credentials.appKey + "/",
@@ -28,7 +26,24 @@ class KinveyRequester {
         return $.ajax({
             method: "GET",
             url: credentials.baseUrl + "user/" + credentials.appKey + "/" + userId,
-            headers: Authenticator.getKinveyUserAuthHeaders()
+            headers: Authenticator.getKinveyAuthHeaders()
+        })
+    }
+
+    static editUserInfo(userId, firstName, lastName, basicInfo){
+        let data = {
+            username: sessionStorage.getItem('username'),
+            firstName: firstName,
+            lastName: lastName,
+            basicInfo: basicInfo
+        };
+
+        let url = credentials.baseUrl + 'user/' + credentials.appKey + '/' + userId;
+        return $.ajax({
+            method: "PUT",
+            url: url,
+            headers: Authenticator.getKinveyUserAuthHeaders(),
+            data: data
         });
     }
 
