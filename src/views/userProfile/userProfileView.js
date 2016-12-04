@@ -33,7 +33,7 @@ export default class CatalogPage extends Component{
     render(){
         return (
             <div>
-                <h1>Catalog page</h1>
+                <h1>User profile</h1>
 
                 <UserProfile
                     username={this.state.username}

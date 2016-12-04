@@ -4,7 +4,7 @@ import './UserProfile.css'
 export default class UserProfile extends Component{
     render(){
         return (
-            <div className="user-box">
+            <div id="user-box">
                 <div>
                     <span className="spanner">Username</span>
                     <span>{this.props.username}</span>

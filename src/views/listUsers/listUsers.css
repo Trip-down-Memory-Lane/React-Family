@@ -1,4 +1,9 @@
-span{
+#list-users-box {
     background-color: white;
     font-size: 40px;
+}
+
+span.spanner{
+    display: block;
+    background-color: antiquewhite;
 }

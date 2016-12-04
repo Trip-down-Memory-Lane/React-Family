@@ -24,7 +24,7 @@ export default class CatalogPage extends Component{
     render(){
         return (
             <div>
-                <h1>Catalog page</h1>
+                <h1>Users</h1>
 
                 {this.state.users.map((u, i) => {
                     return <User key={i}

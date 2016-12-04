@@ -1,10 +1,10 @@
-.user-box{
+#user-box{
     float: left;
     width: 20em;
     border: 3px solid antiquewhite;
 }
 
-.spanner{
+span.spanner{
     display: block;
     background-color: antiquewhite;
 }
