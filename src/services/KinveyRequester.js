@@ -72,6 +72,14 @@ class KinveyRequester {
         });
     }
 
+    static getAllUsers(){
+        return $.ajax({
+            method: "GET",
+            url: credentials.baseUrl + 'user/' + credentials.appKey,
+            headers: Authenticator.getKinveyUserAuthHeaders()
+        })
+    }
+
 
     /*
     * PUTs the new parentRoot, containing the whole family-tree inside {userId}/treeRoot

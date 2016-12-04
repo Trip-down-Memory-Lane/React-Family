@@ -107,6 +107,11 @@ class UserController {
     static saveFirstTimeLogin() {
         sessionStorage.setItem('firstTimeLogin', true);
     }
+
+    static loadUsers(callback){
+        kinveyRequester.getAllUsers()
+            .then(callback);
+    }
 }
 
 export default  UserController;

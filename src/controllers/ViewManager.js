@@ -8,6 +8,8 @@ import RegisterView from '../views/RegisterView'
 import EditProfileView from '../views/editProfile/EditProfileView'
 import FamilyTreeView from "../views/FamilyTreeView";
 import ProfileView from '../views/ProfileView';
+import ListUsers from '../views/listUsers/ListUsersView';
+import UserProfile from '../views/userProfile/userProfileView';
 import Message from '../components/Message';
 
 import Authenticator from '../utils/authentication';
@@ -30,6 +32,10 @@ class ViewManager{
                 <Route path="profile"
                        component={ProfileView}
                        onEnter={(a, b) => Authenticator.requireAuth(Path.loginView())} />
+                <Route path="users"
+                       component={ListUsers}/>
+                <Route path="profile/:userId"
+                       component={UserProfile}/>
             </Router>,
             $(`#root`)[0]
         );
