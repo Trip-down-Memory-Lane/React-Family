@@ -1,0 +1,16 @@
+#profileContainer {
+    font-size: 25px;
+    fontFamily: "Comic Sans MS";
+}
+
+#profileBar {
+    padding-left: 30%;
+
+    padding-right: 30%
+}
+#profileSearchLabel{
+
+font-size: 25px;
+color: #0d77a8;
+font-family: "Comic Sans MS"
+}

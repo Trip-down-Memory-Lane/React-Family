@@ -14,12 +14,17 @@ class UserController {
             console.log('login success');
             UserController.saveAuthInSession(userInfo);
 
-            if (sessionStorage.getItem('firstTimeLogin')){
+            if (sessionStorage.getItem('firstTimeLogin')) {
                 sessionStorage.removeItem('firstTimeLogin');
+
+                UserController.addPicture('loginHelper/img/backgrounds/11.jpg');
+                UserController.addPicture('loginHelper/img/backgrounds/22.jpg');
+                UserController.addPicture('loginHelper/img/backgrounds/image2.jpg');
+
                 browserHistory.push(Path.editProfileView());
                 ViewManager.renderMessage('Login successful.', 'success');
             }
-            else{
+            else {
                 browserHistory.push(Path.profileView());
                 ViewManager.renderMessage('Login successful.', 'success');
             }
@@ -38,14 +43,14 @@ class UserController {
             function registerSuccess() {
                 UserController.saveFirstTimeLogin();
                 browserHistory.push(Path.loginView());
+                ViewManager.renderMessage('Thank yoy for your registration. Please login to proceed.', 'success');
             }
         }
     }
 
-    static logout(){
+    static logout() {
         kinveyRequester.logoutUser()
-            .then(logoutSuccess.bind(this))
-            .catch(ViewManager.renderMessage('Logout failed.', 'error'));
+            .then(logoutSuccess.bind(this));
 
         function logoutSuccess() {
             sessionStorage.clear();
@@ -53,6 +58,45 @@ class UserController {
         }
     }
 
+    static addPicture(pictureUrl) {
+
+        let userId = sessionStorage.getItem('userId');
+
+        kinveyRequester.addPicture(pictureUrl, userId)
+            .then(addPictureSuccess.bind(this))
+            .catch();
+
+        function addPictureSuccess() {
+            ViewManager.renderMessage('Picture successfully added.', 'success');
+            console.log('Picture added');
+        }
+    }
+
+    static getUserPictures() {
+        console.log('AAAAAAAAA');
+        let userId = sessionStorage.getItem('userId');
+
+        let userPictures = kinveyRequester.getUserPictures(userId);
+        console.log('BBBBBBBBBBBB');
+        let picturesUrls = [];
+        for (let i = 0; i < userPictures.length; i++) {
+            picturesUrls.push(userPictures[i])
+        }
+
+        console.log('CCCCCCCCCCCCC');
+        return picturesUrls;
+    }
+
+    static loadUserInfo(userId, callback){
+        kinveyRequester.getUserInfo(userId)
+            .then(callback);
+    }
+
+    static editUser(userId, firstName, lastName, basicInfo, callback){
+        console.log('edit user');
+        kinveyRequester.editUserInfo(userId, firstName, lastName, basicInfo)
+            .then(callback);
+    }
 
     static saveAuthInSession(userInfo) {
         sessionStorage.setItem('authToken', userInfo._kmd.authtoken);
@@ -60,8 +104,13 @@ class UserController {
         sessionStorage.setItem('username', userInfo.username);
     }
 
-    static saveFirstTimeLogin(){
+    static saveFirstTimeLogin() {
         sessionStorage.setItem('firstTimeLogin', true);
+    }
+
+    static loadUsers(callback){
+        kinveyRequester.getAllUsers()
+            .then(callback);
     }
 }
 

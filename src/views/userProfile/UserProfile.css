@@ -1,0 +1,10 @@
+.user-box{
+    float: left;
+    width: 20em;
+    border: 3px solid antiquewhite;
+}
+
+.spanner{
+    display: block;
+    background-color: antiquewhite;
+}

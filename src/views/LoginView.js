@@ -101,7 +101,6 @@ class LoginView extends Component {
                     </div>
                 </div>
             </div>
-
         );
     }
 }

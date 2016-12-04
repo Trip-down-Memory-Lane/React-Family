@@ -26,6 +26,12 @@ class Authenticator {
             browserHistory.back();
         }
     }
+
+    static getKinveyAuthHeaders() {
+        return {
+            'Authorization': "Kinvey " + sessionStorage.getItem('authToken'),
+        };
+    }
 }
 
 export default Authenticator

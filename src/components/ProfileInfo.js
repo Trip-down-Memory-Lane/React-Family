@@ -1,13 +1,13 @@
 import React, {Component} from "react";
 
-class Person extends Component{
+class Avatar extends Component{
 
     render(){
         return(
-                <img  width="45%" height="45%" src="loginHelper/img/backgrounds/baby.jpg"/>
+                <img style={{"paddingBottom":"3%"}} width="95%" height="95%" src="loginHelper/img/backgrounds/baby.jpg"/>
         )
     }
 
 }
 
-export  default Person
+export  default Avatar
