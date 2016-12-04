@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import "../styles/TreeNode.css";
-import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, Button, FormGroup, Input, Label, Form, FormFeedback, FormText } from "reactstrap";
+import { ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, Button, FormGroup, Input, Label} from "reactstrap";
 import Path from "../constants/constant";
 
 class TreeNode extends Component {
@@ -12,6 +12,7 @@ class TreeNode extends Component {
 
     constructor(props) {
         super(props);
+        this.treeRoot = props.treeRoot;
         this.isLoggedInUser = props.nodeRoot.name;
         this.state = {
             nodeRoot: props.nodeRoot,
@@ -37,7 +38,6 @@ class TreeNode extends Component {
         if (spouse) {
             return (
                 <Person
-                    refreshFamilyTreeState={this.props.refreshFamilyTreeState}
                     type="spouse"
                     name={this.state.spouse.name} />
             );
@@ -96,12 +96,14 @@ class TreeNode extends Component {
         }
     }
 
-    viewEditTree(event) {
-        this.setState({
-            nodeRoot: this.state.nodeRoot,
-            spouse: this.state.spouse,
-            children: this.state.children,
-            selected: !this.state.selected //TODO: Implement proper logic
+    viewEditTree() {
+        this.setState(prevState => {
+            return {
+                nodeRoot: prevState.nodeRoot,
+                spouse: prevState.spouse,
+                children: prevState.children,
+                selected: !prevState.selected
+            }
         });
     }
 
@@ -192,6 +194,7 @@ class EditTree extends Component {
     }
 
     componentWillUnmount() {
+        console.log(`unmounting`);
         this.props.refreshFamilyTreeState();
     }
 
@@ -372,9 +375,9 @@ class AddSiblingsForm extends Component {
         return(
             <form onSubmit={this.handleSubmit}>
                 <FormGroup tag="fieldset">
-                    <legend>Your {this.props.type}</legend>
+                    <legend>Your Siblings</legend>
                     <Button onClick={this.addSiblingToState} color="info">Add Child</Button>
-                    {this.getSiblings().map(x => <SiblingForm id={x.id} key={x.id} type="children" updateParentState={this.updateState} />)}
+                    {this.getSiblings().map(x => <SiblingForm id={x.id} key={x.id} type="siblings" updateParentState={this.updateState} />)}
                     <Button color="success">Submit</Button>
                 </FormGroup>
             </form>
@@ -450,7 +453,7 @@ class AddChildrenForm extends Component {
         return(
             <form onSubmit={this.handleSubmit}>
                 <FormGroup tag="fieldset">
-                    <legend>Your {this.props.type}</legend>
+                    <legend>Your Children</legend>
                     <Button onClick={this.addChildToState} color="info">Add Child</Button>
                     {this.getChildren().map(x => <SiblingForm id={x.id} key={x.id} type="children" updateParentState={this.updateState} />)}
                     <Button color="success">Submit</Button>

@@ -16,55 +16,55 @@ class FamilyTreeView extends Component {
             clicked: false,
         };
 
-        this.handleMouseDown = this.handleMouseDown.bind(this);
-        this.handleMouseMove = this.handleMouseMove.bind(this);
-        this.handleMouseUp = this.handleMouseUp.bind(this);
-        this.updateScrollPosition = this.updateScrollPosition.bind(this);
-        this.handleSelectedPerson = this.handleSelectedPerson.bind(this);
+        // this.handleMouseDown = this.handleMouseDown.bind(this);
+        // this.handleMouseMove = this.handleMouseMove.bind(this);
+        // this.handleMouseUp = this.handleMouseUp.bind(this);
+        // this.updateScrollPosition = this.updateScrollPosition.bind(this);
+        // this.handleSelectedPerson = this.handleSelectedPerson.bind(this);
     }
 
-    handleSelectedPerson() {
-        this.setState(prevState => {
-            return {
-                clickX: prevState.clickX,
-                clicked: prevState.clicked,
-            }
-        })
-    }
-
-    handleMouseDown(event) {
-        let pageX = event.pageX;
-        let pageY = event.pageY;
-        this.setState(prevState => {
-            return {
-                clickX: pageX,
-                clickY: pageY,
-                clicked: true
-            }
-        });
-    }
-
-    handleMouseMove(event) {
-        if (this.state.clicked) {
-            this.updateScrollPosition(event);
-        }
-
-    }
-
-    handleMouseUp() {
-        this.setState(prevState => {
-            return {
-                clickX: prevState.clickX,
-                clicked: false
-            }
-        })
-    }
-
-    updateScrollPosition(event) {
-        $(document).css(`cursor`, `row-resize`);
-        $(window).scrollLeft($(window).scrollLeft() + (this.state.clickX - event.pageX));
-        $(window).scrollTop($(window).scrollTop() + (this.state.clickY - event.pageY));
-    }
+    // handleSelectedPerson() {
+    //     this.setState(prevState => {
+    //         return {
+    //             clickX: prevState.clickX,
+    //             clicked: prevState.clicked,
+    //         }
+    //     })
+    // }
+    //
+    // handleMouseDown(event) {
+    //     let pageX = event.pageX;
+    //     let pageY = event.pageY;
+    //     this.setState(prevState => {
+    //         return {
+    //             clickX: pageX,
+    //             clickY: pageY,
+    //             clicked: true
+    //         }
+    //     });
+    // }
+    //
+    // handleMouseMove(event) {
+    //     if (this.state.clicked) {
+    //         this.updateScrollPosition(event);
+    //     }
+    //
+    // }
+    //
+    // handleMouseUp() {
+    //     this.setState(prevState => {
+    //         return {
+    //             clickX: prevState.clickX,
+    //             clicked: false
+    //         }
+    //     })
+    // }
+    //
+    // updateScrollPosition(event) {
+    //     $(document).css(`cursor`, `row-resize`);
+    //     $(window).scrollLeft($(window).scrollLeft() + (this.state.clickX - event.pageX));
+    //     $(window).scrollTop($(window).scrollTop() + (this.state.clickY - event.pageY));
+    // }
 
     render() {
         return(

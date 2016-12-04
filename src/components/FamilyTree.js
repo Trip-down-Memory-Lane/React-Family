@@ -107,46 +107,67 @@ class FamilyTree extends Component {
 
         this.refreshStateWidth = this.refreshStateWidth.bind(this);
         this.handleTreeWidth = this.handleTreeWidth.bind(this);
+        // this.componentDidUpdate = this.componentDidUpdate.bind(this);
+        // this.componentWillMount = this.componentWillMount.bind(this);
     }
 
     refreshStateWidth() {
+        console.log(`updateState`);
         this.setState({
             root: this.state.root,
             width: 10000
+        }, () => {
+            $(`body`).width(this.state.width);
+            console.log(`updated state`);
         });
+    }
+
+    componentDidMount() {
+        console.log(`measuring after mount`);
     }
 
     // Called after state is updated. Sets initial body width to absurdly large value, which would hold any tree.
     componentDidUpdate() {
-        $(`body`).width(this.state.width);
+        console.log(`measuring after update`);
+        this.measure();
     }
 
     // Same as above. It executes only on first render, while componentDidMount would execute only on change.
-    componentWillMount() {
-        $(`body`).width(this.state.width);
-    }
+    // componentWillMount() {
+    //     console.log(`COMPONENT WILL MOUNT`);
+    //     $(`body`).width(this.state.width);
+    // }
+
+    // componentDidMount() {
+    //     console.log(`COMPONENT DID MOUNT`, this.state);
+    //     $(`body`).width(this.state.width);
+    // }
 
     // As TreeNode renders onMeasure is triggered and sets body width to the measured width of the root TreeNode
     handleTreeWidth(dimensions) {
-        this.setState(prevState => {
-            return {
-                root: prevState.root,
-                width: dimensions.width
-            }
-        }, () => {
-            $(`body`).width(this.state.width);
-        });
+        console.log(`updating sate after measurement`);
+        // this.setState(prevState => {
+        //     return {
+        //         root: prevState.root,
+        //         width: dimensions.width
+        //     }
+        // }, () => {
+        //     console.log(`setting body width to measured.`);
+        //     $(`body`).width(this.state.width)
+        // });
+        $(`body`).width(dimensions.width);
     }
 
     render() {
         let root = this.state.root;
+        console.log(`rendering`);
         return(
             <Measure onMeasure={this.handleTreeWidth} blacklist={measureBlacklist}>
-                <TreeNode refreshFamilyTreeState={this.refreshStateWidth}
-                          key={root._id}
+                <TreeNode key={root._id}
                           id="root"
                           nodeRoot={root}
-                          handlePersonSelected={this.props.handleSelectedPerson}/>
+                          treeRoot={true}
+                          refreshFamilyTreeState={this.refreshStateWidth}/>
             </Measure>
         );
     }
