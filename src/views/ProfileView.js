@@ -52,7 +52,7 @@ class ProfileView extends React.Component {
             basicInfo: ''
         };
         this.updatePics = this.updatePics.bind(this);
-        this.onLoadSuccess = this.onLoadSuccess.bind(this);
+        //this.onLoadSuccess = this.onLoadSuccess.bind(this);
 
         // From Roli
         this.onLoadUserInfoSuccess = this.onLoadUserInfoSuccess.bind(this);
