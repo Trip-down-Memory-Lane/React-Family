@@ -55,19 +55,21 @@ class KinveyRequester {
         });
     }
 
-    static addPicture(pictureUrl, userId){
+    static addPictureRequest(pictureUrl){
         return $.ajax(({
             method: "POST",
             url: credentials.baseUrl + 'appdata/' + credentials.appKey + "/pictures",
             headers: Authenticator.getKinveyUserAuthHeaders(),
-            data: {imageUrl: pictureUrl, userID: userId}
+            data: {imageUrl: pictureUrl}
         }));
     }
 
-    static getUserPictures(userId){
+    static getUserPicturesRequest(userId){
+        let query = `?query={"_acl.creator":"${userId}"}`;
+
         return $.ajax({
             method: "GET",
-            url: credentials.baseUrl + 'appdata/' + credentials.appKey + '/pictures?userID=' + userId,
+            url: credentials.baseUrl + 'appdata/' + credentials.appKey + '/pictures' + query,
             headers: Authenticator.getKinveyUserAuthHeaders()
         });
     }

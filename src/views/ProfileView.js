@@ -53,41 +53,67 @@ class ProfileView extends React.Component {
         };
         this.updatePics = this.updatePics.bind(this);
         this.onLoadSuccess = this.onLoadSuccess.bind(this);
+
+        // From Roli
+        this.onLoadUserInfoSuccess = this.onLoadUserInfoSuccess.bind(this);
+        this.onLoadPicturesSuccess = this.onLoadPicturesSuccess.bind(this);
     }
 
     updatePics(e) {
         console.log('UPDATE PICS');
     }
 
-    componentWillMount() {
+    componentWillMount(){
+        let userId = sessionStorage.getItem('userId');
 
-        UserController.loadUserInfo(sessionStorage.getItem('userId'), this.onLoadSuccess);
-        let pictures = UserController.getUserPictures();
-
-        console.log(pictures);
-        let userPictures = [];
-        for (let i = 0; i < pictures.length; i++) {
-            let pic = {};
-            pic.original = pictures[i];
-            pic.thumbnail = pictures[i];
-            if (pictures[i].hasOwnProperty('description')) {
-                pic.description = pictures[i].description;
-            }
-            userPictures.push(pic);
-        }
-        console.log(userPictures);
-        // this.setState({images:userPictures})
-
+        UserController.loadUserInfo(userId, this.onLoadUserInfoSuccess);
+        UserController.getUserPictures(userId, this.onLoadPicturesSuccess);
     }
 
-    onLoadSuccess(data) {
-
+    onLoadUserInfoSuccess(data){
         this.setState({
             firstName: data.firstName,
             lastName: data.lastName,
             basicInfo: data.basicInfo
-        })
+        });
     }
+
+    onLoadPicturesSuccess(data){
+        //console.log('on load pictures success');
+        for (let pic of data){
+            console.log(pic.imageUrl);
+        }
+    }
+
+    // componentWillMount() {
+    //
+    //     UserController.loadUserInfo(sessionStorage.getItem('userId'), this.onLoadSuccess);
+    //     let pictures = UserController.getUserPictures();
+    //
+    //     console.log(pictures);
+    //     let userPictures = [];
+    //     for (let i = 0; i < pictures.length; i++) {
+    //         let pic = {};
+    //         pic.original = pictures[i];
+    //         pic.thumbnail = pictures[i];
+    //         if (pictures[i].hasOwnProperty('description')) {
+    //             pic.description = pictures[i].description;
+    //         }
+    //         userPictures.push(pic);
+    //     }
+    //     console.log(userPictures);
+    //     // this.setState({images:userPictures})
+    //
+    // }
+    //
+    // onLoadSuccess(data) {
+    //
+    //     this.setState({
+    //         firstName: data.firstName,
+    //         lastName: data.lastName,
+    //         basicInfo: data.basicInfo
+    //     })
+    // }
 
     render() {
         console.log('tuk');

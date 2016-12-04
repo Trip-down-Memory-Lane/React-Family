@@ -60,9 +60,7 @@ class UserController {
 
     static addPicture(pictureUrl) {
 
-        let userId = sessionStorage.getItem('userId');
-
-        kinveyRequester.addPicture(pictureUrl, userId)
+        kinveyRequester.addPicture(pictureUrl)
             .then(addPictureSuccess.bind(this))
             .catch();
 
@@ -72,19 +70,24 @@ class UserController {
         }
     }
 
-    static getUserPictures() {
-        console.log('AAAAAAAAA');
-        let userId = sessionStorage.getItem('userId');
+    static getUserPictures(userId, callback) {
 
-        let userPictures = kinveyRequester.getUserPictures(userId);
-        console.log('BBBBBBBBBBBB');
-        let picturesUrls = [];
-        for (let i = 0; i < userPictures.length; i++) {
-            picturesUrls.push(userPictures[i])
-        }
+        kinveyRequester.getUserPicturesRequest(userId)
+            .then(callback);
 
-        console.log('CCCCCCCCCCCCC');
-        return picturesUrls;
+
+        // console.log('AAAAAAAAA');
+        // //let userId = sessionStorage.getItem('userId');
+        //
+        // let userPictures = kinveyRequester.getUserPictures(userId);
+        // console.log('BBBBBBBBBBBB');
+        // let picturesUrls = [];
+        // for (let i = 0; i < userPictures.length; i++) {
+        //     picturesUrls.push(userPictures[i])
+        // }
+        //
+        // console.log('CCCCCCCCCCCCC');
+        // return picturesUrls;
     }
 
     static loadUserInfo(userId, callback){
