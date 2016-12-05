@@ -113,36 +113,8 @@ export default class FamilyTree extends Component {
         this.setContainerToTreeWidth = this.setContainerToTreeWidth.bind(this);
     }
 
-
-    componentWillMount() {
-        $(`body`).width(10000);
-    }
-    componentWillUpdate() {
-        $(`body`).width(10000);
-    }
-
     setContainerToTreeWidth(dimensions) {
         this.treeWidth = dimensions.width;
-    }
-
-    componentDidUpdate() {
-        $(`body`).width(this.treeWidth);
-    }
-
-    componentDidMount() {
-        $(`body`).width(this.treeWidth);
-    }
-
-    isPersonSelected() {
-        if(this.state.personSelected) {
-            return (
-                <SelectedPerson
-                    isTreeRoot={this.state.isTreeRoot}
-                    rootParent={this.state.rootParent}
-                    nodeRoot={this.state.nodeRoot}
-                    deselectPerson={this.deselectPerson} />
-            );
-        }
     }
 
     selectPerson(data) {
@@ -158,6 +130,32 @@ export default class FamilyTree extends Component {
         this.setState({
             personSelected: false
         });
+    }
+
+    componentWillMount() {
+        $(`body`).width(10000);
+    }
+    componentWillUpdate() {
+        $(`body`).width(10000);
+    }
+
+    componentDidMount() {
+        $(`body`).width(this.treeWidth);
+    }
+    componentDidUpdate() {
+        $(`body`).width(this.treeWidth);
+    }
+
+    isPersonSelected() {
+        if(this.state.personSelected) {
+            return (
+                <SelectedPerson
+                    isTreeRoot={this.state.isTreeRoot}
+                    rootParent={this.state.rootParent}
+                    nodeRoot={this.state.nodeRoot}
+                    deselectPerson={this.deselectPerson} />
+            );
+        }
     }
 
     render() {

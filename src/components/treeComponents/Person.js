@@ -1,10 +1,27 @@
 import React, {Component} from "react";
 
 export default class Person extends Component {
+    /*
+    * Person has two usages:
+    *   -nodeRoot ( as parent or child ). This person is node of the family tree
+    *       props:
+    *       -type="nodeRoot" ! must
+    *       -selectPerson: function from FamilyTree. Shows Selected Person
+    *       -rootParent: carries Person's root parent
+    *       -person: Person's data - id, name, spouse, children
+    *       -isTreeRoot: True or false, root of the entire tree.
+    *       -isLoggedInUser: html id selector, to color Person differently, it it is the currently logged in user.
+    *-----OR------
+    *   -spouse ( as spouse of parent of child ). Since his/hers family is not part of this tree, no interractions are needed.
+    *       props:
+    *       -type="spouse"
+    *       -selectPerson - must contain empty function, or function, which displays informative message. If there is no function, expect error
+    *       -person: - data about this Person - name, id
+    * */
     constructor(props) {
         super(props);
         this.rootParent = props.rootParent;
-        this.nodeRoot = props.nodeRoot;
+        this.person = props.person;
         this.isTreeRoot = props.isTreeRoot;
         this.state = {
             selected: false
@@ -19,27 +36,11 @@ export default class Person extends Component {
         });
     }
 
-    // getClassName() {
-    //     if (this.state.selected) {
-    //         return `person selected`;
-    //     } else {
-    //         return `person`;
-    //     }
-    // }
-
-    // updateState() {
-    //     this.setState(prevState => {
-    //         return {
-    //             selected: !prevState.selected
-    //         }
-    //     });
-    // }
-
     select() {
         let data = {
             isTreeRoot: this.isTreeRoot,
             rootParent: this.rootParent,
-            nodeRoot: this.nodeRoot,
+            person: this.person,
         };
 
         this.props.selectPerson(data);
@@ -47,27 +48,12 @@ export default class Person extends Component {
 
     render() {
         return(
-            <div onClick={this.select} className={this.props.type} id={this.props.id}>
+            <div onClick={this.select} className={this.props.type} id={this.props.isLoggedInUser}>
                 <div className="person">
-                    <span>{this.props.name}</span>
+                    <span>{this.props.person.name}</span>
                 </div>
             </div>
         );
     }
-    // render() {
-    //     return(
-    //         <div onClick={this.updateState} className={this.props.type} id={this.props.id}>
-    //             <div className={this.getClassName()} onClick={Person.preventEventPropagation}>
-    //                 <span>{this.props.name}</span>
-    //                 {this.state.selected? <EditTree
-    //                     isTreeRoot={this.isTreeRoot}
-    //                     rootParent={this.rootParent}
-    //                     nodeRoot={this.nodeRoot}
-    //                     refreshFamilyTreeState={this.props.refreshFamilyTreeState}/> : null
-    //                 }
-    //             </div>
-    //         </div>
-    //     );
-    // }
 }
  

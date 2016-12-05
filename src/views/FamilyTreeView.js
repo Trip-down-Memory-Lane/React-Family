@@ -7,7 +7,7 @@ import $ from "jquery";
 export default class FamilyTreeView extends Component {
     /*
     * props:
-    *   -tree: <JSON> object, representing family tree
+    *   tree: <JSON> object, representing family tree
     * */
     constructor(props) {
         super(props);
@@ -15,21 +15,12 @@ export default class FamilyTreeView extends Component {
             clickX: null,
             clicked: false,
         };
+
+        // this.handleMouseDown = this.handleMouseDown.bind(this);
+        // this.handleMouseMove = this.handleMouseMove.bind(this);
+        // this.handleMouseUp = this.handleMouseUp.bind(this);
     }
 
-    componentWillMount() {
-        console.log(`TreeView mounting`);
-    }
-
-    // handleSelectedPerson() {
-    //     this.setState(prevState => {
-    //         return {
-    //             clickX: prevState.clickX,
-    //             clicked: prevState.clicked,
-    //         }
-    //     })
-    // }
-    //
     // handleMouseDown(event) {
     //     let pageX = event.pageX;
     //     let pageY = event.pageY;

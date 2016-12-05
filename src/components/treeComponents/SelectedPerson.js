@@ -50,13 +50,6 @@ export default class SelectedPerson extends Component {
         event.stopPropagation();
     }
 
-    // Called FamilyTree's refreshTreeState(), received from props. When user wants to remove SelectedPerson view, it triggers refreshFamilyState, which sets
-    // body width to 10 000px, which is large enough for the tree to fit inside.
-    // componentWillUnmount() {
-    //     console.log(`unmounting`);
-    //     this.props.refreshFamilyTreeState();
-    // }
-
     isThisPersonTreeRoot() {
         if (this.isTreeRoot) {
             return <DropdownItem onClick={() => this.selectEditForm(`parents`)}>Parent</DropdownItem>;
