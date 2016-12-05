@@ -16,8 +16,6 @@ import MainPage from '../App';
 import Authenticator from '../utils/authentication';
 import Path from '../constants/constant';
 
-
-
 class ViewManager{
     static changeView() {
         ReactDOM.render(
@@ -26,6 +24,10 @@ class ViewManager{
                        onEnter={Authenticator.isLoggedIn}/>
                 <Route path="register"
                        component={RegisterView} />
+
+                <Route path="home/password"
+                       component={RegisterView}
+                       onEnter={(a, b) => Authenticator.requireAuth(Path.loginView())} />
 
                 <Route path="/home" component={MainPage}>
                     <Route path="/profile/:userId"

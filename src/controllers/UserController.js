@@ -59,6 +59,18 @@ class UserController {
         }
     }
 
+    static passwordCheck(password, callback){
+        let username = sessionStorage.getItem('username');
+
+        kinveyRequester.loginUser(username, password)
+            .then(callback);
+    }
+
+    static resetPassword(email, callback){
+        kinveyRequester.resetPasswordRequest(email);
+        callback();
+    }
+
     static addPicture(pictureUrl) {
 
         kinveyRequester.addPictureRequest(pictureUrl)

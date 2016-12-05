@@ -84,6 +84,18 @@ class KinveyRequester {
         })
     }
 
+    static resetPasswordRequest(email){
+        //https://baas.kinvey.com/rpc/kid_SkHaVTqGx/redelcheva@gmail.com/user-password-reset-initiate
+
+        let url = credentials.baseUrl + 'rpc/' + credentials.appKey + '/' + email + '/user-password-reset-initiate';
+
+        $.ajax({
+            method: "POST",
+            url: url,
+            headers: credentials.kinveyAppAuthHeaders
+        });
+    }
+
 
     /*
     * PUTs the new parentRoot, containing the whole family-tree inside {userId}/treeRoot
