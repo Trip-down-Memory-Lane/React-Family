@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 //import Path from '../../constants/constant'
 import '../../styles/EditProfile.css';
 import EditProfileForm from './EditProfileForm';
-import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import UserController from '../../controllers/UserController';
 import ViewManager from '../../controllers/ViewManager';
@@ -79,7 +78,6 @@ export default class EditProfileView extends Component {
     render() {
         return (
             <div>
-                <Header/>
                 <EditProfileForm
                     firstName={this.state.firstName}
                     lastName={this.state.lastName}

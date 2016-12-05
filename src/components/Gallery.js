@@ -1,5 +1,5 @@
 
-import React, {Component} from 'react';
+import React from 'react';
 import ImageGallery from 'react-image-gallery';
  import "../../node_modules/react-image-gallery/styles/css/image-gallery.css";
 import $ from 'jquery';
@@ -10,14 +10,11 @@ class Gallery extends React.Component {
     constructor(props){
         super(props);
 
-
     }
 
     handleImageLoad(event) {
-        $('.backstretch').remove();
-        $('body').css('background', '#d0e5e2')
-
-        console.log('Image loaded ', event.target)
+         $('.backstretch').remove();
+         $('body').css('background', '#d0e5e2')
     }
 
     render() {

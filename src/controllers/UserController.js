@@ -25,7 +25,7 @@ class UserController {
                 ViewManager.renderMessage('Login successful.', 'success');
             }
             else {
-                browserHistory.push(Path.profileView());
+                browserHistory.push('home/profile');
                 ViewManager.renderMessage('Login successful.', 'success');
             }
         }
