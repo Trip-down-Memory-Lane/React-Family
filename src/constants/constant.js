@@ -1,8 +1,10 @@
-class Path {
+class Consts {
 
     // static localhost(){
     //     return 'http://localhost:3000/#';
     // }
+
+    static emptyString() { return ``; }
 
     static database() {
         return 'Kinvey ';
@@ -37,4 +39,4 @@ class Path {
     }
 }
 
-export default Path
+export default Consts

@@ -1,8 +1,9 @@
 import React, {Component} from "react";
-
-import TreeNode from "../components/TreeNode";
-import Measure from "react-measure";
 import $ from "jquery";
+
+import TreeNode from "./TreeNode";
+import Measure from "react-measure";
+import SelectedPerson from "./SelectedPerson";
 
 function createRooTest() {
     // let root={};
@@ -92,7 +93,7 @@ function createRooTest() {
 
 const measureBlacklist = [`height`, `top`, `right`, `bottom`];
 
-class FamilyTree extends Component {
+export default class FamilyTree extends Component {
     /*
     * props:
     *   -tree: <JSON> representing family tree
@@ -100,62 +101,80 @@ class FamilyTree extends Component {
 
     constructor(props) {
         super(props);
+        this.treeWidth = null;
+        this.treeRoot = createRooTest(); //TODO: replace with props.tree for production.
         this.state = {
-            root: createRooTest(), //TODO: replace with props.tree for production.
-            width: 10000
+            personSelected: false
         };
 
-        this.refreshStateWidth = this.refreshStateWidth.bind(this);
-        this.handleTreeWidth = this.handleTreeWidth.bind(this);
-        // this.componentDidUpdate = this.componentDidUpdate.bind(this);
-        // this.componentWillMount = this.componentWillMount.bind(this);
+        this.isPersonSelected = this.isPersonSelected.bind(this);
+        this.selectPerson = this.selectPerson.bind(this);
+        this.deselectPerson = this.deselectPerson.bind(this);
+        this.setContainerToTreeWidth = this.setContainerToTreeWidth.bind(this);
     }
 
-    // refreshStateWidth is passed as prop down the chain and is called in TreeNode.js > EditTree component.
-    refreshStateWidth() {
-        console.log(`updateState`);
+
+    componentWillMount() {
+        $(`body`).width(10000);
+    }
+    componentWillUpdate() {
+        $(`body`).width(10000);
+    }
+
+    setContainerToTreeWidth(dimensions) {
+        this.treeWidth = dimensions.width;
+    }
+
+    componentDidUpdate() {
+        $(`body`).width(this.treeWidth);
+    }
+
+    componentDidMount() {
+        $(`body`).width(this.treeWidth);
+    }
+
+    isPersonSelected() {
+        if(this.state.personSelected) {
+            return (
+                <SelectedPerson
+                    isTreeRoot={this.state.isTreeRoot}
+                    rootParent={this.state.rootParent}
+                    nodeRoot={this.state.nodeRoot}
+                    deselectPerson={this.deselectPerson} />
+            );
+        }
+    }
+
+    selectPerson(data) {
         this.setState({
-            root: this.state.root,
-            width: 10000
-        }, () => {
-            $(`body`).width(this.state.width); // Supposed to set body width to 10000px.
-            console.log(`updated state`);
+            personSelected: true,
+            isTreeRoot: data.isTreeRoot,
+            rootParent: data.rootParent,
+            nodeRoot: data.nodeRoot
         });
     }
 
-    // This is supposed to trigger measurement. This triggers after every refreshStateWidth()
-    componentDidUpdate() {
-        console.log(`measuring after mount`);
-        this.measureComponent.measure();
-    }
-
-    // Same as above. Only it fires 1st time.
-    componentDidMount() {
-        console.log(`measuring after mount`);
-        this.measureComponent.measure();
-    }
-
-    // Triggered by onMeasure. This sets body width to the proper measurement.
-    handleTreeWidth(dimensions) {
-        console.log(`updating sate after measurement`);
-        $(`body`).width(dimensions.width);
+    deselectPerson() {
+        this.setState({
+            personSelected: false
+        });
     }
 
     render() {
-        let root = this.state.root;
         return(
             <Measure
-                onMeasure={this.handleTreeWidth}
-                blacklist={measureBlacklist}
-                ref={x => this.measureComponent = x}>
-                <TreeNode key={root._id}
-                          id="root"
-                          nodeRoot={root}
-                          isTreeRoot={true}
-                          refreshFamilyTreeState={this.refreshStateWidth}/>
+                onMeasure={this.setContainerToTreeWidth}
+                blacklist={measureBlacklist}>
+                <div>
+                    {this.isPersonSelected()}
+                    <TreeNode
+                        key={this.treeRoot._id}
+                        id="treeRoot"
+                        nodeRoot={this.treeRoot}
+                        isTreeRoot={true}
+                        selectPerson={this.selectPerson} />
+                </div>
             </Measure>
         );
     }
 }
- 
-export default FamilyTree;

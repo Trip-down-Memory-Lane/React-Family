@@ -1,10 +1,10 @@
 import React, {Component} from "react";
 import Header from '../components/Header'
 import Footer from "../components/Footer.js"
-import FamilyTree from "../components/FamilyTree";
+import FamilyTree from "../components/treeComponents/FamilyTree";
 import $ from "jquery";
 
-class FamilyTreeView extends Component {
+export default class FamilyTreeView extends Component {
     /*
     * props:
     *   -tree: <JSON> object, representing family tree
@@ -15,6 +15,10 @@ class FamilyTreeView extends Component {
             clickX: null,
             clicked: false,
         };
+    }
+
+    componentWillMount() {
+        console.log(`TreeView mounting`);
     }
 
     // handleSelectedPerson() {
@@ -76,4 +80,3 @@ class FamilyTreeView extends Component {
     }
 }
 
-export default FamilyTreeView;

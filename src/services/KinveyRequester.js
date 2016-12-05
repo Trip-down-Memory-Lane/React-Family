@@ -87,26 +87,22 @@ class KinveyRequester {
     * PUTs the new parentRoot, containing the whole family-tree inside {userId}/treeRoot
     * TODO: in later stages if we implement search on user registration, another request must be sent to separate collection for the unregistered newRoot.
     * */
-    static addNewRootToUser(prevRoot, newRoot) {
-        let newTreeRoot = {
-            name: newRoot.name,
-            spouse: newRoot.spouse,
-            children: prevRoot
-        };
-        let data = {
-            name: prevRoot.name,
-            spouse: prevRoot.spouse,
-            children: prevRoot.children,
-            treeRoot: newTreeRoot
-        };
-
+    static addParents(data) {
         return $.ajax({
             method: "PUT",
             url: credentials.baseUrl + `user/${credentials.appKey}/${sessionStorage.getItem(`id`)}`,
             headers: Authenticator.getKinveyUserAuthHeaders(),
             data: JSON.stringify(data)
         });
-    } 
+    }
+
+    static addSiblings(data) {
+        return $.ajax({
+            method: `PUT`,
+            url: credentials.baseUrl + ``
+        })
+
+    }
 
 }
 

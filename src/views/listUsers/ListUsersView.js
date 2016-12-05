@@ -27,10 +27,12 @@ export default class CatalogPage extends Component{
                 <h1>Users</h1>
 
                 {this.state.users.map((u, i) => {
-                    return <User key={i}
-                                 username={u.username}
-                                 userId={u._id}
-                    />
+                    return (
+                        <User
+                            key={i}
+                            username={u.username}
+                            userId={u._id} />
+                    );
                 })}
             </div>
         )

@@ -102,7 +102,7 @@ body {
 }
 
 /* Edit Tree*/
-.person.selected {
+#selected-background {
     position: fixed;
     top: 0;
     left: 0;
@@ -114,7 +114,7 @@ body {
     border: black;
     border-radius: 0;
 }
-    .person.selected > span {
+    #selected-background > span {
         font-size: 30px;
         font-weight: bold;
         color: orange;
@@ -125,7 +125,7 @@ body {
         width: 400px;
         margin: 50px auto 30px auto;
     }
-    .person.selected #edit-tree {
+    #person-selected{
         position: relative;
         margin: 30px auto 0 auto;
         width: 400px;
@@ -136,16 +136,16 @@ body {
         color: white;
         z-index: 1;
     }
-        #edit-tree .btn-group > button {
+        #person-selected .btn-group > button {
             background:rgb(2,117,216);
         }
-            #edit-tree .btn-group .dropdown-divider,
-            #edit-tree form {
+            #person-selected .btn-group .dropdown-divider,
+            #person-selected form {
                 border-top: 2px solid rgba(0, 0, 0, 0.2);
                 margin: 0 5px;
                 width: calc(100% - 10px);
             }
-            #edit-tree .btn-group .dropdown-item {
+            #person-selected .btn-group .dropdown-item {
                 background: none;
                 border: none;
                 margin: 5px 0;
@@ -153,21 +153,21 @@ body {
                 width:100%;
                 color: #373a3c;
             }
-            #edit-tree .btn-group .dropdown-item:hover {
+            #person-selected .btn-group .dropdown-item:hover {
                 background: whitesmoke;
             }
 
-        #edit-tree .btn-group,
-        #edit-tree  #add-relative {
+        #person-selected .btn-group,
+        #person-selected  #add-relative {
             margin: 10px;
             width: calc(100% - 20px);
         }
-        #edit-tree .btn,
-        #edit-tree input,
-        #edit-tree div {
+        #person-selected .btn,
+        #person-selected input,
+        #person-selected div {
             width:100%;
             margin: 0 0 5px 0;
         }
-        #edit-tree input {
+        #person-selected input {
             height: 35px;
         }
