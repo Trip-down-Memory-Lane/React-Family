@@ -70,7 +70,7 @@ class UserController {
         }
     }
 
-    static getUserPictures(userId, callback) {
+    static loadUserPictures(userId, callback) {
 
         kinveyRequester.getUserPicturesRequest(userId)
             .then(callback);

@@ -12,22 +12,34 @@ export default class CatalogPage extends Component{
             firstName: '',
             lastName: '',
             basicInfo: '',
+            pictures: [],
         };
 
-        this.onLoadSuccess = this.onLoadSuccess.bind(this);
+        this.onLoadUserInfoSuccess = this.onLoadUserInfoSuccess.bind(this);
+        this.onLoadUserPicturesSuccess = this.onLoadUserPicturesSuccess.bind(this);
     }
 
-    componentDidMount(){
-        UserController.loadUserInfo(this.props.params.userId, this.onLoadSuccess);
+    componentWillMount(){
+        UserController.loadUserInfo(this.props.params.userId, this.onLoadUserInfoSuccess);
+        UserController.loadUserPictures(this.props.params.userId, this.onLoadUserPicturesSuccess)
     }
 
-    onLoadSuccess(response){
+    onLoadUserInfoSuccess(response){
         this.setState({
             username: response.username,
             firstName: response.firstName,
             lastName: response.lastName,
             basicInfo: response.basicInfo,
         });
+    }
+
+    onLoadUserPicturesSuccess(response){
+        for (let pic of response){
+            console.log(pic);
+        }
+        // this.setState({
+        //     pictures: response
+        // })
     }
 
     render(){

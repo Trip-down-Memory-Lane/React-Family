@@ -23,18 +23,15 @@ class ViewManager{
         ReactDOM.render(
             <Router history={browserHistory}>
                 <Route path="/" component={LoginView}
-                       onEnter={Authenticator.isLoggedIn} ></Route>
+                       onEnter={Authenticator.isLoggedIn}/>
                 <Route path="register"
                        component={RegisterView} />
-
-                <Route path="tree"
-                       component={FamilyTreeView}
-                       onEnter={(a, b) => Authenticator.requireAuth(Path.loginView())} />
 
                 <Route path="users"
                        component={ListUsers}/>
                 <Route path="profile/:userId"
                        component={UserProfile}/>
+
                 <Route path="/home" component={MainPage}>
                     <Route path="/home/profile/edit"
                            component={EditProfileView}
@@ -42,6 +39,10 @@ class ViewManager{
 
                     <Route path="/home/profile"
                            component={ProfileView}
+                           onEnter={(a, b) => Authenticator.requireAuth(Path.loginView())} />
+
+                    <Route path="tree"
+                           component={FamilyTreeView}
                            onEnter={(a, b) => Authenticator.requireAuth(Path.loginView())} />
                 </Route>
             </Router>,
