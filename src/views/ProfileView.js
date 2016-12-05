@@ -1,22 +1,24 @@
 import React from 'react';
-// import {Navbar, NavbarBrand, Nav, NavItem, NavLink} from 'reactstrap';
 import PhotoAlbum from  '../components/PhotoAlbum'
 import Gallery from '../components/Gallery'
 import Avatar from '../components/ProfileInfo'
 import AboutMe from '../components/Aboutme'
-import Header from '../components/Header';
-import Footer from '../components/Footer';
 import UserController from '../controllers/UserController'
+import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
 
 import CreateTreeButton from '../components/CreateTreeButton'
-import {Button, Form, FormGroup, Label, Input, FormText} from 'reactstrap'
+import { FormGroup, Label, Input} from 'reactstrap'
 import '../styles/profileView.css';
 import '../../public/loginHelper/img/backgrounds/Tree.png'
+import $ from 'jquery'
+
 
 class ProfileView extends React.Component {
     constructor(props) {
         super(props);
+        $('.backstretch').remove();
+        $('body').css('background', '#d0e5e2')
 
         const images = [
             {
@@ -63,14 +65,15 @@ class ProfileView extends React.Component {
         console.log('UPDATE PICS');
     }
 
-    componentWillMount(){
+    componentWillMount() {
         let userId = sessionStorage.getItem('userId');
 
         UserController.loadUserInfo(userId, this.onLoadUserInfoSuccess);
         UserController.getUserPictures(userId, this.onLoadPicturesSuccess);
     }
 
-    onLoadUserInfoSuccess(data){
+    onLoadUserInfoSuccess(data) {
+        console.log(data);
         this.setState({
             firstName: data.firstName,
             lastName: data.lastName,
@@ -78,34 +81,26 @@ class ProfileView extends React.Component {
         });
     }
 
-    onLoadPicturesSuccess(data){
-        //console.log('on load pictures success');
-        for (let pic of data){
-            console.log(pic.imageUrl);
+    onLoadPicturesSuccess(data) {
+        let userPictures = [];
+
+        console.log('on load pictures success');
+        for (let pic of data) {
+           // userPictures.push(pic.imageUrl);
+           // console.log(pic);
+            let picture = {};
+            picture.original = pic.imageUrl;
+            picture.thumbnail =pic.imageUrl;
+            if (pic.hasOwnProperty('description')) {
+                picture.description = pic.description;
+            }
+            userPictures.push(picture);
         }
+
+         this.setState({images:userPictures})
     }
 
-    // componentWillMount() {
-    //
-    //     UserController.loadUserInfo(sessionStorage.getItem('userId'), this.onLoadSuccess);
-    //     let pictures = UserController.getUserPictures();
-    //
-    //     console.log(pictures);
-    //     let userPictures = [];
-    //     for (let i = 0; i < pictures.length; i++) {
-    //         let pic = {};
-    //         pic.original = pictures[i];
-    //         pic.thumbnail = pictures[i];
-    //         if (pictures[i].hasOwnProperty('description')) {
-    //             pic.description = pictures[i].description;
-    //         }
-    //         userPictures.push(pic);
-    //     }
-    //     console.log(userPictures);
-    //     // this.setState({images:userPictures})
-    //
-    // }
-    //
+
     // onLoadSuccess(data) {
     //
     //     this.setState({
@@ -116,13 +111,9 @@ class ProfileView extends React.Component {
     // }
 
     render() {
-        console.log('tuk');
-        console.log(UserController.loadUserInfo(sessionStorage.getItem('userId'),function (data) {
-            //console.log(data);
-        }));
+
         return (
             <div>
-                <Header/>
                 <div className="row" id="profileContainer">
                     <div className="row">
                         <div id="profileBar">
@@ -168,7 +159,7 @@ class ProfileView extends React.Component {
                                     "backgroundColor": ""
                                 }}>
                                     <Avatar />
-                                    <AboutMe name={this.state.firstName +' '+ this.state.lastName}></AboutMe>
+                                    <AboutMe name={this.state.firstName + ' ' + this.state.lastName}></AboutMe>
                                 </div>
                             </div>
 

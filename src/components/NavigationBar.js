@@ -7,8 +7,8 @@ class NavigationBar extends React.Component {
 
     constructor(props){
         super(props);
-
         this.handleLogoutClicked = this.handleLogoutClicked.bind(this);
+
     }
 
     handleLogoutClicked(){
@@ -21,10 +21,10 @@ class NavigationBar extends React.Component {
                 <Navbar color="faded" light>
                     <Nav className="float-xs-right" navbar>
                         <NavItem style={{"fontSize": "25px"}}>
-                            <Link to="/profile">View profile</Link>
+                            <Link to="/home/profile">View profile</Link>
                         </NavItem>
                         <NavItem style={{"fontSize": "25px"}}>
-                            <Link to="/profile/edit">Edit profile</Link>
+                            <Link to="/home/profile/edit">Edit profile</Link>
                         </NavItem>
                         <NavItem style={{"fontSize": "25px"}}>
                             <NavLink href="#" onClick={this.handleLogoutClicked}>Logout</NavLink>
