@@ -60,7 +60,7 @@ class UserController {
 
     static addPicture(pictureUrl) {
 
-        kinveyRequester.addPicture(pictureUrl)
+        kinveyRequester.addPictureRequest(pictureUrl)
             .then(addPictureSuccess.bind(this))
             .catch();
 

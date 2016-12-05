@@ -1,6 +1,7 @@
 import React from 'react';
 import {Button, Modal, ModalHeader, ModalBody, ModalFooter, Input} from 'reactstrap';
 import $ from 'jquery'
+import UserController from '../controllers/UserController'
 
 class AddPhotoButton extends React.Component {
     constructor(props) {
@@ -32,7 +33,8 @@ class AddPhotoButton extends React.Component {
 
         };
         this.props.pictures.push(newPhoto);
-        console.log(this.props.pictures);
+        UserController.addPicture(picUrl);
+
         this.toggle()
 
     }
@@ -67,7 +69,7 @@ class AddPhotoButton extends React.Component {
                     <ModalBody >
                         {/*<Button outline color="primary" style={{"backgroundColor":"#337ab7","color":"white"}} onClick={this.addPhoto}>CHOOSE PICTURE</Button>*/}
 
-                        <Input type="email" name="file" id="photoUrl" placeholder="Enter url http://"/>
+                        <Input type="email" name="file" id="photoUrl" placeholder="Enter url https://"/>
 
                         <Input type="textArea" id="description" placeholder="Put some description">
 

@@ -5,7 +5,7 @@ import EditProfileForm from './EditProfileForm';
 import Footer from '../../components/Footer';
 import UserController from '../../controllers/UserController';
 import ViewManager from '../../controllers/ViewManager';
-
+import $ from 'jquery'
 export default class EditProfileView extends Component {
 
     constructor(props) {
@@ -34,6 +34,10 @@ export default class EditProfileView extends Component {
 
     componentDidMount(){
         UserController.loadUserInfo(sessionStorage.getItem('userId'), this.onLoadSuccess);
+    }
+    componentWillMount(){
+        $('body').css('background', '#d0e5e2')
+
     }
 
     onLoadSuccess(response){
