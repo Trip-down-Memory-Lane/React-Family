@@ -8,6 +8,7 @@ import AddPhotoButton from '../components/AddPhotoButton'
 class Gallery extends React.Component {
     constructor(props) {
         super(props);
+        this.defineAddPhotoButtonVisibility = this.defineAddPhotoButtonVisibility.bind(this)
 
     }
 
@@ -16,35 +17,27 @@ class Gallery extends React.Component {
         $('body').css('background', '#d0e5e2')
     }
 
-
-    render() {
-        let AddPhotoBut = AddPhotoButton;
+    defineAddPhotoButtonVisibility() {
         if (this.props.userId) {
             let userId = sessionStorage.getItem('userId');
 
             if (this.props.userId !== userId) {
-                return (
-                    <div  >
-                        <ImageGallery
-                            ref={i => this._imageGallery = i}
-                            items={this.props.images}
-                            autoPlay={true}
-
-                            showFullscreenButton={false}
-                            slideInterval={3500}
-                            onImageLoad={this.handleImageLoad}/>
-                        <div className="container">
-                            <div className="row" style={{"paddingRight": "75%"}}>
-                            </div>
-                            <div >
-                                SOME TEXTSOME TEXTSOME TEXTSOME TEXTSOME TEXTSOME TEXTSOME TEXTSOME TEXTSOME TEXT
-                            </div>
-                        </div>
-                    </div>
-                )
+                return null;
             }
+            else {
+                return <AddPhotoButton></AddPhotoButton>
+            }
+        } else {
+
+            return <AddPhotoButton></AddPhotoButton>
 
         }
+
+    }
+
+
+    render() {
+        let AddPhotoBut = this.defineAddPhotoButtonVisibility()
 
 
         return (
@@ -59,9 +52,8 @@ class Gallery extends React.Component {
                     onImageLoad={this.handleImageLoad}/>
                 <div className="container">
                     <div className="row" style={{"paddingRight": "75%"}}>
-                        <AddPhotoButton pictures={this.props.images}/>
+                        {AddPhotoBut}
                     </div>
-
                     <div >
                         SOME TEXTSOME TEXTSOME TEXTSOME TEXTSOME TEXTSOME TEXTSOME TEXTSOME TEXTSOME TEXT
                     </div>
