@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import UserProfile from './UserProfile';
 import UserController from '../../controllers/UserController';
+import GuestView from '../GuestView'
 
-export default class CatalogPage extends Component{
+export default class CatalogPage extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
 
         this.state = {
@@ -19,12 +20,12 @@ export default class CatalogPage extends Component{
         this.onLoadUserPicturesSuccess = this.onLoadUserPicturesSuccess.bind(this);
     }
 
-    componentWillMount(){
+    componentWillMount() {
         UserController.loadUserInfo(this.props.params.userId, this.onLoadUserInfoSuccess);
         UserController.loadUserPictures(this.props.params.userId, this.onLoadUserPicturesSuccess)
     }
 
-    onLoadUserInfoSuccess(response){
+    onLoadUserInfoSuccess(response) {
         this.setState({
             username: response.username,
             firstName: response.firstName,
@@ -33,21 +34,38 @@ export default class CatalogPage extends Component{
         });
     }
 
-    onLoadUserPicturesSuccess(response){
-        for (let pic of response){
-            console.log(pic);
+    onLoadUserPicturesSuccess(response) {
+        let userPictures = [];
+
+        console.log('on load pictures success');
+        for (let pic of response) {
+            // userPictures.push(pic.imageUrl);
+            // console.log(pic);
+            let picture = {};
+            picture.original = pic.imageUrl;
+            picture.thumbnail = pic.imageUrl;
+            if (pic.hasOwnProperty('description')) {
+                picture.description = pic.description;
+            }
+            userPictures.push(picture);
         }
-        // this.setState({
-        //     pictures: response
-        // })
+
+        this.setState({images: userPictures})
     }
 
-    render(){
+    render() {
+        let userId={}
+        if (this.props.params) {
+             userId = this.props.params.userId
+        }
+
+
         return (
             <div>
                 <h1>User profile</h1>
-
-                <UserProfile
+                <GuestView
+                    userId={userId}
+                    images={this.state.images}
                     username={this.state.username}
                     firstName={this.state.firstName}
                     lastName={this.state.lastName}

@@ -5,10 +5,10 @@ import Footer from "./components/Footer.js"
 class MainPage extends Component {
     constructor(props) {
         super(props);
-
     }
 
     render() {
+
         return (
             <div>
                 <Header />

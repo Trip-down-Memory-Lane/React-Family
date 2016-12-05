@@ -16,12 +16,15 @@ class NavigationBar extends React.Component {
     }
 
     render() {
+        let username = sessionStorage.getItem('username');
         return (
             <div style={{"fontSize": "25px", "fontFamily": "Comic Sans MS"}}>
                 <Navbar color="faded" light>
                     <Nav className="float-xs-right" navbar>
                         <NavItem style={{"fontSize": "25px"}}>
-                            <Link to="/home/profile">View profile</Link>
+                            <Link to="/home/profile"  style={{"fontFamily":"Impact","color":"#337f1c","fontSize":"150%"}}>
+                              {username}
+                            </Link>
                         </NavItem>
                         <NavItem style={{"fontSize": "25px"}}>
                             <Link to="/home/profile/edit">Edit profile</Link>

@@ -4,6 +4,7 @@ import {browserHistory} from 'react-router';
 import ViewManager from './ViewManager';
 import isEmail from '../../node_modules/validator/lib/isEmail';
 
+
 class UserController {
 
     static login(username, password) {
