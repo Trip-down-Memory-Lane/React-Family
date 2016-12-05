@@ -16,7 +16,6 @@ class Register extends Component{
 
     handleFormSubmit(event) {
         event.preventDefault();
-        console.log('REGISTERING');
         userController.register(
             this.usernameField.value,
             this.passwordField.value,
