@@ -8,6 +8,16 @@ export default class EditProfileForm extends Component{
                 <h1>Edit your profile</h1>
                 <form onSubmit={this.props.onSubmit}>
                     <div className="form-group">
+                        <label>Email*</label>
+                        <input type="text"
+                               className="form-control"
+                               name="email"
+                               value={this.props.email}
+                               onChange={this.props.onChange}
+                        />
+                    </div>
+
+                    <div className="form-group">
                         <label>First name</label>
                         <input type="text"
                                className="form-control"

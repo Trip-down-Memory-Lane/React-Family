@@ -30,15 +30,17 @@ class KinveyRequester {
         })
     }
 
-    static editUserInfo(userId, firstName, lastName, basicInfo){
+    static editUserInfo(userId, email, firstName, lastName, basicInfo){
         let data = {
             username: sessionStorage.getItem('username'),
+            email: email,
             firstName: firstName,
             lastName: lastName,
             basicInfo: basicInfo
         };
 
         let url = credentials.baseUrl + 'user/' + credentials.appKey + '/' + userId;
+
         return $.ajax({
             method: "PUT",
             url: url,

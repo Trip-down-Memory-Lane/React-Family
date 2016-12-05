@@ -69,7 +69,7 @@ class ProfileView extends React.Component {
         let userId = sessionStorage.getItem('userId');
 
         UserController.loadUserInfo(userId, this.onLoadUserInfoSuccess);
-        UserController.getUserPictures(userId, this.onLoadPicturesSuccess);
+        UserController.loadUserPictures(userId, this.onLoadPicturesSuccess);
     }
 
     onLoadUserInfoSuccess(data) {

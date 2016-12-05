@@ -8,9 +8,9 @@ class Register extends Component{
     constructor(props){
         super(props);
         this.state = {
-            username: Path.username,
-            password: Path.password,
-            confirmPassword: Path.confirmPassword
+            username: Path.initialUsername(),
+            password: Path.initialPassword(),
+            confirmPassword: Path.initialConfirmPassword(),
         };
     }
 
@@ -18,7 +18,9 @@ class Register extends Component{
         event.preventDefault();
         console.log('REGISTERING');
         userController.register(
-        this.usernameField.value, this.passwordField.value, this.confirmPasswordField.value)
+            this.usernameField.value,
+            this.passwordField.value,
+            this.confirmPasswordField.value);
     }
 
     render(){

@@ -1,20 +1,23 @@
 import React, {Component} from 'react';
-//import Path from '../../constants/constant'
+import Path from '../../constants/constant'
 import '../../styles/EditProfile.css';
 import EditProfileForm from './EditProfileForm';
 import Footer from '../../components/Footer';
 import UserController from '../../controllers/UserController';
 import ViewManager from '../../controllers/ViewManager';
 import $ from 'jquery'
+import {browserHistory} from 'react-router';
+
 export default class EditProfileView extends Component {
 
     constructor(props) {
         super(props);
 
         this.state = {
-            firstName: '',
-            lastName: '',
-            basicInfo: '',
+            email: Path.initialEmail(),
+            firstName: Path.initialFirstName(),
+            lastName: Path.initialLastName(),
+            basicInfo: Path.initialBasicInfo(),
         };
 
         this.onChangeHandler = this.onChangeHandler.bind(this);
@@ -32,16 +35,14 @@ export default class EditProfileView extends Component {
         this.setState(newState);
     }
 
-    componentDidMount(){
-        UserController.loadUserInfo(sessionStorage.getItem('userId'), this.onLoadSuccess);
-    }
     componentWillMount(){
+        UserController.loadUserInfo(sessionStorage.getItem('userId'), this.onLoadSuccess);
         $('body').css('background', '#d0e5e2')
-
     }
 
     onLoadSuccess(response){
         this.setState({
+            email: response.email,
             firstName: response.firstName,
             lastName: response.lastName,
             basicInfo: response.basicInfo,
@@ -53,6 +54,7 @@ export default class EditProfileView extends Component {
 
         UserController.editUser(
             sessionStorage.getItem('userId'),
+            this.state.email,
             this.state.firstName,
             this.state.lastName,
             this.state.basicInfo,
@@ -61,7 +63,10 @@ export default class EditProfileView extends Component {
     }
 
     onEditSuccess(response){
-        this.context.router.push('profile');
+
+        // browserHistory.push
+
+        this.context.router.push('home/profile');
         ViewManager.renderMessage('Profile edited.', 'success');
     }
 
@@ -83,6 +88,7 @@ export default class EditProfileView extends Component {
         return (
             <div>
                 <EditProfileForm
+                    email={this.state.email}
                     firstName={this.state.firstName}
                     lastName={this.state.lastName}
                     basicInfo={this.state.basicInfo}

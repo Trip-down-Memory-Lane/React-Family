@@ -2,6 +2,7 @@ import kinveyRequester from '../services/KinveyRequester';
 import Path from '../constants/constant';
 import {browserHistory} from 'react-router';
 import ViewManager from './ViewManager';
+import isEmail from '../../node_modules/validator/lib/isEmail';
 
 class UserController {
 
@@ -95,9 +96,15 @@ class UserController {
             .then(callback);
     }
 
-    static editUser(userId, firstName, lastName, basicInfo, callback){
+    static editUser(userId, email, firstName, lastName, basicInfo, callback){
         console.log('edit user');
-        kinveyRequester.editUserInfo(userId, firstName, lastName, basicInfo)
+
+        if (!isEmail(email)){
+            ViewManager.renderMessage('Invalid email address.', 'error');
+            return;
+        }
+
+        kinveyRequester.editUserInfo(userId, email, firstName, lastName, basicInfo)
             .then(callback);
     }
 
