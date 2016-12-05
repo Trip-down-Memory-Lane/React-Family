@@ -68,8 +68,8 @@ class UserController {
     }
 
     static resetPassword(email, callback){
-        kinveyRequester.resetPasswordRequest(email);
-        callback();
+        kinveyRequester.resetPasswordRequest(email)
+            .then(callback);
     }
 
     static addPicture(pictureUrl) {
@@ -110,15 +110,21 @@ class UserController {
     }
 
     static editUser(userId, email, firstName, lastName, basicInfo, callback){
-        console.log('edit user');
 
         if (!isEmail(email)){
             ViewManager.renderMessage('Invalid email address.', 'error');
             return;
         }
 
+        firstName = UserController.capitalize(firstName);
+        lastName = UserController.capitalize(lastName);
+
         kinveyRequester.editUserInfo(userId, email, firstName, lastName, basicInfo)
             .then(callback);
+    }
+
+    static capitalize(word){
+        return word[0].toUpperCase() + word.slice(1).toLowerCase();
     }
 
     static saveAuthInSession(userInfo) {
@@ -133,6 +139,21 @@ class UserController {
 
     static loadUsers(callback){
         kinveyRequester.getAllUsers()
+            .then(callback);
+    }
+
+    static searchUser(searchData, callback){
+        let [firstName, lastName] = searchData.split(' ');
+
+        firstName = UserController.capitalize(firstName);
+        lastName = UserController.capitalize(lastName);
+
+        kinveyRequester.searchUserRequest(firstName, lastName)
+            .then(callback);
+    }
+
+    static fillSearchResults(searchResults, callback){
+        kinveyRequester.fillSearchResultsRequest(searchResults)
             .then(callback);
     }
 }

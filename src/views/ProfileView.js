@@ -1,14 +1,13 @@
 import React from 'react';
-import PhotoAlbum from  '../components/PhotoAlbum'
+//import PhotoAlbum from  '../components/PhotoAlbum'
 import Gallery from '../components/Gallery'
 import Avatar from '../components/ProfileInfo'
 import AboutMe from '../components/Aboutme'
 import UserController from '../controllers/UserController'
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
-
+import SearchForm from './search/SearchForm';
 import CreateTreeButton from '../components/CreateTreeButton'
-import { FormGroup, Label, Input} from 'reactstrap'
 import '../styles/profileView.css';
 import '../../public/loginHelper/img/backgrounds/Tree.png'
 import $ from 'jquery'
@@ -51,7 +50,8 @@ class ProfileView extends React.Component {
             images: images,
             firstName: '',
             lastName: '',
-            basicInfo: ''
+            basicInfo: '',
+            search: '',
         };
         this.updatePics = this.updatePics.bind(this);
         //this.onLoadSuccess = this.onLoadSuccess.bind(this);
@@ -59,6 +59,9 @@ class ProfileView extends React.Component {
         // From Roli
         this.onLoadUserInfoSuccess = this.onLoadUserInfoSuccess.bind(this);
         this.onLoadPicturesSuccess = this.onLoadPicturesSuccess.bind(this);
+        this.onSubmit = this.onSubmit.bind(this);
+        this.onChange = this.onChange.bind(this);
+        this.onFillSearchResultsSuccess = this.onFillSearchResultsSuccess.bind(this);
     }
 
     updatePics(e) {
@@ -73,7 +76,6 @@ class ProfileView extends React.Component {
     }
 
     onLoadUserInfoSuccess(data) {
-        console.log(data);
         this.setState({
             firstName: data.firstName,
             lastName: data.lastName,
@@ -100,15 +102,26 @@ class ProfileView extends React.Component {
          this.setState({images:userPictures})
     }
 
+    onChange(event){
+        event.preventDefault();
+        this.setState({
+            search: event.target.value,
+        });
+    }
 
-    // onLoadSuccess(data) {
-    //
-    //     this.setState({
-    //         firstName: data.firstName,
-    //         lastName: data.lastName,
-    //         basicInfo: data.basicInfo
-    //     })
-    // }
+    onSubmit(event){
+        event.preventDefault();
+
+        UserController.searchUser(this.state.search, this.onSearchUserSuccess);
+    }
+
+    onSearchUserSuccess(response){
+        UserController.fillSearchResults(response, this.onFillSearchResultsSuccess);
+    }
+
+    onFillSearchResultsSuccess(response){
+        console.log(response);
+    }
 
     render() {
 
@@ -117,11 +130,7 @@ class ProfileView extends React.Component {
                 <div className="row" id="profileContainer">
                     <div className="row">
                         <div id="profileBar">
-                            <FormGroup>
-                                <Label id="profileSearchLabel" for="exampleSearch">Find your family members</Label>
-                                <Input type="search" name="search" id="exampleSearch"
-                                       placeholder="     search placeholder"/>
-                            </FormGroup>
+                            <SearchForm onSubmit={this.onSubmit} onChange={this.onChange}/>
                         </div>
 
                         <div style={{"paddingLeft": "20%", "paddingRight": "20%"}}>
@@ -172,9 +181,6 @@ class ProfileView extends React.Component {
                         </div>
                     </div>
                 </div>
-
-                {/*<Footer/>*/}
-
             </div>
         )
     }

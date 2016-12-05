@@ -89,13 +89,33 @@ class KinveyRequester {
 
         let url = credentials.baseUrl + 'rpc/' + credentials.appKey + '/' + email + '/user-password-reset-initiate';
 
-        $.ajax({
+        return $.ajax({
             method: "POST",
             url: url,
             headers: credentials.kinveyAppAuthHeaders
         });
     }
 
+    static searchUserRequest(firstName, lastName){
+        //https://baas.kinvey.com/user/kid_SkHaVTqGx?query={"firstName":"Petyo"}&{"lastName": "Petrov"}
+
+        let url = credentials.baseUrl + 'user/' + credentials.appKey + `?query={"firstName":"${firstName}"}&{"lastName":"${lastName}"}`;
+
+        return $.ajax({
+            method: "GET",
+            url: url,
+            headers: Authenticator.getKinveyUserAuthHeaders()
+        });
+    }
+
+    static fillSearchResultsRequest(results){
+        return $.ajax({
+            method: "POST",
+            url: credentials.baseUrl + 'appdata/' + credentials.appKey + '/searchResults',
+            headers: Authenticator.getKinveyAuthHeaders(),
+            data: {results}
+        });
+    }
 
     /*
     * PUTs the new parentRoot, containing the whole family-tree inside {userId}/treeRoot
