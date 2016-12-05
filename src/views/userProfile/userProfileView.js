@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import UserProfile from './UserProfile';
 import UserController from '../../controllers/UserController';
+import GuestView from '../GuestView'
 
 export default class CatalogPage extends Component{
 
@@ -46,8 +47,7 @@ export default class CatalogPage extends Component{
         return (
             <div>
                 <h1>User profile</h1>
-
-                <UserProfile
+                <GuestView
                     username={this.state.username}
                     firstName={this.state.firstName}
                     lastName={this.state.lastName}
