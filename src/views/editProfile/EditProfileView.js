@@ -5,8 +5,7 @@ import EditProfileForm from './EditProfileForm';
 import Footer from '../../components/Footer';
 import UserController from '../../controllers/UserController';
 import ViewManager from '../../controllers/ViewManager';
-import $ from 'jquery'
-import {browserHistory} from 'react-router';
+import $ from 'jquery';
 
 export default class EditProfileView extends Component {
 
@@ -63,11 +62,9 @@ export default class EditProfileView extends Component {
     }
 
     onEditSuccess(response){
-
-        // browserHistory.push
-
-        this.context.router.push('home/profile');
         ViewManager.renderMessage('Profile edited.', 'success');
+        this.context.router.push('home/profile');
+
     }
 
     handleChangePicClick() {
