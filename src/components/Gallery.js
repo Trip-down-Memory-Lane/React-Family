@@ -25,11 +25,11 @@ class Gallery extends React.Component {
                 return null;
             }
             else {
-                return <AddPhotoButton></AddPhotoButton>
+                return <AddPhotoButton pictures={this.props.images}></AddPhotoButton>
             }
         } else {
 
-            return <AddPhotoButton></AddPhotoButton>
+            return <AddPhotoButton pictures={this.props.images} ></AddPhotoButton>
 
         }
 
