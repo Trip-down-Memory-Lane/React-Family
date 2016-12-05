@@ -137,8 +137,13 @@ class UserController {
         sessionStorage.setItem('firstTimeLogin', true);
     }
 
+    // static loadUsers(callback){
+    //     kinveyRequester.getAllUsers()
+    //         .then(callback);
+    // }
+
     static loadUsers(callback){
-        kinveyRequester.getAllUsers()
+        kinveyRequester.getSearchResultUsers()
             .then(callback);
     }
 
@@ -154,6 +159,11 @@ class UserController {
 
     static fillSearchResults(searchResults, callback){
         kinveyRequester.fillSearchResultsRequest(searchResults)
+            .then(callback);
+    }
+
+    static deleteSearchData(searchId, callback){
+        kinveyRequester.deleteSearchDataRequest(searchId)
             .then(callback);
     }
 }

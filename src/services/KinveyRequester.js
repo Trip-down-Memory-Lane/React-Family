@@ -117,6 +117,22 @@ class KinveyRequester {
         });
     }
 
+    static getSearchResultUsers(){
+        return $.ajax({
+            method: "GET",
+            url: credentials.baseUrl + 'appdata/' + credentials.appKey + '/searchResults',
+            headers: Authenticator.getKinveyUserAuthHeaders()
+        });
+    }
+
+    static deleteSearchDataRequest(searchId){
+        return $.ajax({
+            method: "DELETE",
+            url: credentials.baseUrl + 'appdata/' + credentials.appKey + '/searchResults/' + searchId,
+            headers: Authenticator.getKinveyUserAuthHeaders()
+        });
+    }
+
     /*
     * PUTs the new parentRoot, containing the whole family-tree inside {userId}/treeRoot
     * TODO: in later stages if we implement search on user registration, another request must be sent to separate collection for the unregistered newRoot.
@@ -141,3 +157,4 @@ class KinveyRequester {
 }
 
 export default KinveyRequester;
+

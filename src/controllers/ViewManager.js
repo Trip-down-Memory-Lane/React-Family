@@ -29,11 +29,14 @@ class ViewManager{
                        component={RegisterView}
                        onEnter={(a, b) => Authenticator.requireAuth(Path.loginView())} />
 
+
                 <Route path="/home" component={MainPage}>
                     <Route path="/profile/:userId"
-                           component={UserProfile}/>
+                           component={UserProfile}
+                           onEnter={(a, b) => Authenticator.requireAuth(Path.loginView())} />
                     <Route path="/home/users"
-                           component={ListUsers}/>
+                           component={ListUsers}
+                           onEnter={(a, b) => Authenticator.requireAuth(Path.loginView())} />
                     <Route path="/home/profile/edit"
                            component={EditProfileView}
                            onEnter={(a, b) => Authenticator.requireAuth(Path.loginView())} />

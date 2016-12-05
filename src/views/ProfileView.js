@@ -6,6 +6,7 @@ import AboutMe from '../components/Aboutme'
 import UserController from '../controllers/UserController'
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
+import {browserHistory} from 'react-router';
 import SearchForm from './search/SearchForm';
 import CreateTreeButton from '../components/CreateTreeButton'
 import '../styles/profileView.css';
@@ -54,14 +55,12 @@ class ProfileView extends React.Component {
             search: '',
         };
         this.updatePics = this.updatePics.bind(this);
-        //this.onLoadSuccess = this.onLoadSuccess.bind(this);
 
         // From Roli
         this.onLoadUserInfoSuccess = this.onLoadUserInfoSuccess.bind(this);
         this.onLoadPicturesSuccess = this.onLoadPicturesSuccess.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
-        this.onFillSearchResultsSuccess = this.onFillSearchResultsSuccess.bind(this);
     }
 
     updatePics(e) {
@@ -116,11 +115,11 @@ class ProfileView extends React.Component {
     }
 
     onSearchUserSuccess(response){
-        UserController.fillSearchResults(response, this.onFillSearchResultsSuccess);
-    }
+        UserController.fillSearchResults(response, onFillSearchResultsSuccess);
 
-    onFillSearchResultsSuccess(response){
-        console.log(response);
+        function onFillSearchResultsSuccess(response){
+            browserHistory.push('home/users');
+        }
     }
 
     render() {

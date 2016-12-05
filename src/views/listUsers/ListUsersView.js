@@ -8,7 +8,8 @@ export default class CatalogPage extends Component{
         super(props);
 
         this.state = {
-            users: []};
+            users: [],
+        };
 
         this.onLoadSuccess = this.onLoadSuccess.bind(this);
     }
@@ -18,7 +19,38 @@ export default class CatalogPage extends Component{
     }
 
     onLoadSuccess(response){
-        this.setState({users: response});
+        let searchId = response[0]._id;
+        UserController.deleteSearchData(searchId,onDeleteSuccess);
+
+        function onDeleteSuccess(response) {
+            // test
+            //console.log('deleted');
+        }
+
+        response = response.sort((a, b) => {
+            if (a.results[0].firstName == b.results[0].firstName){
+                return a.results[0].lastName.localeCompare(b.results[0].lastName);
+            }
+            return a.firstName.localeCompare(b.firstName);
+        });
+
+        for (let user of response){
+            console.log(user.results[0].firstName);
+        }
+
+        let resultUsers = [];
+        for (let user of response){
+            let data = {
+                firstName: user.results[0].firstName,
+                lastName: user.results[0].lastName,
+                //profilePicture: user.results[0].profilePicture,
+            };
+
+            resultUsers.push(data);
+        }
+        this.setState({
+            users: resultUsers,
+        });
     }
 
     render(){
@@ -30,7 +62,8 @@ export default class CatalogPage extends Component{
                     return (
                         <User
                             key={i}
-                            username={u.username}
+                            firstName={u.firstName}
+                            lastName={u.lastName}
                             userId={u._id} />
                     );
                 })}
