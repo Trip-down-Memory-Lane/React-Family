@@ -174,11 +174,11 @@ class UserController {
     static deletePictures(toBeDeleted, callback){
 
         for (let pic of toBeDeleted){
-            kinveyRequester.deletePictureRequest(pic)
+            KinveyRequester.deletePictureRequest(pic)
                 .then((pic, response) => callback(pic, response));
         }
 
-        kinveyRequester.deletePictureRequest(toBeDeleted)
+        KinveyRequester.deletePictureRequest(toBeDeleted)
             .then((deleted, response) => callback(toBeDeleted, response));
     }
 }
