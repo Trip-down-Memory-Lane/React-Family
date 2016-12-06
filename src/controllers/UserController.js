@@ -78,12 +78,6 @@ class UserController {
         KinveyRequester.addPictureRequest(pictureUrl, description)
             .then(callback)
             .catch();
-
-        // function addPictureSuccess(response) {
-        //     console.log(response);
-        //     ViewManager.renderMessage('Picture successfully added.', 'success');
-        //     console.log('Picture added');
-        // }
     }
 
     static loadUserPictures(userId, callback) {
@@ -153,12 +147,15 @@ class UserController {
     }
 
     static searchUser(searchData, callback){
-        let [firstName, lastName] = searchData.split(' ');
+        searchData = searchData.split('\s+');
 
-        firstName = UserController.capitalize(firstName);
-        lastName = UserController.capitalize(lastName);
+        let tokens = [];
+        for (let token of searchData){
+            token = UserController.capitalize(token);
+            tokens.push(token);
+        }
 
-        KinveyRequester.searchUserRequest(firstName, lastName)
+        KinveyRequester.searchUserRequest(tokens)
             .then(callback);
     }
 

@@ -1,5 +1,4 @@
 import React from 'react';
-//import PhotoAlbum from  '../components/PhotoAlbum'
 import Gallery from '../components/Gallery'
 import Avatar from '../components/ProfileInfo'
 import AboutMe from '../components/Aboutme'
@@ -7,9 +6,7 @@ import UserController from '../controllers/UserController'
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
 import {Link} from 'react-router';
-//import {browserHistory} from 'react-router';
 import ViewTreeButton from '../components/CreateTreeButton'
-//import { FormGroup, Label, Input} from 'reactstrap'
 import '../styles/profileView.css';
 import '../../public/loginHelper/img/backgrounds/Tree.png'
 import $ from 'jquery'
@@ -61,8 +58,8 @@ class GuestView extends React.Component {
         // From Roli
         this.onLoadUserInfoSuccess = this.onLoadUserInfoSuccess.bind(this);
         this.onLoadPicturesSuccess = this.onLoadPicturesSuccess.bind(this);
-        // this.onSubmit = this.onSubmit.bind(this);
         // this.onChange = this.onChange.bind(this);
+        // this.onSubmit = this.onSubmit.bind(this);
     }
 
     updatePics(e) {
@@ -121,6 +118,7 @@ class GuestView extends React.Component {
         //
         // this.setState({images:userPictures})
     }
+
     // onChange(event){
     //     let userId = this.props.userId;
     //
@@ -151,8 +149,8 @@ class GuestView extends React.Component {
 // }
 
     render() {
-         console.log('PARAMS');
-         console.log(this.props.firstName);
+         // console.log('PARAMS');
+         // console.log(this.props.firstName);
 
         return (
             <div>

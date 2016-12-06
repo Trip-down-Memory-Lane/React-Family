@@ -49,7 +49,7 @@ export default class CatalogPage extends Component {
         this.onLoadUserPicturesSuccess = this.onLoadUserPicturesSuccess.bind(this);
 
         this.onSubmit = this.onSubmit.bind(this);
-        //this.onChange = this.onChange.bind(this);
+        this.onChange = this.onChange.bind(this);
         this.updateInfo=this.updateInfo.bind(this);
     }
     updateInfo(data){
@@ -135,25 +135,26 @@ export default class CatalogPage extends Component {
     //
     //     this.setState({images: userPictures})
     // }
-    // onChange(event){
-    //     event.preventDefault();
-    //     //console.log('GUEST VIEW CHANGING');
-    //     this.setState({
-    //         search: event.target.value,
-    //     });
-    // }
+    onChange(event){
+        event.preventDefault();
+        //console.log('GUEST VIEW CHANGING');
+        this.setState({
+            search: event.target.value,
+        });
+    }
+
+    onSubmit(event){
+        event.preventDefault();
+        UserController.searchUser(this.state.search, this.onSearchUserSuccess);
+    }
+
     onSearchUserSuccess(response){
-        //console.log(response);
         UserController.fillSearchResults(response, onFillSearchResultsSuccess);
 
         function onFillSearchResultsSuccess(response){
+            //console.log(response);
             browserHistory.push('/home/users');
         }
-    }
-    onSubmit(event){
-        event.preventDefault();
-
-        UserController.searchUser(this.state.search, this.onSearchUserSuccess);
     }
 
     render() {
