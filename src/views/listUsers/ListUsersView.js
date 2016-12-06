@@ -14,7 +14,7 @@ export default class CatalogPage extends Component{
         this.onLoadSuccess = this.onLoadSuccess.bind(this);
     }
 
-    componentDidMount(){
+    componentWillMount(){
         UserController.loadUsers(this.onLoadSuccess);
     }
 
@@ -24,33 +24,36 @@ export default class CatalogPage extends Component{
         let searchId = response[0]._id;
         UserController.deleteSearchData(searchId,onDeleteSuccess);
 
+        //console.log(response);
+
         function onDeleteSuccess(response) {
             // test
             //console.log('deleted');
         }
 
-        response = response.sort((a, b) => {
-            if (a.results[0].firstName == b.results[0].firstName){
-                return a.results[0].lastName.localeCompare(b.results[0].lastName);
+        let users = response[0].results;
+        console.log(users);
+
+        users = users.sort((a, b) => {
+            if (a.firstName === b.firstName){
+                return a.lastName.localeCompare(b.lastName);
             }
+
             return a.firstName.localeCompare(b.firstName);
         });
 
-        // for (let user of response){
-        //     console.log(user.results[0].firstName);
-        // }
-
         let resultUsers = [];
-        for (let user of response){
+        for (let user of users){
             let data = {
-                firstName: user.results[0].firstName,
-                lastName: user.results[0].lastName,
-                userId: user.results[0]._id,
-                //profilePicture: user.results[0].profilePicture,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                userId: user._id,
+                profilePicture: user.profilePicture,
             };
 
             resultUsers.push(data);
         }
+
         this.setState({
             users: resultUsers,
         });

@@ -105,27 +105,40 @@ class KinveyRequester {
         });
     }
 
-    static searchUserRequest(firstName, lastName){
-        //https://baas.kinvey.com/user/kid_SkHaVTqGx?query={"firstName":"Petyo"}|{"lastName": "Petrov"}
+    static searchUserRequest(names){
 
-        let url = credentials.baseUrl + 'user/' + credentials.appKey + `?query={"firstName":"${firstName}"}
-                                                                            |{"lastName":"${lastName}"}
-                                                                            |{"firstName":"${lastName}"}
-                                                                            |{"lastName":"${firstName}"}`;
+        //https://baas.kinvey.com/user/kid_SkHaVTqGx?query={"$or":[{"firstName":"Petyo"}, {"lastName":"Ivanov"}]}
+
+        let tokens = [];
+
+        let tmpName;
+        for (let name of names){
+            tmpName = `{"firstName":"${name}"}`;
+            tokens.push(tmpName);
+            tmpName = `{"lastName":"${name}"}`;
+            tokens.push(tmpName);
+        }
+
+        tokens = tokens.join(',');
+
+        let urlRequest = credentials.baseUrl + 'user/' + credentials.appKey + `?query={"$or":[${tokens}]}`;
+        // console.log(urlRequest);
 
         return $.ajax({
             method: "GET",
-            url: url,
+            url: urlRequest,
             headers: Authenticator.getKinveyUserAuthHeaders()
         });
     }
 
     static fillSearchResultsRequest(results){
+        let data = {results: results};
+        //console.log(data);
         return $.ajax({
             method: "POST",
             url: credentials.baseUrl + 'appdata/' + credentials.appKey + '/searchResults',
             headers: Authenticator.getKinveyAuthHeaders(),
-            data: {results}
+            data: data,
         });
     }
 

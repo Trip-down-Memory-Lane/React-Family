@@ -53,8 +53,24 @@ export default class CatalogPage extends Component {
         this.updateInfo=this.updateInfo.bind(this);
     }
     updateInfo(data){
-        // console.log('UPDATE INFO');
-        // console.log(data);
+        console.log('MY DATA');
+        console.log(data);
+        console.log(this.state.pictures);
+        //ne znam metoda dali raboti: proverqva dali id-to na snimkata e razli4no ot id-to na pratenite iztriti
+        //ako e razli4no go pulni v this.state.pictures;
+        let updatedPictures=[];
+        for(let pic of data){
+            for(let old of this.state.pictures){
+                if(old.id!=pic){
+                    updatedPictures.push(old)
+                }
+            }
+        }
+        console.log(updatedPictures);
+
+        this.setState({
+           pictures:updatedPictures
+       })
     }
 
     componentWillMount() {
@@ -126,18 +142,19 @@ export default class CatalogPage extends Component {
             search: event.target.value,
         });
     }
+
+    onSubmit(event){
+        event.preventDefault();
+        UserController.searchUser(this.state.search, this.onSearchUserSuccess);
+    }
+
     onSearchUserSuccess(response){
-        //console.log(response);
         UserController.fillSearchResults(response, onFillSearchResultsSuccess);
 
         function onFillSearchResultsSuccess(response){
+            //console.log(response);
             browserHistory.push('/home/users');
         }
-    }
-    onSubmit(event){
-        event.preventDefault();
-
-        UserController.searchUser(this.state.search, this.onSearchUserSuccess);
     }
 
     render() {

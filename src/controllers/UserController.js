@@ -28,7 +28,7 @@ class UserController {
             }
             else {
                 let userId = sessionStorage.getItem('userId');
-                browserHistory.push('/home/profile/'+userId);
+                browserHistory.push('/advert');
                 ViewManager.renderMessage('Login successful.', 'success');
             }
         }
@@ -73,16 +73,11 @@ class UserController {
             .then(callback);
     }
 
-    static addPicture(pictureUrl, description) {
+    static addPicture(pictureUrl, description, callback) {
 
         KinveyRequester.addPictureRequest(pictureUrl, description)
-            .then(addPictureSuccess.bind(this))
+            .then(callback)
             .catch();
-
-        function addPictureSuccess() {
-            ViewManager.renderMessage('Picture successfully added.', 'success');
-            console.log('Picture added');
-        }
     }
 
     static loadUserPictures(userId, callback) {
@@ -151,12 +146,15 @@ class UserController {
     }
 
     static searchUser(searchData, callback){
-        let [firstName, lastName] = searchData.split(' ');
+        searchData = searchData.split('\s+');
 
-        firstName = UserController.capitalize(firstName);
-        lastName = UserController.capitalize(lastName);
+        let tokens = [];
+        for (let token of searchData){
+            token = UserController.capitalize(token);
+            tokens.push(token);
+        }
 
-        KinveyRequester.searchUserRequest(firstName, lastName)
+        KinveyRequester.searchUserRequest(tokens)
             .then(callback);
     }
 
