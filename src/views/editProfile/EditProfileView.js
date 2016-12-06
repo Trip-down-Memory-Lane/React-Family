@@ -92,13 +92,16 @@ export default class EditProfileView extends Component {
     onSubmitHandler(event) {
         event.preventDefault();
 
+        let userInfo = {
+            email: this.state.email,
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            basicInfo: this.state.basicInfo,
+            profilePicture: this.state.imgUrl,
+        };
         UserController.editUser(
             sessionStorage.getItem('userId'),
-            this.state.imgUrl,
-            this.state.email,
-            this.state.firstName,
-            this.state.lastName,
-            this.state.basicInfo,
+            userInfo,
             this.onEditSuccess
         );
     }

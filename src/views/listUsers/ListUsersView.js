@@ -32,7 +32,7 @@ export default class CatalogPage extends Component{
         }
 
         let users = response[0].results;
-        console.log(users);
+        //console.log(users);
 
         users = users.sort((a, b) => {
             if (a.firstName === b.firstName){
