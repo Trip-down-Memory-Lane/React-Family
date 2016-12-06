@@ -61,7 +61,8 @@ export default class AddParentsForm extends Component {
             let spouse = rootParent === this.state.father? this.state.mother : this.state.father;
             let child = this.nodeRoot;
             console.log(`AddParents Submit: `, rootParent, spouse, child);
-            TreeController.addParents(rootParent, spouse, child);
+            TreeController.addParents(rootParent, spouse, child)
+                .then(this.props.setTreeData);
         }
     }
 

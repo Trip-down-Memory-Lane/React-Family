@@ -1,19 +1,17 @@
 import React, {Component} from "react";
 import $ from "jquery";
 
-import Header from '../components/Header'
 import Footer from "../components/Footer.js"
 import FamilyTree from "../components/treeComponents/FamilyTree";
 import TreeController from "../controllers/TreeController";
-
 
 export default class FamilyTreeView extends Component {
     /*
     * props:
     *   tree: <JSON> object, representing family tree
     * */
-    constructor(props) {
-        super(props);
+    constructor() {
+        super();
         this.state = {
             clickX: null,
             clicked: false,
@@ -21,15 +19,61 @@ export default class FamilyTreeView extends Component {
         };
 
         this.updateState = this.updateState.bind(this);
+        this.setUserData = this.setUserData.bind(this);
+        this.setTreeData = this.setTreeData.bind(this);
+        this.initTree = this.initTree.bind(this);
+        this.loadTree = this.loadTree.bind(this);
+        this.createTree = this.createTree.bind(this);
 
         // this.handleMouseDown = this.handleMouseDown.bind(this);
         // this.handleMouseMove = this.handleMouseMove.bind(this);
         // this.handleMouseUp = this.handleMouseUp.bind(this);
     }
 
-    updateState(response) {
-        let tree = response.tree
-        console.log(`updating state`, response);
+    componentWillMount() {
+        let userId = sessionStorage.getItem(`userId`);
+        TreeController.getUserData(userId, this.setUserData);
+    }
+
+    setUserData(response) {
+        // this.userData = response;
+        this.initTree(response);
+    }
+
+    initTree(userData) {
+        if (userData.treeId) {
+            this.loadTree(userData);
+        } else {
+            this.createTree(userData);
+        }
+    }
+
+    loadTree(userData) {
+        console.log(`LOADING TREE!!`, userData.treeId);
+        TreeController.loadTree(userData.treeId)
+            .then(this.setTreeData);
+    }
+
+    createTree(userData) {
+        console.log(`CREATING TREE!!`);
+        TreeController.createTree(userData)
+            .then((response) => {
+                console.log(`response: `, response);
+                this.setTreeData(response);
+                TreeController.setUserTreeId(userData, response._id);
+            });
+    }
+
+    setTreeData(response) {
+        console.log(`setting tree data..`, response);
+        let tree = TreeController.buildTree(response);
+        sessionStorage.setItem(`treeId`, tree.treeId);
+        this.updateState(tree);
+    }
+
+    updateState(tree) {
+        console.log(`Updating state to tree: `, tree);
+        // this.userData.treeId = tree.treeId;
         this.setState(prevState => {
             return {
                 clickX: prevState.clickX,
@@ -37,22 +81,17 @@ export default class FamilyTreeView extends Component {
                 info: null,
                 tree: tree
             }
-        }, () => console.log(this.state));
+        }, console.log(`updated state!`));
     }
 
-    // shouldComponentUpdate(nextState) {
-    //     return !(this.state.tree === nextState.tree);
-    // }
-
     isLoading() {
-        console.log(`isloading?`);
         if (this.state.info) {
-            console.log(`it is still loading.`);
+            console.log(`loading`);
             return (
                 <div id="wrapper">{this.state.info}</div>
             );
         } else {
-            console.log(`it is not loading`);
+            console.log(`FamilyTreeView RENDERING!!`);
             return (
                 <div id="wrapper">
                     <div
@@ -60,7 +99,9 @@ export default class FamilyTreeView extends Component {
                         onMouseDown={this.handleMouseDown}
                         onMouseUp={this.handleMouseUp}
                         id="content">
-                        <FamilyTree treeRoot={this.state.tree} />
+                        <FamilyTree
+                            treeRoot={this.state.tree}
+                            setTreeData={this.setTreeData} />
                     </div>
                     <Footer/>
                 </div>
@@ -68,16 +109,11 @@ export default class FamilyTreeView extends Component {
         }
     }
 
-    componentDidMount() {
-        this.tree = TreeController.loadTree(`5845a8b4e6d6cc6310b0847d`)
-            .then(this.updateState);
-    }
-
     // handleMouseDown(event) {
     //     let pageX = event.pageX;
     //     let pageY = event.pageY;
     //     this.setState(prevState => {
-    //         return {
+    //         return {componentWillRecieveProps
     //             clickX: pageX,
     //             clickY: pageY,
     //             clicked: true
@@ -108,19 +144,7 @@ export default class FamilyTreeView extends Component {
     // }
 
     render() {
-        console.log(`rendering`);
-        return (
-            <div id="wrapper">
-                <div
-                    onMouseMove={this.handleMouseMove}
-                    onMouseDown={this.handleMouseDown}
-                    onMouseUp={this.handleMouseUp}
-                    id="content">
-                    <FamilyTree treeRoot={this.state.tree} />
-                </div>
-                <Footer/>
-            </div>
-        );
+        return this.isLoading();
     }
 }
 

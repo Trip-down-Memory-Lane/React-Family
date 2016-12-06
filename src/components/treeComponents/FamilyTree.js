@@ -91,10 +91,11 @@ export default class FamilyTree extends Component {
     constructor(props) {
         super(props);
         this.treeWidth = null;
-        this.treeRoot = props.treeRoot;
-        // this.treeRoot = createRooTest();//TODO: replace with props.tree for production.
+        // this.state.treeRoot = props.treeRoot;
+        // this.state.treeRoot = createRooTest();//TODO: replace with props.tree for production.
         this.state = {
-            personSelected: false
+            personSelected: false,
+            treeRoot: props.treeRoot
         };
 
         this.isPersonSelected = this.isPersonSelected.bind(this);
@@ -105,6 +106,12 @@ export default class FamilyTree extends Component {
 
     setContainerToTreeWidth(dimensions) {
         this.treeWidth = dimensions.width;
+    }
+
+    componentWillReceiveProps(props) {
+        this.setState({
+            treeRoot: props.treeRoot
+        });
     }
 
     selectPerson(data) {
@@ -123,23 +130,24 @@ export default class FamilyTree extends Component {
     }
 
     componentWillMount() {
-        $(`body`).width(10000);
+        $(`#wrapper`).width(10000);
     }
     componentWillUpdate() {
-        $(`body`).width(10000);
+        $(`#wrapper`).width(10000);
     }
 
     componentDidMount() {
-        $(`body`).width(this.treeWidth);
+        $(`#wrapper`).width(this.treeWidth);
     }
     componentDidUpdate() {
-        $(`body`).width(this.treeWidth);
+        $(`#wrapper`).width(this.treeWidth);
     }
 
     isPersonSelected() {
         if(this.state.personSelected) {
             return (
                 <SelectedPerson
+                    setTreeData={this.props.setTreeData}
                     isTreeRoot={this.state.isTreeRoot}
                     rootParent={this.state.rootParent}
                     nodeRoot={this.state.nodeRoot}
@@ -149,6 +157,7 @@ export default class FamilyTree extends Component {
     }
 
     render() {
+        console.log(`FamilyTree RENDERING`);
         return(
             <Measure
                 onMeasure={this.setContainerToTreeWidth}
@@ -156,9 +165,9 @@ export default class FamilyTree extends Component {
                 <div>
                     {this.isPersonSelected()}
                     <TreeNode
-                        key={this.treeRoot.id}
+                        key={this.state.treeRoot.id}
                         id="treeRoot"
-                        nodeRoot={this.treeRoot}
+                        nodeRoot={this.state.treeRoot}
                         isTreeRoot={true}
                         selectPerson={this.selectPerson} />
                 </div>

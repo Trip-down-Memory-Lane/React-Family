@@ -13,9 +13,18 @@ export default class TreeRequester extends Component {
         return $.ajax({method, url, headers});
     }
 
-    static putNewRoot(tree) {
+    static postNewTree(tree) {
         let method = `POST`;
         let url = credentials.baseUrl + `appdata/${credentials.appKey}/trees/`;
+        let headers = authentication.getKinveyUserAuthHeaders();
+        let data = {tree};
+        let request = {method, url, headers, data};
+        return $.ajax(request);
+    }
+
+    static putNewRoot(tree) {
+        let method = `PUT`;
+        let url = credentials.baseUrl + `appdata/${credentials.appKey}/trees/${tree.treeId}`;
         let headers = authentication.getKinveyUserAuthHeaders();
         let data = {tree};
 
@@ -27,8 +36,9 @@ export default class TreeRequester extends Component {
         let method = 'PUT';
         let url = credentials.baseUrl + `appdata/${credentials.appKey}/trees/${tree.treeId}`;
         let headers = authentication.getKinveyUserAuthHeaders();
+        let data = {tree};
 
-        let request = {method, url, headers, data: tree};
+        let request = {method, url, headers, data};
         return $.ajax(request);
     }
 }

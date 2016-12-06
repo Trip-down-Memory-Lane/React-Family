@@ -1,7 +1,9 @@
 import React, {Component} from "react";
 import {FormGroup, Button} from "reactstrap";
+
 import Consts from "../../constants/constant";
 import SiblingsChildrenForm from "./SiblingsChildrenForm";
+import TreeController from "../../controllers/TreeController";
 
 export default class AddSiblingsForm extends Component {
     constructor(props) {
@@ -65,15 +67,13 @@ export default class AddSiblingsForm extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        // console.log(this.state);
-        // let siblings = this.rootParent.children;
-        // for(let sibling of this.state.siblings) {
-        //     siblings.push(this.state.siblings[sibling]);
-        // }
-        //
-        // KinveyRequester.addSiblings(siblings)
-        //     .then(() => console.log(`Siblings added successfully`))
-        //     .css(() => console.log(`error`));
+        let siblings = [];
+        for (let sibling in this.state.siblings) {
+            siblings.push(this.state.siblings[sibling]);
+        }
+
+        TreeController.addRelative(this.rootParent, siblings)
+            .then(this.props.setTreeData);
     }
 
     render() {

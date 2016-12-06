@@ -1,4 +1,4 @@
-import kinveyRequester from '../services/KinveyRequester';
+import KinveyRequester from '../services/KinveyRequester';
 import Path from '../constants/constant';
 import {browserHistory} from 'react-router';
 import ViewManager from './ViewManager';
@@ -8,7 +8,7 @@ import isEmail from '../../node_modules/validator/lib/isEmail';
 class UserController {
 
     static login(username, password) {
-        kinveyRequester
+        KinveyRequester
             .loginUser(username, password)
             .then(loginSuccess.bind(this));
 
@@ -38,7 +38,7 @@ class UserController {
             ViewManager.renderMessage('Passwords do not match.', 'error');
         }
         else {
-            kinveyRequester.registerUser(username, password)
+            KinveyRequester.registerUser(username, password)
                 .then(registerSuccess.bind(this))
                 .catch(ViewManager.renderMessage('Registration failed.', 'error'));
 
@@ -51,7 +51,7 @@ class UserController {
     }
 
     static logout() {
-        kinveyRequester.logoutUser()
+        KinveyRequester.logoutUser()
             .then(logoutSuccess.bind(this));
 
         function logoutSuccess() {
@@ -63,18 +63,18 @@ class UserController {
     static passwordCheck(password, callback){
         let username = sessionStorage.getItem('username');
 
-        kinveyRequester.loginUser(username, password)
+        KinveyRequester.loginUser(username, password)
             .then(callback);
     }
 
     static resetPassword(email, callback){
-        kinveyRequester.resetPasswordRequest(email)
+        KinveyRequester.resetPasswordRequest(email)
             .then(callback);
     }
 
     static addPicture(pictureUrl) {
 
-        kinveyRequester.addPictureRequest(pictureUrl)
+        KinveyRequester.addPictureRequest(pictureUrl)
             .then(addPictureSuccess.bind(this))
             .catch();
 
@@ -86,14 +86,14 @@ class UserController {
 
     static loadUserPictures(userId, callback) {
 
-        kinveyRequester.getUserPicturesRequest(userId)
+        KinveyRequester.getUserPicturesRequest(userId)
             .then(callback);
 
 
         // console.log('AAAAAAAAA');
         // //let userId = sessionStorage.getItem('userId');
         //
-        // let userPictures = kinveyRequester.getUserPictures(userId);
+        // let userPictures = KinveyRequester.getUserPictures(userId);
         // console.log('BBBBBBBBBBBB');
         // let picturesUrls = [];
         // for (let i = 0; i < userPictures.length; i++) {
@@ -105,11 +105,11 @@ class UserController {
     }
 
     static loadUserInfo(userId, callback){
-        kinveyRequester.getUserInfo(userId)
+        KinveyRequester.getUserInfo(userId)
             .then(callback);
     }
 
-    static editUser(userId, email, firstName, lastName, basicInfo, callback){
+    static editUser(userId, email, firstName, lastName, basicInfo, treeId, callback){
 
         if (!isEmail(email)){
             ViewManager.renderMessage('Invalid email address.', 'error');
@@ -119,7 +119,7 @@ class UserController {
         firstName = UserController.capitalize(firstName);
         lastName = UserController.capitalize(lastName);
 
-        kinveyRequester.editUserInfo(userId, email, firstName, lastName, basicInfo)
+        KinveyRequester.editUserInfo(userId, email, firstName, lastName, basicInfo, treeId)
             .then(callback);
     }
 
@@ -138,12 +138,12 @@ class UserController {
     }
 
     // static loadUsers(callback){
-    //     kinveyRequester.getAllUsers()
+    //     KinveyRequester.getAllUsers()
     //         .then(callback);
     // }
 
     static loadUsers(callback){
-        kinveyRequester.getSearchResultUsers()
+        KinveyRequester.getSearchResultUsers()
             .then(callback);
     }
 
@@ -153,17 +153,17 @@ class UserController {
         firstName = UserController.capitalize(firstName);
         lastName = UserController.capitalize(lastName);
 
-        kinveyRequester.searchUserRequest(firstName, lastName)
+        KinveyRequester.searchUserRequest(firstName, lastName)
             .then(callback);
     }
 
     static fillSearchResults(searchResults, callback){
-        kinveyRequester.fillSearchResultsRequest(searchResults)
+        KinveyRequester.fillSearchResultsRequest(searchResults)
             .then(callback);
     }
 
     static deleteSearchData(searchId, callback){
-        kinveyRequester.deleteSearchDataRequest(searchId)
+        KinveyRequester.deleteSearchDataRequest(searchId)
             .then(callback);
     }
 }

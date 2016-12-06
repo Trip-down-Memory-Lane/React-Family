@@ -40,9 +40,25 @@ export default class SelectedPerson extends Component {
 
     addRelativeForm() {
         switch (this.state.editForm) {
-            case`parents`: return <AddParentsForm nodeRoot={this.nodeRoot} />;
-            case`siblings`: return <AddSiblings rootParent={this.rootParent} nodeRoot={this.nodeRoot} type="siblings"/>;
-            case`children`: return <AddChildren rootParent={this.rootParent} nodeRoot={this.nodeRoot} type="children"/>;
+            case`parents`: return (
+                <AddParentsForm
+                    nodeRoot={this.nodeRoot}
+                    setTreeData={this.props.setTreeData} />
+            );
+            case`siblings`: return (
+                <AddSiblings
+                    rootParent={this.rootParent}
+                    nodeRoot={this.nodeRoot}
+                    type="siblings"
+                    setTreeData={this.props.setTreeData} />
+            );
+            case`children`: return (
+                <AddChildren
+                    rootParent={this.rootParent}
+                    nodeRoot={this.nodeRoot}
+                    type="children"
+                    setTreeData={this.props.setTreeData} />
+            );
         }
     }
 

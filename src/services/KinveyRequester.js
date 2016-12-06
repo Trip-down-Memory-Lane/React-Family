@@ -30,13 +30,14 @@ class KinveyRequester {
         })
     }
 
-    static editUserInfo(userId, email, firstName, lastName, basicInfo){
+    static editUserInfo(userId, email, firstName, lastName, basicInfo, treeId){
         let data = {
             username: sessionStorage.getItem('username'),
             email: email,
             firstName: firstName,
             lastName: lastName,
-            basicInfo: basicInfo
+            basicInfo: basicInfo,
+            treeId: treeId
         };
 
         let url = credentials.baseUrl + 'user/' + credentials.appKey + '/' + userId;

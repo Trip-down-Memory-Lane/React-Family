@@ -72,7 +72,14 @@ export default class AddChildrenForm extends Component {
             children.push(this.state.children[child]);
         }
 
-        TreeController.addChildren(this.nodeRoot, children);
+        TreeController.addRelative(this.nodeRoot, children)
+            .then((response) => {
+                TreeController.handleRelative(response)
+                    .then((response) => {
+                        console.log(`addedChild response `, response);
+                        this.props.setTreeData(response);
+                    });
+            });
     }
 
     render() {

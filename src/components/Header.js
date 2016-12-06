@@ -4,8 +4,6 @@ import NavigationBar from "./NavigationBar";
 class Header extends Component {
     constructor(props){
         super(props);
-        console.log('HEADERRRR');
-        console.log(this.props.page);
     }
     render() {
         return(

@@ -1,7 +1,26 @@
 import TreeRequester from "../services/TreeRequester";
+import UserController from "./UserController";
 
 let treeId = null;
 export default class TreeController {
+    static children = undefined;
+    static parentId = undefined;
+
+    static createTree(userData) {
+        let name = `${userData.firstName} ${userData.lastName}`;
+        // let idData = TreeController.generateId([], name);
+        let id = sessionStorage.getItem(`userId`);
+        let personIds = [id];
+
+        let treeRoot = {
+            name: name,
+            spouse: userData.spouse,
+            id: id,
+            personIds: personIds
+        };
+
+        return TreeRequester.postNewTree(treeRoot);
+    }
 
     static loadTree(id) {
         treeId = id;
@@ -26,29 +45,58 @@ export default class TreeController {
             children: [child]
         };
 
-        TreeRequester.putNewRoot(newRoot)
-            .then((response) => console.log(`parents posted successfully!`, response));
+        return TreeRequester.putNewRoot(newRoot);
+            // .then((response) => console.log(`parents posted successfully!`, response));
     }
 
-    static addChildren(parent, children) {
+    static addRelative(parent, children) {
+        console.log(`new children: `, children);
+        console.log(`parent children: `, parent.children);
         let parentId = parent.id;
-        let allChildren = parent.children.push.apply(parent.children, children);
-        TreeRequester.getTree(treeId)
-            .then(addChildren);
-
-        function addChildren(response) {
-            let tree = response.tree;
-            TreeController.add(tree, `id`, parentId, allChildren);
-            TreeRequester.putNewChildren(tree)
-                .then((response) => console.log(`children putted successfully`, response));
+        if (parent.children) {
+            console.log(`Previous children`, parent.children);
+            children.push.apply(children, parent.children);
         }
+
+        TreeController.children = children;
+        TreeController.parentId = parentId;
+
+        return TreeRequester.getTree(sessionStorage.getItem(`treeId`));
+    }
+
+    static handleRelative(response) {
+        let tree = TreeController.buildTree(response);
+        let childrenObjs = [];
+        for (let child of TreeController.children) {
+            let name = child.name;
+            let idData = TreeController.generateId(tree.personIds, name);
+            tree.personIds = idData.updatedIds;
+            let id = idData.rootParentId;
+            let spouse = child.spouse;
+            let nestedChildren = child.children;
+
+            childrenObjs.push({
+                name: name,
+                id: id,
+                spouse: spouse,
+                children: nestedChildren,
+            });
+        }
+
+        TreeController.add(tree, `id`, TreeController.parentId, childrenObjs);
+
+        return TreeRequester.putNewChildren(tree);
+            // .then((response) => {
+            //     console.log(`children putted successfully`, response);
+            //
+            // });
     }
 
     static add(tree, key, parentId, relatives) {
         for (let prop in tree) {
             if (!tree.hasOwnProperty(prop)) continue;
             if (typeof tree[prop] == 'object') {
-                TreeRequester.add(tree, key, parentId, relatives);
+                TreeController.add(tree[prop], key, parentId, relatives);
             } else if (prop == key && tree[key] == parentId) {
                 tree[`children`] = relatives;
             }
@@ -86,6 +134,26 @@ export default class TreeController {
                 return getUniqueId()
             }
         }
+    }
+
+    static getUserData(id, callback) {
+        UserController.loadUserInfo(id, callback);
+    }
+
+    static setUserTreeId(userData, treeId, callback) {
+        let userId = userData._id;
+        let email = userData.email;
+        let firstName = userData.firstName;
+        let lastName = userData.lastName;
+        let basicInfo = userData.basicInfo;
+
+        UserController.editUser(userId, email, firstName, lastName, basicInfo, treeId, callback);
+    }
+    static buildTree(response) {
+        let tree = response.tree;
+        tree.treeId = response._id;
+
+        return tree;
     }
 }
 

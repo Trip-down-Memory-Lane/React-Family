@@ -50,7 +50,7 @@ export default class Person extends Component {
         return(
             <div onClick={this.select} className={this.props.type} id={this.props.isLoggedInUser}>
                 <div className="person">
-                    <span>{this.props.person.name}</span>
+                    <span>{this.props.type === "spouse"? this.props.person: this.props.person.name}</span>
                 </div>
             </div>
         );

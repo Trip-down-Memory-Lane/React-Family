@@ -11,11 +11,10 @@ class TreeNode extends Component {
     *   -isTreeRoot: This has to be true for the first time TreeNode is invoked.
     *   -selectPerson function from FamilyTree. It shows Selected Person and must be passed down the line to Person.
     */
-
     constructor(props) {
         super(props);
         this.isTreeRoot = props.isTreeRoot;
-        this.isLoggedInUser = props.nodeRoot.name;
+        this.isLoggedInUser = props.nodeRoot.id;
         this.state = {
             nodeRoot: props.nodeRoot,
             spouse: props.nodeRoot.spouse,
@@ -31,8 +30,16 @@ class TreeNode extends Component {
         this.addSpouseIfExists = this.addSpouseIfExists.bind(this);
     }
 
-    set isLoggedInUser(rootName) { this._isLoggedInUser = rootName === `SoloChild`; } //TODO: Replace with: sessionStorage.getItem(`username`)
+    set isLoggedInUser(rootName) { this._isLoggedInUser = rootName === sessionStorage.getItem(`userId`); }
     get isLoggedInUser() { return this._isLoggedInUser; }
+
+    // componentWillReceiveProps(props) {
+    //     this.setState({
+    //         nodeRoot: props.nodeRoot,
+    //         spouse: props.nodeRoot.spouse,
+    //         children: props.nodeRoot.children
+    //     });
+    // }
 
     addSpouseIfExists() {
         let spouse = this.state.spouse;
@@ -60,7 +67,7 @@ class TreeNode extends Component {
         return (
             <TreeNode
                 selectPerson={this.props.selectPerson}
-                key={child._id}
+                key={child.id}
                 nodeRoot={child}
                 rootParent={this.state.nodeRoot} />
         );
@@ -106,6 +113,7 @@ class TreeNode extends Component {
     }
 
     render() {
+        console.log(`TreeNode RENDERING`);
         return(
             <div>
                 {this.addNode(this.state.nodeRoot)}

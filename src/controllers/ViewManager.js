@@ -45,7 +45,7 @@ class ViewManager{
                            component={ProfileView}
                            onEnter={(a, b) => Authenticator.requireAuth(Path.loginView())} />
 
-                    <Route path="tree"
+                    <Route path="/tree"
                            component={FamilyTreeView}
                            onEnter={(a, b) => Authenticator.requireAuth(Path.loginView())} />
                 </Route>
