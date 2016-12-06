@@ -91,6 +91,7 @@ export default class FamilyTree extends Component {
     constructor(props) {
         super(props);
         this.treeWidth = null;
+        console.log(`FamilyTre CONSTRUCTOR`);
         // this.state.treeRoot = props.treeRoot;
         // this.state.treeRoot = createRooTest();//TODO: replace with props.tree for production.
         this.state = {
@@ -109,6 +110,7 @@ export default class FamilyTree extends Component {
     }
 
     componentWillReceiveProps(props) {
+        console.log(`familytreeWIllReceiveProps.`);
         this.setState({
             treeRoot: props.treeRoot
         });
@@ -125,21 +127,28 @@ export default class FamilyTree extends Component {
 
     deselectPerson() {
         this.setState({
-            personSelected: false
+            personSelected: false,
+            isTreeRoot: null,
+            rootParent: null,
+            nodeRoot: null
         });
     }
 
     componentWillMount() {
+        console.log(`FAMILYTREE: WILL MOUNT!`);
         $(`#wrapper`).width(10000);
     }
     componentWillUpdate() {
+        console.log(`FAMILYTREE: WILL UPDATE!`);
         $(`#wrapper`).width(10000);
     }
 
     componentDidMount() {
+        console.log(`FAMILYTREE: DID MOUNT!`);
         $(`#wrapper`).width(this.treeWidth);
     }
     componentDidUpdate() {
+        console.log(`FAMILYTREE: DID UPDATE!`);
         $(`#wrapper`).width(this.treeWidth);
     }
 
@@ -157,7 +166,7 @@ export default class FamilyTree extends Component {
     }
 
     render() {
-        console.log(`FamilyTree RENDERING`);
+        console.log(`FAMILITREE RENDERING`, this.state.treeRoot);
         return(
             <Measure
                 onMeasure={this.setContainerToTreeWidth}

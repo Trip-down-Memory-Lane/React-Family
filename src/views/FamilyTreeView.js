@@ -1,6 +1,10 @@
 import React, {Component} from "react";
 import $ from "jquery";
 
+
+import emptyTrees from "../utils/_DEV_empty_trees_table";
+
+
 import Footer from "../components/Footer.js"
 import FamilyTree from "../components/treeComponents/FamilyTree";
 import TreeController from "../controllers/TreeController";
@@ -55,24 +59,20 @@ export default class FamilyTreeView extends Component {
     }
 
     createTree(userData) {
-        console.log(`CREATING TREE!!`);
+        console.log(`CREATING TREE!!`, userData.treeId);
         TreeController.createTree(userData)
             .then((response) => {
-                console.log(`response: `, response);
                 this.setTreeData(response);
                 TreeController.setUserTreeId(userData, response._id);
             });
     }
 
     setTreeData(response) {
-        console.log(`setting tree data..`, response);
         let tree = TreeController.buildTree(response);
-        sessionStorage.setItem(`treeId`, tree.treeId);
         this.updateState(tree);
     }
 
     updateState(tree) {
-        console.log(`Updating state to tree: `, tree);
         // this.userData.treeId = tree.treeId;
         this.setState(prevState => {
             return {
@@ -81,7 +81,7 @@ export default class FamilyTreeView extends Component {
                 info: null,
                 tree: tree
             }
-        }, console.log(`updated state!`));
+        });
     }
 
     isLoading() {
@@ -91,7 +91,7 @@ export default class FamilyTreeView extends Component {
                 <div id="wrapper">{this.state.info}</div>
             );
         } else {
-            console.log(`FamilyTreeView RENDERING!!`);
+            console.log(`FamilyTreeView RENDERING!!`, this.state.tree);
             return (
                 <div id="wrapper">
                     <div

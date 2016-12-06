@@ -112,18 +112,17 @@ class UserController {
             .then(callback);
     }
 
-    static editUser(userId, email, firstName, lastName, basicInfo, treeId, callback) {
-
-        if (!isEmail(email)){
-            console.log(email);
+    static editUser(userId, userInfo, callback) {
+        if (!isEmail(userInfo.email)){
+            console.log(userInfo.email);
             ViewManager.renderMessage('Invalid email address.', 'error');
             return;
         }
 
-        firstName = UserController.capitalize(firstName);
-        lastName = UserController.capitalize(lastName);
+        userInfo.firstName = UserController.capitalize(userInfo.firstName);
+        userInfo.lastName = UserController.capitalize(userInfo.lastName);
 
-        KinveyRequester.editUserInfo(userId, email, firstName, lastName, basicInfo, treeId)
+        KinveyRequester.editUserInfo(userId, userInfo)
             .then(callback);
     }
 

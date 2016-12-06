@@ -33,13 +33,13 @@ class TreeNode extends Component {
     set isLoggedInUser(rootName) { this._isLoggedInUser = rootName === sessionStorage.getItem(`userId`); }
     get isLoggedInUser() { return this._isLoggedInUser; }
 
-    // componentWillReceiveProps(props) {
-    //     this.setState({
-    //         nodeRoot: props.nodeRoot,
-    //         spouse: props.nodeRoot.spouse,
-    //         children: props.nodeRoot.children
-    //     });
-    // }
+    componentWillReceiveProps(props) {
+        this.setState({
+            nodeRoot: props.nodeRoot,
+            spouse: props.nodeRoot.spouse,
+            children: props.nodeRoot.children
+        });
+    }
 
     addSpouseIfExists() {
         let spouse = this.state.spouse;
@@ -113,7 +113,7 @@ class TreeNode extends Component {
     }
 
     render() {
-        console.log(`TreeNode RENDERING`);
+        console.log(`TreeNode RENDERING`, this.state.nodeRoot);
         return(
             <div>
                 {this.addNode(this.state.nodeRoot)}

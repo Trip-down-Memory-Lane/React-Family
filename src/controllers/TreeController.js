@@ -146,8 +146,10 @@ export default class TreeController {
         let firstName = userData.firstName;
         let lastName = userData.lastName;
         let basicInfo = userData.basicInfo;
+        let profilePicture = userData.profilePicture;
 
-        UserController.editUser(userId, email, firstName, lastName, basicInfo, treeId, callback);
+        let userInfo = {profilePicture, treeId, email, firstName, lastName, basicInfo};
+        UserController.editUser(userId, userInfo, callback);
     }
     static buildTree(response) {
         let tree = response.tree;
