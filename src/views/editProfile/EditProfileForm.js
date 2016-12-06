@@ -12,7 +12,6 @@ export default class EditProfileForm extends Component{
                 <form onSubmit={this.props.onSubmit}>
 
                     <img src={this.props.currentImageUrl}
-                         alt="profile picture"
                          style={{"width":"30%"}}
                     />
 

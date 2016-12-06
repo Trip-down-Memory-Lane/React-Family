@@ -20,14 +20,15 @@ class DeletePhotoButton extends React.Component {
 
     deletePhoto(e) {
         e.preventDefault();
-        // console.log(this.state.marked);
-
         UserController.deletePictures(this.state.marked, this.onDeleteSuccess );
-
         this.toggle();
     }
 
-    onDeleteSuccess(response){
+    onDeleteSuccess(deleted, response){
+
+        console.log(deleted);
+        console.log(response);
+
         console.log('deleted');
     }
 
@@ -47,14 +48,14 @@ class DeletePhotoButton extends React.Component {
         let id = (e.target.id);
         // console.log(id);
         this.state.marked.push(id);
-        if ($(e.target).parent().children().length == 1) {
+        if ($(e.target).parent().children().length === 1) {
             ($(e.target).parent().append($('<div>MARKED</div>')));
         } else {
             $(e.target).parent().children().eq(1).remove();
             this.setState(
                 {
                     marked: this.state.marked.filter(function (element) {
-                        return element != id;
+                        return element !== id;
                     })
                 })
         }
@@ -66,9 +67,9 @@ class DeletePhotoButton extends React.Component {
         return (
             <div>
                 <Button id="deletePicture" style={{"fontSize": "20px"}} color="danger"
-                        onClick={this.toggle}> {this.props.buttonLabel}Delete picture</Button>
+                        onClick={this.toggle}>Delete picture</Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-                    <ModalHeader toggle={this.toggle}></ModalHeader>
+                    <ModalHeader toggle={this.toggle} />
                     <ModalBody >
                         {/*<Button outline color="primary" style={{"backgroundColor":"#337ab7","color":"white"}} onClick={this.deletePhoto}>CHOOSE PICTURE</Button>*/}
 
@@ -93,6 +94,7 @@ class DeletePhotoButton extends React.Component {
                                                 'color': 'red',
                                                 'margin': '4px'
                                             }}
+                                                 role="presentation"
                                                  onClick={this.markForDelete}
                                                  key={i}
                                                  id={p.id}

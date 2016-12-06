@@ -74,7 +74,7 @@ class KinveyRequester {
     }
 
     static getUserPicturesRequest(userId){
-        console.log('IN KINVEY');
+        //console.log('IN KINVEY');
         let query = `?query={"_acl.creator":"${userId}"}`;
 
         return $.ajax({
@@ -105,9 +105,12 @@ class KinveyRequester {
     }
 
     static searchUserRequest(firstName, lastName){
-        //https://baas.kinvey.com/user/kid_SkHaVTqGx?query={"firstName":"Petyo"}&{"lastName": "Petrov"}
+        //https://baas.kinvey.com/user/kid_SkHaVTqGx?query={"firstName":"Petyo"}|{"lastName": "Petrov"}
 
-        let url = credentials.baseUrl + 'user/' + credentials.appKey + `?query={"firstName":"${firstName}"}&{"lastName":"${lastName}"}`;
+        let url = credentials.baseUrl + 'user/' + credentials.appKey + `?query={"firstName":"${firstName}"}
+                                                                            |{"lastName":"${lastName}"}
+                                                                            |{"firstName":"${lastName}"}
+                                                                            |{"lastName":"${firstName}"}`;
 
         return $.ajax({
             method: "GET",
@@ -139,6 +142,26 @@ class KinveyRequester {
             url: credentials.baseUrl + 'appdata/' + credentials.appKey + '/searchResults/' + searchId,
             headers: Authenticator.getKinveyUserAuthHeaders()
         });
+    }
+
+    static deletePictureRequest(toBeDeleted){
+
+        // {"key":"value"}
+
+        let query = '?query=';
+        for (let pic of toBeDeleted){
+            query += `{"_id":"${pic}"}|`;
+        }
+
+        query = query.substr(0, query.length - 1);
+
+        let requestUrl = credentials.baseUrl + 'appdata/' + credentials.appKey + '/pictures' + query;
+
+        return $.ajax({
+            method: "DELETE",
+            url: requestUrl,
+            headers: Authenticator.getKinveyUserAuthHeaders(),
+        })
     }
 
     /*
