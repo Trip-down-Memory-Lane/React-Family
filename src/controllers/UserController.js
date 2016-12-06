@@ -27,7 +27,8 @@ class UserController {
                 ViewManager.renderMessage('Login successful.', 'success');
             }
             else {
-                browserHistory.push('home/profile');
+                let userId = sessionStorage.getItem('userId');
+                browserHistory.push('/home/profile/'+userId);
                 ViewManager.renderMessage('Login successful.', 'success');
             }
         }
@@ -85,9 +86,11 @@ class UserController {
     }
 
     static loadUserPictures(userId, callback) {
-
         kinveyRequester.getUserPicturesRequest(userId)
-            .then(callback);
+            .then(callback).catch(function (err) {
+            console.log('ERROR');
+            console.log(err);
+        });
 
 
         // console.log('AAAAAAAAA');

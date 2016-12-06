@@ -84,16 +84,21 @@ class ProfileView extends React.Component {
 
     onLoadPicturesSuccess(data) {
         let userPictures = [];
-        // console.log('DATA: .');
-        // console.log(data);
-        console.log('on load pictures success');
+         console.log('DATA: .');
+         console.log(data);
+        console.log('on load pictures success2222');
         for (let pic of data) {
            // userPictures.push(pic.imageUrl);
-           //  console.log('PICTURE MY: ');
+             console.log('PICTURE MY: ');
            //  console.log(pic._id);
             let picture = {};
-            picture.original = pic.imageUrl;
-            picture.thumbnail =pic.imageUrl;
+            let path=pic.imageUrl;
+            if(!pic.imageUrl.startsWith('h')){
+                console.log('IN ADDING /');
+                path='/'+path
+            }
+            picture.original =path;
+            picture.thumbnail =path;
             picture.id=pic._id;
             if (pic.hasOwnProperty('description')) {
                 picture.description = pic.description;
@@ -126,7 +131,7 @@ class ProfileView extends React.Component {
     }
 
     render() {
-
+        console.log('RENDER PROFILE VIEW');
         return (
             <div>
                 <div className="row" id="profileContainer">
@@ -144,7 +149,7 @@ class ProfileView extends React.Component {
 
                             <div style={{"padding": "6%"}}>
 
-                                <Gallery images={this.state.images}></Gallery>
+                                <Gallery pictures={this.props.pictures}></Gallery>
                             </div>
                         </div>
                         <div className="row">

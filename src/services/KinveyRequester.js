@@ -68,6 +68,7 @@ class KinveyRequester {
     }
 
     static getUserPicturesRequest(userId){
+        console.log('IN KINVEY');
         let query = `?query={"_acl.creator":"${userId}"}`;
 
         return $.ajax({

@@ -9,7 +9,7 @@ export default class User extends Component{
             <div id="list-users-box">
                 <div>
 
-                    <Link to={"/profile/" + this.props.userId}><span className="spanner">{`${this.props.firstName} ${this.props.lastName}`}</span></Link>
+                    <Link to={"/home/profile/" + this.props.userId}><span className="spanner">{`${this.props.firstName} ${this.props.lastName}`}</span></Link>
                 </div>
             </div>
         )
