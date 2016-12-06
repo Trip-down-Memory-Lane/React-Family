@@ -20,15 +20,19 @@ class DeletePhotoButton extends React.Component {
 
     deletePhoto(e) {
         e.preventDefault();
+        console.log('MARKED BEFORE');
+        console.log(this.state.marked);
+        this.props.updateInfo(this.state.marked);
         UserController.deletePictures(this.state.marked, this.onDeleteSuccess );
+
         this.toggle();
     }
 
     onDeleteSuccess(deleted, response){
-
+        console.log('DELETE :');
         console.log(deleted);
+        console.log('RESPONSE');
         console.log(response);
-
         console.log('deleted');
     }
 
@@ -46,7 +50,8 @@ class DeletePhotoButton extends React.Component {
 
     markForDelete(e) {
         let id = (e.target.id);
-        // console.log(id);
+        console.log('PIC ID');
+        console.log(id);
         this.state.marked.push(id);
         if ($(e.target).parent().children().length === 1) {
             ($(e.target).parent().append($('<div>MARKED</div>')));

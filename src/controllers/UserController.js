@@ -28,7 +28,7 @@ class UserController {
             }
             else {
                 let userId = sessionStorage.getItem('userId');
-                browserHistory.push('/home/profile/'+userId);
+                browserHistory.push('/advert');
                 ViewManager.renderMessage('Login successful.', 'success');
             }
         }

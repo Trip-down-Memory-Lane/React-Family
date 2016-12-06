@@ -44,14 +44,14 @@ class Gallery extends React.Component {
 
                 return <div>
                     <AddPhotoButton  pictures={this.props.pictures}></AddPhotoButton>
-                    <DeletePhotoButton pictures={this.props.pictures}/>
+                    <DeletePhotoButton updateInfo={this.props.updateInfo}  pictures={this.props.pictures}/>
                 </div>
             }
         } else {
 
             return <div>
                 <AddPhotoButton pictures={this.props.pictures}></AddPhotoButton>
-                <DeletePhotoButton pictures={this.props.pictures}/>
+                <DeletePhotoButton updateInfo={this.props.updateInfo}  pictures={this.props.pictures}/>
             </div>
 
         }
