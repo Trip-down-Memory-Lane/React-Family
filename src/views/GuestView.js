@@ -1,5 +1,5 @@
 import React from 'react';
-import PhotoAlbum from  '../components/PhotoAlbum'
+//import PhotoAlbum from  '../components/PhotoAlbum'
 import Gallery from '../components/Gallery'
 import Avatar from '../components/ProfileInfo'
 import AboutMe from '../components/Aboutme'
@@ -7,9 +7,9 @@ import UserController from '../controllers/UserController'
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
 import {Link} from 'react-router';
-import {browserHistory} from 'react-router';
+//import {browserHistory} from 'react-router';
 import ViewTreeButton from '../components/CreateTreeButton'
-import { FormGroup, Label, Input} from 'reactstrap'
+//import { FormGroup, Label, Input} from 'reactstrap'
 import '../styles/profileView.css';
 import '../../public/loginHelper/img/backgrounds/Tree.png'
 import $ from 'jquery'
@@ -162,7 +162,7 @@ class GuestView extends React.Component {
                             <SearchForm value={this.props.search} onSubmit={this.props.onSubmit} onChange={this.props.onChange}/>
                         </div>
                         <div style={{"paddingLeft": "20%", "paddingRight": "20%"}}>
-                            <Link to={"/home/profile/" + this.props.userId + '/' + this.props.treeId }>
+                            <Link to="/home/tree">
                                 <ViewTreeButton/>
                             </Link>
                         </div>

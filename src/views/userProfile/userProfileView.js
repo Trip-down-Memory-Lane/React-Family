@@ -58,7 +58,6 @@ export default class CatalogPage extends Component {
     }
 
     componentWillMount() {
-
         UserController.loadUserInfo(this.props.params.userId, this.onLoadUserInfoSuccess);
         UserController.loadUserPictures(this.props.params.userId, this.onLoadUserPicturesSuccess)
     }

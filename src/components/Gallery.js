@@ -24,11 +24,11 @@ class Gallery extends React.Component {
 
     showDeleteButton() {
 
-        console.log('PICTURE CLICKED');
+        //console.log('PICTURE CLICKED');
         this.setState({
             deleteButton: <DeletePhotoButton></DeletePhotoButton>
         });
-        console.log(this.state.deleteButton);
+        //console.log(this.state.deleteButton);
 
     }
 
@@ -58,8 +58,8 @@ class Gallery extends React.Component {
 
     }
     componentWillMount() {
-        console.log('USER ID');
-        console.log(this.props.userId);
+        // console.log('USER ID');
+        // console.log(this.props.userId);
         // UserController.loadUserInfo(this.props.params.userId, this.onLoadUserInfoSuccess);
         // UserController.loadUserPictures(this.props.params.userId, this.onLoadUserPicturesSuccess)
     }
