@@ -33,7 +33,7 @@ class AddPhotoButton extends React.Component {
 
         };
         this.props.pictures.push(newPhoto);
-        UserController.addPicture(picUrl);
+        UserController.addPicture(picUrl, description);
 
         this.toggle()
 

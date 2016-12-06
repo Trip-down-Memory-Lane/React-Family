@@ -23,11 +23,12 @@ class UserController {
                 UserController.addPicture('loginHelper/img/backgrounds/22.jpg');
                 UserController.addPicture('loginHelper/img/backgrounds/image2.jpg');
 
-                browserHistory.push(Path.editProfileView());
+                browserHistory.push('home/edit');
                 ViewManager.renderMessage('Login successful.', 'success');
             }
             else {
-                browserHistory.push('home/profile');
+                let userId = sessionStorage.getItem('userId');
+                browserHistory.push('/home/profile/'+userId);
                 ViewManager.renderMessage('Login successful.', 'success');
             }
         }
@@ -42,7 +43,7 @@ class UserController {
                 .then(registerSuccess.bind(this))
                 .catch(ViewManager.renderMessage('Registration failed.', 'error'));
 
-            function registerSuccess() {
+            function registerSuccess(success) {
                 UserController.saveFirstTimeLogin();
                 browserHistory.push(Path.loginView());
                 ViewManager.renderMessage('Thank yoy for your registration. Please login to proceed.', 'success');
@@ -72,9 +73,9 @@ class UserController {
             .then(callback);
     }
 
-    static addPicture(pictureUrl) {
+    static addPicture(pictureUrl, description) {
 
-        KinveyRequester.addPictureRequest(pictureUrl)
+        KinveyRequester.addPictureRequest(pictureUrl, description)
             .then(addPictureSuccess.bind(this))
             .catch();
 
@@ -85,9 +86,11 @@ class UserController {
     }
 
     static loadUserPictures(userId, callback) {
-
         KinveyRequester.getUserPicturesRequest(userId)
-            .then(callback);
+            .then(callback).catch(function (err) {
+            console.log('ERROR');
+            console.log(err);
+        });
 
 
         // console.log('AAAAAAAAA');
@@ -109,9 +112,10 @@ class UserController {
             .then(callback);
     }
 
-    static editUser(userId, email, firstName, lastName, basicInfo, treeId, callback){
+    static editUser(userId, email, firstName, lastName, basicInfo, treeId, callback) {
 
         if (!isEmail(email)){
+            console.log(email);
             ViewManager.renderMessage('Invalid email address.', 'error');
             return;
         }

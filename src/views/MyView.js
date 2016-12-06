@@ -6,16 +6,15 @@ import AboutMe from '../components/Aboutme'
 import UserController from '../controllers/UserController'
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
-import {Link} from 'react-router';
 import {browserHistory} from 'react-router';
-import ViewTreeButton from '../components/CreateTreeButton'
+import CreateTreeButton from '../components/CreateTreeButton'
 import { FormGroup, Label, Input} from 'reactstrap'
 import '../styles/profileView.css';
 import '../../public/loginHelper/img/backgrounds/Tree.png'
 import $ from 'jquery'
 import SearchForm from '../views/search/SearchForm'
 
-class GuestView extends React.Component {
+class MyView extends React.Component {
     constructor(props) {
         super(props);
         $('.backstretch').remove();
@@ -48,13 +47,13 @@ class GuestView extends React.Component {
         //     }
         // ];
 
-        // this.state = {
-        //
-        //     firstName: '',
-        //     lastName: '',
-        //     basicInfo: '',
-        //     search:''
-        // };
+        this.state = {
+
+            firstName: '',
+            lastName: '',
+            basicInfo: '',
+            search:''
+        };
         this.updatePics = this.updatePics.bind(this);
         //this.onLoadSuccess = this.onLoadSuccess.bind(this);
 
@@ -66,13 +65,11 @@ class GuestView extends React.Component {
     }
 
     updatePics(e) {
-        //console.log('UPDATE PICS');
-      let iid=(this.props.params.userId);
+        console.log('UPDATE PICS');
         let userId = this.props.userId;
-        //console.log(iid);
         //
-            UserController.loadUserInfo(iid, this.onLoadUserInfoSuccess);
-             UserController.loadUserPictures(iid, this.onLoadPicturesSuccess);
+        UserController.loadUserInfo(userId, this.onLoadUserInfoSuccess);
+        UserController.loadUserPictures(userId, this.onLoadPicturesSuccess);
     }
 
     componentWillReceiveProps() {
@@ -83,50 +80,40 @@ class GuestView extends React.Component {
     }
 
     onLoadUserInfoSuccess(data) {
-
+        console.log('úser info');
+        console.log(data);
         this.setState({
             firstName: data.firstName,
             lastName: data.lastName,
             basicInfo: data.basicInfo
         });
-
-        // console.log('úser info');
-        // console.log(data);
-        this.props.updateInfo(data);
-        // this.setState({
-        //     firstName: data.firstName,
-        //     lastName: data.lastName,
-        //     basicInfo: data.basicInfo
-        // });
     }
 
     onLoadPicturesSuccess(data) {
         let userPictures = [];
 
-        // console.log('pictures');
-        // console.log(data);
+        console.log('pictures');
+        console.log(data);
         for (let pic of data) {
             // userPictures.push(pic.imageUrl);
             // console.log(pic);
             let picture = {};
             picture.original = pic.imageUrl;
             picture.thumbnail =pic.imageUrl;
-            picture.id=pic._id;
             if (pic.hasOwnProperty('description')) {
                 picture.description = pic.description;
             }
             userPictures.push(picture);
         }
-        this.props.updateInfo(data);
-        //
-        // this.setState({images:userPictures})
-    }
-    onChange(event){
-        let userId = this.props.userId;
 
-        UserController.loadUserInfo(userId, this.onLoadUserInfoSuccess);
-        UserController.loadUserPictures(userId, this.onLoadPicturesSuccess);
+        this.setState({images:userPictures})
     }
+    // onChange(event){
+    //     event.preventDefault();
+    //     this.setState({
+    //         search: event.target.value,
+    //     });
+    // }
     // onSearchUserSuccess(response){
     //     console.log(response);
     //     UserController.fillSearchResults(response, onFillSearchResultsSuccess);
@@ -151,8 +138,6 @@ class GuestView extends React.Component {
 // }
 
     render() {
-        // console.log('PARAMS');
-        // console.log(this.props);
 
         return (
             <div>
@@ -162,9 +147,7 @@ class GuestView extends React.Component {
                             <SearchForm value={this.props.search} onSubmit={this.props.onSubmit} onChange={this.props.onChange}/>
                         </div>
                         <div style={{"paddingLeft": "20%", "paddingRight": "20%"}}>
-                            <Link to={"/home/profile/" + this.props.userId + '/' + this.props.treeId }>
-                                <ViewTreeButton/>
-                            </Link>
+                            <   CreateTreeButton/>
                         </div>
                     </div>
                     <div className="row">
@@ -179,13 +162,26 @@ class GuestView extends React.Component {
                             <div className="col-md-6">
 
                                 <div className="col-md-6" style={{
+                                    "paddingTop": "10%",
+                                    "paddingRight": "20%",
+                                    "backgroundColor": "",
+                                    "width": "50%"
+                                }}>
+                                    <img id="tree" src="http://www.freeiconspng.com/uploads/forest-icon-png-20.png"
+                                         href="#" style={{"width": "100%", "height": "100%", "cursor": "pointer"}}/>
+                                    <div style={{"margiTop": ""}}>
+                                        VIEW FAMILY TREE
+                                    </div>
+                                </div>
+
+                                <div className="col-md-6" style={{
                                     "paddingTop": "7%",
                                     "paddingBottom": "2%",
                                     "paddingRight": "10%",
                                     "backgroundColor": ""
                                 }}>
                                     <Avatar />
-                                    <AboutMe name={this.props.firstName + ' ' + this.props.lastName}></AboutMe>
+                                    <AboutMe name={this.state.firstName + ' ' + this.state.lastName}></AboutMe>
                                 </div>
                             </div>
 
@@ -204,4 +200,4 @@ class GuestView extends React.Component {
     }
 }
 
-export default GuestView
+export default MyView

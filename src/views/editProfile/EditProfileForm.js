@@ -10,6 +10,23 @@ export default class EditProfileForm extends Component{
             <div className="container">
                 <h1>Edit your profile</h1>
                 <form onSubmit={this.props.onSubmit}>
+
+                    <img src={this.props.currentImageUrl}
+                         alt="profile picture"
+                         style={{"width":"30%"}}
+                    />
+
+                    <div className="form-group">
+                        <label>New profile picture url</label>
+                        <input type="text"
+                               className="form-control"
+                               name="imgUrl"
+                               placeholder="Image url"
+                               value={this.props.imgUrl}
+                               onChange={this.props.onChange}
+                        />
+                    </div>
+
                     <div className="form-group">
                         <label>Email*</label>
                         <input type="text"
@@ -17,26 +34,29 @@ export default class EditProfileForm extends Component{
                                name="email"
                                value={this.props.email}
                                onChange={this.props.onChange}
+                               required
                         />
                     </div>
 
                     <div className="form-group">
-                        <label>First name</label>
+                        <label>First name*</label>
                         <input type="text"
                                className="form-control"
                                name="firstName"
                                value={this.props.firstName}
                                onChange={this.props.onChange}
+                               required
                         />
                     </div>
 
                     <div className="form-group">
-                        <label>Last name</label>
+                        <label>Last name*</label>
                         <input type="text"
                                className="form-control"
                                name="lastName"
                                value={this.props.lastName}
                                onChange={this.props.onChange}
+                               required
                         />
                     </div>
 
@@ -56,7 +76,7 @@ export default class EditProfileForm extends Component{
                                className="btn btn-success"
                         />
 
-                        <button className="btn btn-warning"><Link to="/home/profile">Cancel</Link></button>
+                        <button className="btn btn-warning"><Link to={"/home/profile/" + sessionStorage.getItem('userId')}>Cancel</Link></button>
                     </div>
                 </form>
 

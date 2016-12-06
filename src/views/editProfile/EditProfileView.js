@@ -9,9 +9,15 @@ import $ from 'jquery';
 export default class EditProfileView extends Component {
 
     constructor(props) {
+        $('.backstretch').remove();
+        $('body').css('background', '#d0e5e2')
+
+
         super(props);
 
         this.state = {
+            currentImageUrl: '',
+            imgUrl: '',
             email: Path.initialEmail(),
             firstName: Path.initialFirstName(),
             lastName: Path.initialLastName(),
@@ -29,8 +35,6 @@ export default class EditProfileView extends Component {
         this.onPasswordChange = this.onPasswordChange.bind(this);
         this.onPasswordCheckSuccess = this.onPasswordCheckSuccess.bind(this);
         this.onResetPasswordSuccess = this.onResetPasswordSuccess.bind(this);
-
-        this.handleChangePicClick = this.handleChangePicClick.bind(this);
     }
 
     onPasswordChange(event){
@@ -58,7 +62,7 @@ export default class EditProfileView extends Component {
     onResetPasswordSuccess(){
         console.log('success');
         ViewManager.renderMessage('Email for password reset was sent to your registered email address.', 'success');
-        this.context.router.push('home/profile');
+        this.context.router.push('home/profile/' + sessionStorage.getItem('userId'));
     }
 
     onChangeHandler(event){
@@ -74,7 +78,10 @@ export default class EditProfileView extends Component {
     }
 
     onLoadSuccess(response){
+        console.log(response);
         this.setState({
+            currentImageUrl: response.profilePicture,
+            imgUrl: response.profilePicture,
             email: response.email,
             firstName: response.firstName,
             lastName: response.lastName,
@@ -87,6 +94,7 @@ export default class EditProfileView extends Component {
 
         UserController.editUser(
             sessionStorage.getItem('userId'),
+            this.state.imgUrl,
             this.state.email,
             this.state.firstName,
             this.state.lastName,
@@ -97,27 +105,15 @@ export default class EditProfileView extends Component {
 
     onEditSuccess(response){
         ViewManager.renderMessage('Profile edited.', 'success');
-        this.context.router.push('home/profile');
-    }
-
-    handleChangePicClick() {
-        this.triggerOnChangeProfilePicClick();
-    }
-
-    triggerOnChangeProfilePicClick(){
-        let event = new MouseEvent('click', {
-            'view': window,
-            'bubbles': true,
-            'cancelable': false
-        });
-        let node = document.getElementById('change-picture');
-        node.dispatchEvent(event);
+        this.context.router.push('home/profile/' + sessionStorage.getItem('userId'));
     }
 
     render() {
         return (
             <div>
                 <EditProfileForm
+                    currentImageUrl={this.state.currentImageUrl}
+                    imgUrl={this.state.imgUrl}
                     email={this.state.email}
                     firstName={this.state.firstName}
                     lastName={this.state.lastName}

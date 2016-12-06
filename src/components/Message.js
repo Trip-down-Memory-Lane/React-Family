@@ -1,7 +1,7 @@
 import React from 'react';
 import { Alert } from 'reactstrap';
 
-class ErrorMessage extends React.Component {
+export default class Message extends React.Component {
     constructor(props) {
         super(props);
 
@@ -22,5 +22,3 @@ class ErrorMessage extends React.Component {
         );
     }
 }
-
-export default ErrorMessage;

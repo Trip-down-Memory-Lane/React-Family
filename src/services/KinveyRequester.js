@@ -3,7 +3,6 @@ import credentials from '../constants/credentials';
 import Authenticator from '../utils/authentication';
 
 class KinveyRequester {
-
     static loginUser(username, password) {
         return $.ajax({
             method: "POST",
@@ -14,11 +13,18 @@ class KinveyRequester {
     }
 
     static registerUser(username, password){
+
+        let data = {
+            username: username,
+            password: password,
+            profilePicture: "http://www.clipartbest.com/cliparts/9Tp/ona/9Tponakbc.png",
+        };
+
         return $.ajax({
             method: "POST",
             url: credentials.baseUrl + "user/" + credentials.appKey + "/",
             headers: credentials.kinveyAppAuthHeaders,
-            data: {username, password}
+            data: data,
         });
     }
 
@@ -30,14 +36,15 @@ class KinveyRequester {
         })
     }
 
-    static editUserInfo(userId, email, firstName, lastName, basicInfo, treeId){
+    static editUserInfo(userId, email, firstName, lastName, imgUrl, basicInfo, treeId){
         let data = {
             username: sessionStorage.getItem('username'),
             email: email,
             firstName: firstName,
             lastName: lastName,
             basicInfo: basicInfo,
-            treeId: treeId
+            treeId: treeId,
+            profilePicture: imgUrl,
         };
 
         let url = credentials.baseUrl + 'user/' + credentials.appKey + '/' + userId;
@@ -58,16 +65,17 @@ class KinveyRequester {
         });
     }
 
-    static addPictureRequest(pictureUrl){
+    static addPictureRequest(pictureUrl, description){
         return $.ajax(({
             method: "POST",
             url: credentials.baseUrl + 'appdata/' + credentials.appKey + "/pictures",
             headers: Authenticator.getKinveyUserAuthHeaders(),
-            data: {imageUrl: pictureUrl}
+            data: {imageUrl: pictureUrl, description: description}
         }));
     }
 
     static getUserPicturesRequest(userId){
+        console.log('IN KINVEY');
         let query = `?query={"_acl.creator":"${userId}"}`;
 
         return $.ajax({

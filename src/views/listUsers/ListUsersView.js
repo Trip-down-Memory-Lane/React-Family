@@ -19,6 +19,8 @@ export default class CatalogPage extends Component{
     }
 
     onLoadSuccess(response){
+        // console.log('RESPONSE :');
+        // console.log(response);
         let searchId = response[0]._id;
         UserController.deleteSearchData(searchId,onDeleteSuccess);
 
@@ -34,15 +36,16 @@ export default class CatalogPage extends Component{
             return a.firstName.localeCompare(b.firstName);
         });
 
-        for (let user of response){
-            console.log(user.results[0].firstName);
-        }
+        // for (let user of response){
+        //     console.log(user.results[0].firstName);
+        // }
 
         let resultUsers = [];
         for (let user of response){
             let data = {
                 firstName: user.results[0].firstName,
                 lastName: user.results[0].lastName,
+                userId: user.results[0]._id,
                 //profilePicture: user.results[0].profilePicture,
             };
 
@@ -54,20 +57,30 @@ export default class CatalogPage extends Component{
     }
 
     render(){
-        return (
-            <div>
-                <h1>Users</h1>
+        // console.log('LIST USERS');
+        // console.log(this.state.users);
 
-                {this.state.users.map((u, i) => {
-                    return (
-                        <User
-                            key={i}
-                            firstName={u.firstName}
-                            lastName={u.lastName}
-                            userId={u._id} />
-                    );
-                })}
-            </div>
-        )
+        if (this.state.users.length > 0){
+            return (
+                <div>
+                    <h1>Users</h1>
+
+                    {this.state.users.map((u, i) => {
+                        return (
+                            <User
+                                key={i}
+                                firstName={u.firstName}
+                                lastName={u.lastName}
+                                userId={u.userId} />
+                        );
+                    })}
+                </div>
+            )
+        }
+        else{
+            return <div>No such user found.</div>
+        }
+
+
     }
 }
