@@ -23,7 +23,7 @@ class NavigationBar extends React.Component {
                 <Navbar color="faded" light>
                     <Nav className="float-xs-right" navbar>
                         <NavItem style={{"fontSize": "25px"}}>
-                            <Link to={"/home"}  style={{"fontFamily":"Impact","color":"#337f1c","fontSize":"150%"}}>
+                            <Link to={"/home/profile/" + userId}  style={{"fontFamily":"Impact","color":"#337f1c","fontSize":"150%"}}>
                               {username}
                             </Link>
                         </NavItem>

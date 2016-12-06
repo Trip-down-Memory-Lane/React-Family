@@ -41,7 +41,8 @@ export default class CatalogPage extends Component {
             lastName: '',
             basicInfo: '',
             pictures: images,
-            search:''
+            search:'',
+            treeId: '',
         };
 
         this.onLoadUserInfoSuccess = this.onLoadUserInfoSuccess.bind(this);
@@ -56,11 +57,11 @@ export default class CatalogPage extends Component {
         UserController.loadUserInfo(this.props.params.userId, this.onLoadUserInfoSuccess);
         UserController.loadUserPictures(this.props.params.userId, this.onLoadUserPicturesSuccess)
     }
-
-    componentDidMount(){
-        UserController.loadUserInfo(this.props.params.userId, this.onLoadUserInfoSuccess);
-        UserController.loadUserPictures(this.props.params.userId, this.onLoadUserPicturesSuccess)
-    }
+    //
+    // componentDidMount(){
+    //     UserController.loadUserInfo(this.props.params.userId, this.onLoadUserInfoSuccess);
+    //     UserController.loadUserPictures(this.props.params.userId, this.onLoadUserPicturesSuccess)
+    // }
 
     onLoadUserInfoSuccess(response) {
         this.setState({
@@ -68,6 +69,7 @@ export default class CatalogPage extends Component {
             firstName: response.firstName,
             lastName: response.lastName,
             basicInfo: response.basicInfo,
+            treeId: response.treeId,
         });
     }
 
@@ -81,6 +83,7 @@ export default class CatalogPage extends Component {
             let picture = {};
             picture.original = pic.imageUrl;
             picture.thumbnail =pic.imageUrl;
+            picture.id = pic._id;
             if (pic.hasOwnProperty('description')) {
                 picture.description = pic.description;
             }
@@ -138,7 +141,6 @@ export default class CatalogPage extends Component {
              userId = this.props.params.userId
         }
 
-
         return (
 
             <div>
@@ -150,6 +152,7 @@ export default class CatalogPage extends Component {
                     onChange={this.onChange}
                     search={this.state.search}
                     userId={userId}
+                    treeId={this.state.treeId}
                     pictures={this.state.pictures}
                     username={this.state.username}
                     firstName={this.state.firstName}

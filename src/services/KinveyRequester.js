@@ -3,19 +3,6 @@ import credentials from '../constants/credentials';
 import Authenticator from '../utils/authentication';
 
 class KinveyRequester {
-
-    static uploadDefaultPicture(){
-        let metadata = {
-            _filename: "uploadDefaultPicture",
-            mimeType: "image/jpeg",
-            size: 5087
-        };
-
-
-    }
-
-
-
     static loginUser(username, password) {
         return $.ajax({
             method: "POST",
@@ -26,11 +13,18 @@ class KinveyRequester {
     }
 
     static registerUser(username, password){
+
+        let data = {
+            username: username,
+            password: password,
+            profilePicture: "http://www.clipartbest.com/cliparts/9Tp/ona/9Tponakbc.png",
+        };
+
         return $.ajax({
             method: "POST",
             url: credentials.baseUrl + "user/" + credentials.appKey + "/",
             headers: credentials.kinveyAppAuthHeaders,
-            data: {username, password}
+            data: data,
         });
     }
 
@@ -70,12 +64,12 @@ class KinveyRequester {
         });
     }
 
-    static addPictureRequest(pictureUrl){
+    static addPictureRequest(pictureUrl, description){
         return $.ajax(({
             method: "POST",
             url: credentials.baseUrl + 'appdata/' + credentials.appKey + "/pictures",
             headers: Authenticator.getKinveyUserAuthHeaders(),
-            data: {imageUrl: pictureUrl}
+            data: {imageUrl: pictureUrl, description: description}
         }));
     }
 
@@ -144,17 +138,6 @@ class KinveyRequester {
             method: "DELETE",
             url: credentials.baseUrl + 'appdata/' + credentials.appKey + '/searchResults/' + searchId,
             headers: Authenticator.getKinveyUserAuthHeaders()
-        });
-    }
-
-    static pictureUploadFirstStepRequest(metadata){
-        let url = credentials.baseUrl + 'blob/' + credentials.appKey;
-
-        return $.ajax({
-            method: "POST",
-            url: url,
-            headers: Authenticator.getKinveyUserAuthHeaders(),
-            data: {metadata},
         });
     }
 

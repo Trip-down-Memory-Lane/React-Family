@@ -9,6 +9,10 @@ import $ from 'jquery';
 export default class EditProfileView extends Component {
 
     constructor(props) {
+        $('.backstretch').remove();
+        $('body').css('background', '#d0e5e2')
+
+
         super(props);
 
         this.state = {
@@ -58,7 +62,7 @@ export default class EditProfileView extends Component {
     onResetPasswordSuccess(){
         console.log('success');
         ViewManager.renderMessage('Email for password reset was sent to your registered email address.', 'success');
-        this.context.router.push('home/profile');
+        this.context.router.push('home/profile/' + sessionStorage.getItem('userId'));
     }
 
     onChangeHandler(event){
@@ -101,7 +105,7 @@ export default class EditProfileView extends Component {
 
     onEditSuccess(response){
         ViewManager.renderMessage('Profile edited.', 'success');
-        this.context.router.push('home/profile');
+        this.context.router.push('home/profile/' + sessionStorage.getItem('userId'));
     }
 
     render() {

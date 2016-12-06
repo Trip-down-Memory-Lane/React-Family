@@ -6,8 +6,9 @@ import AboutMe from '../components/Aboutme'
 import UserController from '../controllers/UserController'
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
+import {Link} from 'react-router';
 import {browserHistory} from 'react-router';
-import CreateTreeButton from '../components/CreateTreeButton'
+import ViewTreeButton from '../components/CreateTreeButton'
 import { FormGroup, Label, Input} from 'reactstrap'
 import '../styles/profileView.css';
 import '../../public/loginHelper/img/backgrounds/Tree.png'
@@ -80,8 +81,8 @@ class GuestView extends React.Component {
     }
 
     onLoadUserInfoSuccess(data) {
-        console.log('úser info');
-        console.log(data);
+        // console.log('úser info');
+        // console.log(data);
         this.setState({
             firstName: data.firstName,
             lastName: data.lastName,
@@ -92,14 +93,15 @@ class GuestView extends React.Component {
     onLoadPicturesSuccess(data) {
         let userPictures = [];
 
-        console.log('pictures');
-        console.log(data);
+        // console.log('pictures');
+        // console.log(data);
         for (let pic of data) {
             // userPictures.push(pic.imageUrl);
             // console.log(pic);
             let picture = {};
             picture.original = pic.imageUrl;
             picture.thumbnail =pic.imageUrl;
+            picture.id=pic._id;
             if (pic.hasOwnProperty('description')) {
                 picture.description = pic.description;
             }
@@ -147,7 +149,9 @@ class GuestView extends React.Component {
                             <SearchForm value={this.props.search} onSubmit={this.props.onSubmit} onChange={this.props.onChange}/>
                         </div>
                         <div style={{"paddingLeft": "20%", "paddingRight": "20%"}}>
-                            <   CreateTreeButton/>
+                            <Link to={"/home/profile/" + this.props.userId + '/' + this.props.treeId }>
+                                <ViewTreeButton/>
+                            </Link>
                         </div>
                     </div>
                     <div className="row">
@@ -160,19 +164,6 @@ class GuestView extends React.Component {
                         </div>
                         <div className="row">
                             <div className="col-md-6">
-
-                                <div className="col-md-6" style={{
-                                    "paddingTop": "10%",
-                                    "paddingRight": "20%",
-                                    "backgroundColor": "",
-                                    "width": "50%"
-                                }}>
-                                    <img id="tree" src="http://www.freeiconspng.com/uploads/forest-icon-png-20.png"
-                                         href="#" style={{"width": "100%", "height": "100%", "cursor": "pointer"}}/>
-                                    <div style={{"margiTop": ""}}>
-                                        VIEW FAMILY TREE
-                                    </div>
-                                </div>
 
                                 <div className="col-md-6" style={{
                                     "paddingTop": "7%",

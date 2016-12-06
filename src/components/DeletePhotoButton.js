@@ -19,7 +19,7 @@ class DeletePhotoButton extends React.Component {
 
     deletePhoto(e) {
         e.preventDefault();
-        console.log(this.state.marked);
+        //console.log(this.state.marked);
         this.toggle()
 
     }
@@ -38,6 +38,7 @@ class DeletePhotoButton extends React.Component {
 
     markForDelete(e) {
         let id = (e.target.id);
+        // console.log(id);
         this.state.marked.push(id);
         if ($(e.target).parent().children().length == 1) {
             ($(e.target).parent().append($('<div>MARKED</div>')));
@@ -55,7 +56,6 @@ class DeletePhotoButton extends React.Component {
     }
 
     render() {
-
         return (
             <div>
                 <Button id="deletePicture" style={{"fontSize": "20px"}} color="danger"
@@ -77,6 +77,8 @@ class DeletePhotoButton extends React.Component {
                                     if (!p.original.startsWith('h')) {
                                        path='/'+path;
                                     }
+                                    console.log('P is HERE');
+                                    console.log(p);
                                     return (
                                         <div key={i} style={{"paddingRight": "70%"}}>
                                             <img style={{

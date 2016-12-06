@@ -11,9 +11,9 @@ export default class EditProfileForm extends Component{
                 <h1>Edit your profile</h1>
                 <form onSubmit={this.props.onSubmit}>
 
-                    <img src={this.props.currentImageUrl || "default_profile_pic.jpg"}
+                    <img src={this.props.currentImageUrl}
                          alt="profile picture"
-                         style={{"width":"100px"}}
+                         style={{"width":"30%"}}
                     />
 
                     <div className="form-group">
@@ -34,11 +34,12 @@ export default class EditProfileForm extends Component{
                                name="email"
                                value={this.props.email}
                                onChange={this.props.onChange}
+                               required
                         />
                     </div>
 
                     <div className="form-group">
-                        <label>First name</label>
+                        <label>First name*</label>
                         <input type="text"
                                className="form-control"
                                name="firstName"
@@ -49,7 +50,7 @@ export default class EditProfileForm extends Component{
                     </div>
 
                     <div className="form-group">
-                        <label>Last name</label>
+                        <label>Last name*</label>
                         <input type="text"
                                className="form-control"
                                name="lastName"
@@ -75,7 +76,7 @@ export default class EditProfileForm extends Component{
                                className="btn btn-success"
                         />
 
-                        <button className="btn btn-warning"><Link to="/home/profile">Cancel</Link></button>
+                        <button className="btn btn-warning"><Link to={"/home/profile/" + sessionStorage.getItem('userId')}>Cancel</Link></button>
                     </div>
                 </form>
 

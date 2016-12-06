@@ -23,7 +23,7 @@ class UserController {
                 UserController.addPicture('loginHelper/img/backgrounds/22.jpg');
                 UserController.addPicture('loginHelper/img/backgrounds/image2.jpg');
 
-                browserHistory.push(Path.editProfileView());
+                browserHistory.push('home/edit');
                 ViewManager.renderMessage('Login successful.', 'success');
             }
             else {
@@ -44,11 +44,6 @@ class UserController {
                 .catch(ViewManager.renderMessage('Registration failed.', 'error'));
 
             function registerSuccess(success) {
-
-                kinveyRequester.uploadDefaultPicture()
-                    .then((success) => {console.log(success);})
-                    .catch(() => {console.log('error');})
-
                 UserController.saveFirstTimeLogin();
                 browserHistory.push(Path.loginView());
                 ViewManager.renderMessage('Thank yoy for your registration. Please login to proceed.', 'success');
@@ -78,9 +73,9 @@ class UserController {
             .then(callback);
     }
 
-    static addPicture(pictureUrl) {
+    static addPicture(pictureUrl, description) {
 
-        kinveyRequester.addPictureRequest(pictureUrl)
+        kinveyRequester.addPictureRequest(pictureUrl, description)
             .then(addPictureSuccess.bind(this))
             .catch();
 
@@ -175,20 +170,6 @@ class UserController {
         kinveyRequester.deleteSearchDataRequest(searchId)
             .then(callback);
     }
-
-    // static uploadProfilePicture(data, callback){
-    //     let metadata = {};
-    //     let file = data[0].files[0];
-    //
-    //     metadata = {
-    //         '_filename': file.name,
-    //         'size': file.size,
-    //         'nameType': file.type,
-    //     };
-    //
-    //     kinveyRequester.pictureUploadFirstStepRequest(metadata)
-    //         .then(callback);
-    // }
 }
 
 export default  UserController;
