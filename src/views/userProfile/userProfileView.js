@@ -49,6 +49,11 @@ export default class CatalogPage extends Component {
 
         this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.updateInfo=this.updateInfo.bind(this);
+    }
+    updateInfo(data){
+        console.log('UPDATE INFO');
+        console.log(data);
     }
 
     componentWillMount() {
@@ -57,10 +62,10 @@ export default class CatalogPage extends Component {
         UserController.loadUserPictures(this.props.params.userId, this.onLoadUserPicturesSuccess)
     }
 
-    componentDidMount(){
-        UserController.loadUserInfo(this.props.params.userId, this.onLoadUserInfoSuccess);
-        UserController.loadUserPictures(this.props.params.userId, this.onLoadUserPicturesSuccess)
-    }
+    // componentDidMount(){
+    //     UserController.loadUserInfo(this.props.params.userId, this.onLoadUserInfoSuccess);
+    //     UserController.loadUserPictures(this.props.params.userId, this.onLoadUserPicturesSuccess)
+    // }
 
     onLoadUserInfoSuccess(response) {
         this.setState({
@@ -81,6 +86,7 @@ export default class CatalogPage extends Component {
             let picture = {};
             picture.original = pic.imageUrl;
             picture.thumbnail =pic.imageUrl;
+            picture.id=pic._id;
             if (pic.hasOwnProperty('description')) {
                 picture.description = pic.description;
             }
@@ -114,6 +120,7 @@ export default class CatalogPage extends Component {
     // }
     onChange(event){
         event.preventDefault();
+        console.log('GUEST VIEW CHANGING');
         this.setState({
             search: event.target.value,
         });
@@ -144,6 +151,7 @@ export default class CatalogPage extends Component {
             <div>
                 <h1>User profile</h1>
                 <GuestView
+                    updateInfo={this.updateInfo}
                     onLoadUserInfoSuccess={this.onLoadUserInfoSuccess}
                     onLoadPicturesSuccess={this.onLoadPicturesSuccess}
                     onSubmit={this.onSubmit}
