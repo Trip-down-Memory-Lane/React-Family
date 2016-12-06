@@ -1,8 +1,11 @@
 import React, {Component} from "react";
+import $ from "jquery";
+
 import Header from '../components/Header'
 import Footer from "../components/Footer.js"
 import FamilyTree from "../components/treeComponents/FamilyTree";
-import $ from "jquery";
+import TreeController from "../controllers/TreeController";
+
 
 export default class FamilyTreeView extends Component {
     /*
@@ -14,11 +17,60 @@ export default class FamilyTreeView extends Component {
         this.state = {
             clickX: null,
             clicked: false,
+            info: `Loading..`
         };
+
+        this.updateState = this.updateState.bind(this);
 
         // this.handleMouseDown = this.handleMouseDown.bind(this);
         // this.handleMouseMove = this.handleMouseMove.bind(this);
         // this.handleMouseUp = this.handleMouseUp.bind(this);
+    }
+
+    updateState(response) {
+        let tree = response.tree
+        console.log(`updating state`, response);
+        this.setState(prevState => {
+            return {
+                clickX: prevState.clickX,
+                clicked: prevState.clicked,
+                info: null,
+                tree: tree
+            }
+        }, () => console.log(this.state));
+    }
+
+    // shouldComponentUpdate(nextState) {
+    //     return !(this.state.tree === nextState.tree);
+    // }
+
+    isLoading() {
+        console.log(`isloading?`);
+        if (this.state.info) {
+            console.log(`it is still loading.`);
+            return (
+                <div id="wrapper">{this.state.info}</div>
+            );
+        } else {
+            console.log(`it is not loading`);
+            return (
+                <div id="wrapper">
+                    <div
+                        onMouseMove={this.handleMouseMove}
+                        onMouseDown={this.handleMouseDown}
+                        onMouseUp={this.handleMouseUp}
+                        id="content">
+                        <FamilyTree treeRoot={this.state.tree} />
+                    </div>
+                    <Footer/>
+                </div>
+            );
+        }
+    }
+
+    componentDidMount() {
+        this.tree = TreeController.loadTree(`5845a8b4e6d6cc6310b0847d`)
+            .then(this.updateState);
     }
 
     // handleMouseDown(event) {
@@ -56,14 +108,15 @@ export default class FamilyTreeView extends Component {
     // }
 
     render() {
-        return(
+        console.log(`rendering`);
+        return (
             <div id="wrapper">
                 <div
                     onMouseMove={this.handleMouseMove}
                     onMouseDown={this.handleMouseDown}
                     onMouseUp={this.handleMouseUp}
                     id="content">
-                    <FamilyTree />
+                    <FamilyTree treeRoot={this.state.tree} />
                 </div>
                 <Footer/>
             </div>

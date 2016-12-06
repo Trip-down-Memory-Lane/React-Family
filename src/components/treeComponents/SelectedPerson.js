@@ -42,7 +42,7 @@ export default class SelectedPerson extends Component {
         switch (this.state.editForm) {
             case`parents`: return <AddParentsForm nodeRoot={this.nodeRoot} />;
             case`siblings`: return <AddSiblings rootParent={this.rootParent} nodeRoot={this.nodeRoot} type="siblings"/>;
-            case`children`: return <AddChildren  nodeRoot={this.nodeRoot} type="children"/>;
+            case`children`: return <AddChildren rootParent={this.rootParent} nodeRoot={this.nodeRoot} type="children"/>;
         }
     }
 
