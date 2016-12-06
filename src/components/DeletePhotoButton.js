@@ -39,7 +39,6 @@ class DeletePhotoButton extends React.Component {
     markForDelete(e) {
         let id = (e.target.id);
         this.state.marked.push(id);
-        console.log('marking');
         if ($(e.target).parent().children().length == 1) {
             ($(e.target).parent().append($('<div>MARKED</div>')));
         } else {
@@ -72,27 +71,31 @@ class DeletePhotoButton extends React.Component {
                         {/*}*/}
                         {/*}*/}
                         <div>
-                            {this.props.pictures.map((p, i) => {
+                            {
+                                this.props.pictures.map((p, i) => {
+                                    let path=p.original;
+                                    if (!p.original.startsWith('h')) {
+                                       path='/'+path;
+                                    }
+                                    return (
+                                        <div key={i} style={{"paddingRight": "70%"}}>
+                                            <img style={{
+                                                "width": "80px",
+                                                "height": "80px",
+                                                "border": "5px",
+                                                'color': 'red',
+                                                'margin': '4px'
+                                            }}
+                                                 onClick={this.markForDelete}
+                                                 key={i}
+                                                 id={p.id}
 
-                                return (
-                                    <div style={{"paddingRight": "70%"}}>
-                                        <img style={{
-                                            "width": "80px",
-                                            "height": "80px",
-                                            "border": "5px",
-                                            'color': 'red',
-                                            'margin': '4px'
-                                        }}
-                                             onClick={this.markForDelete}
-                                             key={i}
-                                             id={p.id}
+                                                 src={ path}
+                                            />
 
-                                             src={p.original}
-                                        />
-
-                                    </div>
-                                );
-                            })}
+                                        </div>
+                                    );
+                                })}
                         </div>
 
                     </ModalBody>

@@ -19,6 +19,8 @@ export default class CatalogPage extends Component{
     }
 
     onLoadSuccess(response){
+        console.log('RESPONSE :');
+        console.log(response);
         let searchId = response[0]._id;
         UserController.deleteSearchData(searchId,onDeleteSuccess);
 
@@ -43,6 +45,7 @@ export default class CatalogPage extends Component{
             let data = {
                 firstName: user.results[0].firstName,
                 lastName: user.results[0].lastName,
+                userId: user.results[0]._id,
                 //profilePicture: user.results[0].profilePicture,
             };
 
@@ -54,6 +57,8 @@ export default class CatalogPage extends Component{
     }
 
     render(){
+        console.log('LIST USERS');
+        console.log(this.state.users);
         return (
             <div>
                 <h1>Users</h1>
@@ -64,7 +69,7 @@ export default class CatalogPage extends Component{
                             key={i}
                             firstName={u.firstName}
                             lastName={u.lastName}
-                            userId={u._id} />
+                            userId={u.userId} />
                     );
                 })}
             </div>

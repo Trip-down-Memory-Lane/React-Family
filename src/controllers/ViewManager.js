@@ -31,19 +31,20 @@ class ViewManager{
 
 
                 <Route path="/home" component={MainPage}>
-                    <Route path="/profile/:userId"
+                    <Route path="/home/profile/:userId"
                            component={UserProfile}
                            onEnter={(a, b) => Authenticator.requireAuth(Path.loginView())} />
+
                     <Route path="/home/users"
                            component={ListUsers}
                            onEnter={(a, b) => Authenticator.requireAuth(Path.loginView())} />
-                    <Route path="/home/profile/edit"
+                    <Route path="/home/edit"
                            component={EditProfileView}
                            onEnter={(a, b) => Authenticator.requireAuth(Path.loginView())} />
 
-                    <Route path="/home/profile"
-                           component={ProfileView}
-                           onEnter={(a, b) => Authenticator.requireAuth(Path.loginView())} />
+                    {/*<Route path="/home/profile/me"*/}
+                           {/*component={ProfileView}*/}
+                           {/*onEnter={(a, b) => Authenticator.requireAuth(Path.loginView())} />*/}
 
                     <Route path="tree"
                            component={FamilyTreeView}

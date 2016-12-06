@@ -41,15 +41,15 @@ class Gallery extends React.Component {
             }
             else {
                 return <div>
-                    <AddPhotoButton pictures={this.props.images}></AddPhotoButton>
-                    <DeletePhotoButton pictures={this.props.images}/>
+                    <AddPhotoButton pictures={this.props.pictures}></AddPhotoButton>
+                    <DeletePhotoButton pictures={this.props.pictures}/>
                 </div>
             }
         } else {
 
             return <div>
-                <AddPhotoButton pictures={this.props.images}></AddPhotoButton>
-                <DeletePhotoButton pictures={this.props.images}/>
+                <AddPhotoButton pictures={this.props.pictures}></AddPhotoButton>
+                <DeletePhotoButton pictures={this.props.pictures}/>
             </div>
 
         }
@@ -65,7 +65,7 @@ class Gallery extends React.Component {
             <div  >
                 <ImageGallery
                     ref={i => this._imageGallery = i}
-                    items={this.props.images}
+                    items={this.props.pictures}
                     autoPlay={true}
                     onClick={this.showDeleteButton}
                     showFullscreenButton={false}

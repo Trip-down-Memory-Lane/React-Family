@@ -14,7 +14,7 @@ import '../../public/loginHelper/img/backgrounds/Tree.png'
 import $ from 'jquery'
 import SearchForm from '../views/search/SearchForm'
 
-class GuestView extends React.Component {
+class MyView extends React.Component {
     constructor(props) {
         super(props);
         $('.backstretch').remove();
@@ -68,8 +68,8 @@ class GuestView extends React.Component {
         console.log('UPDATE PICS');
         let userId = this.props.userId;
         //
-            UserController.loadUserInfo(userId, this.onLoadUserInfoSuccess);
-             UserController.loadUserPictures(userId, this.onLoadPicturesSuccess);
+        UserController.loadUserInfo(userId, this.onLoadUserInfoSuccess);
+        UserController.loadUserPictures(userId, this.onLoadPicturesSuccess);
     }
 
     componentWillReceiveProps() {
@@ -200,4 +200,4 @@ class GuestView extends React.Component {
     }
 }
 
-export default GuestView
+export default MyView
