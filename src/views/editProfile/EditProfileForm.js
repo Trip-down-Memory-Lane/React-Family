@@ -44,6 +44,7 @@ export default class EditProfileForm extends Component{
                                name="firstName"
                                value={this.props.firstName}
                                onChange={this.props.onChange}
+                               required
                         />
                     </div>
 
@@ -54,6 +55,7 @@ export default class EditProfileForm extends Component{
                                name="lastName"
                                value={this.props.lastName}
                                onChange={this.props.onChange}
+                               required
                         />
                     </div>
 
