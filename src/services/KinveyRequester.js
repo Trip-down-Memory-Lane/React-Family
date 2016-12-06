@@ -30,13 +30,14 @@ class KinveyRequester {
         })
     }
 
-    static editUserInfo(userId, email, firstName, lastName, basicInfo){
+    static editUserInfo(userId, email, firstName, lastName, imgUrl, basicInfo){
         let data = {
             username: sessionStorage.getItem('username'),
             email: email,
             firstName: firstName,
             lastName: lastName,
-            basicInfo: basicInfo
+            basicInfo: basicInfo,
+            profilePicture: imgUrl,
         };
 
         let url = credentials.baseUrl + 'user/' + credentials.appKey + '/' + userId;
@@ -130,6 +131,17 @@ class KinveyRequester {
             method: "DELETE",
             url: credentials.baseUrl + 'appdata/' + credentials.appKey + '/searchResults/' + searchId,
             headers: Authenticator.getKinveyUserAuthHeaders()
+        });
+    }
+
+    static pictureUploadFirstStepRequest(metadata){
+        let url = credentials.baseUrl + 'blob/' + credentials.appKey;
+
+        return $.ajax({
+            method: "POST",
+            url: url,
+            headers: Authenticator.getKinveyUserAuthHeaders(),
+            data: {metadata},
         });
     }
 

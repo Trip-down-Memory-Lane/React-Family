@@ -10,6 +10,23 @@ export default class EditProfileForm extends Component{
             <div className="container">
                 <h1>Edit your profile</h1>
                 <form onSubmit={this.props.onSubmit}>
+
+                    <img src={this.props.currentImageUrl || "default_profile_pic.jpg"}
+                         alt="profile picture"
+                         style={{"width":"100px"}}
+                    />
+
+                    <div className="form-group">
+                        <label>New profile picture url</label>
+                        <input type="text"
+                               className="form-control"
+                               name="imgUrl"
+                               placeholder="Image url"
+                               value={this.props.imgUrl}
+                               onChange={this.props.onChange}
+                        />
+                    </div>
+
                     <div className="form-group">
                         <label>Email*</label>
                         <input type="text"

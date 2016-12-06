@@ -109,9 +109,10 @@ class UserController {
             .then(callback);
     }
 
-    static editUser(userId, email, firstName, lastName, basicInfo, callback){
+    static editUser(userId, imgUrl, email, firstName, lastName, basicInfo, callback){
 
         if (!isEmail(email)){
+            console.log(email);
             ViewManager.renderMessage('Invalid email address.', 'error');
             return;
         }
@@ -119,7 +120,7 @@ class UserController {
         firstName = UserController.capitalize(firstName);
         lastName = UserController.capitalize(lastName);
 
-        kinveyRequester.editUserInfo(userId, email, firstName, lastName, basicInfo)
+        kinveyRequester.editUserInfo(userId, email, firstName, lastName, imgUrl, basicInfo)
             .then(callback);
     }
 
@@ -166,6 +167,20 @@ class UserController {
         kinveyRequester.deleteSearchDataRequest(searchId)
             .then(callback);
     }
+
+    // static uploadProfilePicture(data, callback){
+    //     let metadata = {};
+    //     let file = data[0].files[0];
+    //
+    //     metadata = {
+    //         '_filename': file.name,
+    //         'size': file.size,
+    //         'nameType': file.type,
+    //     };
+    //
+    //     kinveyRequester.pictureUploadFirstStepRequest(metadata)
+    //         .then(callback);
+    // }
 }
 
 export default  UserController;
