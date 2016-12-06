@@ -4,6 +4,7 @@ import "../../node_modules/react-image-gallery/styles/css/image-gallery.css";
 import $ from 'jquery';
 import AddPhotoButton from '../components/AddPhotoButton'
 import DeletePhotoButton from '../components/DeletePhotoButton'
+import UserController from '../controllers/UserController'
 
 class Gallery extends React.Component {
     constructor(props) {
@@ -40,8 +41,9 @@ class Gallery extends React.Component {
                 return null;
             }
             else {
+
                 return <div>
-                    <AddPhotoButton pictures={this.props.pictures}></AddPhotoButton>
+                    <AddPhotoButton  pictures={this.props.pictures}></AddPhotoButton>
                     <DeletePhotoButton pictures={this.props.pictures}/>
                 </div>
             }
@@ -55,10 +57,17 @@ class Gallery extends React.Component {
         }
 
     }
+    componentWillMount() {
+        console.log('USER ID');
+        console.log(this.props.userId);
+        // UserController.loadUserInfo(this.props.params.userId, this.onLoadUserInfoSuccess);
+        // UserController.loadUserPictures(this.props.params.userId, this.onLoadUserPicturesSuccess)
+    }
 
 
     render() {
-        let AddPhotoBut = this.defineAddPhotoButtonVisibility()
+        let AddPhotoBut = this.defineAddPhotoButtonVisibility();
+
 
 
         return (

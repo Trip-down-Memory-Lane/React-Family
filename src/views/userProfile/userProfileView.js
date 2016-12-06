@@ -50,6 +50,11 @@ export default class CatalogPage extends Component {
 
         this.onSubmit = this.onSubmit.bind(this);
         this.onChange = this.onChange.bind(this);
+        this.updateInfo=this.updateInfo.bind(this);
+    }
+    updateInfo(data){
+        // console.log('UPDATE INFO');
+        // console.log(data);
     }
 
     componentWillMount() {
@@ -57,7 +62,7 @@ export default class CatalogPage extends Component {
         UserController.loadUserInfo(this.props.params.userId, this.onLoadUserInfoSuccess);
         UserController.loadUserPictures(this.props.params.userId, this.onLoadUserPicturesSuccess)
     }
-    //
+
     // componentDidMount(){
     //     UserController.loadUserInfo(this.props.params.userId, this.onLoadUserInfoSuccess);
     //     UserController.loadUserPictures(this.props.params.userId, this.onLoadUserPicturesSuccess)
@@ -117,12 +122,13 @@ export default class CatalogPage extends Component {
     // }
     onChange(event){
         event.preventDefault();
+        //console.log('GUEST VIEW CHANGING');
         this.setState({
             search: event.target.value,
         });
     }
     onSearchUserSuccess(response){
-        console.log(response);
+        //console.log(response);
         UserController.fillSearchResults(response, onFillSearchResultsSuccess);
 
         function onFillSearchResultsSuccess(response){
@@ -146,6 +152,7 @@ export default class CatalogPage extends Component {
             <div>
                 <h1>User profile</h1>
                 <GuestView
+                    updateInfo={this.updateInfo}
                     onLoadUserInfoSuccess={this.onLoadUserInfoSuccess}
                     onLoadPicturesSuccess={this.onLoadPicturesSuccess}
                     onSubmit={this.onSubmit}

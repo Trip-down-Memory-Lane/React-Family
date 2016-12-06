@@ -15,13 +15,20 @@ class DeletePhotoButton extends React.Component {
         this.toggle = this.toggle.bind(this);
         this.deletePhoto = this.deletePhoto.bind(this);
         this.markForDelete = this.markForDelete.bind(this);
+        this.onDeleteSuccess = this.onDeleteSuccess.bind(this);
     }
 
     deletePhoto(e) {
         e.preventDefault();
-        //console.log(this.state.marked);
-        this.toggle()
+        // console.log(this.state.marked);
 
+        UserController.deletePictures(this.state.marked, this.onDeleteSuccess );
+
+        this.toggle();
+    }
+
+    onDeleteSuccess(response){
+        console.log('deleted');
     }
 
     toggle() {
@@ -77,8 +84,6 @@ class DeletePhotoButton extends React.Component {
                                     if (!p.original.startsWith('h')) {
                                        path='/'+path;
                                     }
-                                    console.log('P is HERE');
-                                    console.log(p);
                                     return (
                                         <div key={i} style={{"paddingRight": "70%"}}>
                                             <img style={{

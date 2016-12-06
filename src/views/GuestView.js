@@ -48,13 +48,13 @@ class GuestView extends React.Component {
         //     }
         // ];
 
-        this.state = {
-
-            firstName: '',
-            lastName: '',
-            basicInfo: '',
-            search:''
-        };
+        // this.state = {
+        //
+        //     firstName: '',
+        //     lastName: '',
+        //     basicInfo: '',
+        //     search:''
+        // };
         this.updatePics = this.updatePics.bind(this);
         //this.onLoadSuccess = this.onLoadSuccess.bind(this);
 
@@ -66,11 +66,13 @@ class GuestView extends React.Component {
     }
 
     updatePics(e) {
-        console.log('UPDATE PICS');
+        //console.log('UPDATE PICS');
+      let iid=(this.props.params.userId);
         let userId = this.props.userId;
+        //console.log(iid);
         //
-            UserController.loadUserInfo(userId, this.onLoadUserInfoSuccess);
-             UserController.loadUserPictures(userId, this.onLoadPicturesSuccess);
+            UserController.loadUserInfo(iid, this.onLoadUserInfoSuccess);
+             UserController.loadUserPictures(iid, this.onLoadPicturesSuccess);
     }
 
     componentWillReceiveProps() {
@@ -81,13 +83,21 @@ class GuestView extends React.Component {
     }
 
     onLoadUserInfoSuccess(data) {
-        // console.log('úser info');
-        // console.log(data);
+
         this.setState({
             firstName: data.firstName,
             lastName: data.lastName,
             basicInfo: data.basicInfo
         });
+
+        // console.log('úser info');
+        // console.log(data);
+        this.props.updateInfo(data);
+        // this.setState({
+        //     firstName: data.firstName,
+        //     lastName: data.lastName,
+        //     basicInfo: data.basicInfo
+        // });
     }
 
     onLoadPicturesSuccess(data) {
@@ -107,15 +117,16 @@ class GuestView extends React.Component {
             }
             userPictures.push(picture);
         }
-
-        this.setState({images:userPictures})
+        this.props.updateInfo(data);
+        //
+        // this.setState({images:userPictures})
     }
-    // onChange(event){
-    //     event.preventDefault();
-    //     this.setState({
-    //         search: event.target.value,
-    //     });
-    // }
+    onChange(event){
+        let userId = this.props.userId;
+
+        UserController.loadUserInfo(userId, this.onLoadUserInfoSuccess);
+        UserController.loadUserPictures(userId, this.onLoadPicturesSuccess);
+    }
     // onSearchUserSuccess(response){
     //     console.log(response);
     //     UserController.fillSearchResults(response, onFillSearchResultsSuccess);
@@ -140,6 +151,8 @@ class GuestView extends React.Component {
 // }
 
     render() {
+        // console.log('PARAMS');
+        // console.log(this.props);
 
         return (
             <div>
@@ -172,7 +185,7 @@ class GuestView extends React.Component {
                                     "backgroundColor": ""
                                 }}>
                                     <Avatar />
-                                    <AboutMe name={this.state.firstName + ' ' + this.state.lastName}></AboutMe>
+                                    <AboutMe name={this.props.firstName + ' ' + this.props.lastName}></AboutMe>
                                 </div>
                             </div>
 
