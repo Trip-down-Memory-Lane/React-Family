@@ -4,6 +4,18 @@ import Authenticator from '../utils/authentication';
 
 class KinveyRequester {
 
+    static uploadDefaultPicture(){
+        let metadata = {
+            _filename: "uploadDefaultPicture",
+            mimeType: "image/jpeg",
+            size: 5087
+        };
+
+
+    }
+
+
+
     static loginUser(username, password) {
         return $.ajax({
             method: "POST",

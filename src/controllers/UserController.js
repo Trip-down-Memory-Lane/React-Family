@@ -42,7 +42,12 @@ class UserController {
                 .then(registerSuccess.bind(this))
                 .catch(ViewManager.renderMessage('Registration failed.', 'error'));
 
-            function registerSuccess() {
+            function registerSuccess(success) {
+
+                kinveyRequester.uploadDefaultPicture()
+                    .then((success) => {console.log(success);})
+                    .catch(() => {console.log('error');})
+
                 UserController.saveFirstTimeLogin();
                 browserHistory.push(Path.loginView());
                 ViewManager.renderMessage('Thank yoy for your registration. Please login to proceed.', 'success');
