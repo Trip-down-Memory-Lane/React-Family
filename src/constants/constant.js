@@ -10,6 +10,22 @@ class Consts {
         return 'Kinvey ';
     }
 
+    static initialEmail(){
+        return '';
+    }
+
+    static initialFirstName(){
+        return '';
+    }
+
+    static initialLastName(){
+        return '';
+    }
+
+    static initialBasicInfo(){
+        return '';
+    }
+
     static initialUsername() {
         return '';
     }
