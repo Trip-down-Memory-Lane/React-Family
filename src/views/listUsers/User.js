@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './ListUsers.css'
+import './listUsers.css'
 import { Link } from 'react-router';
 
 export default class User extends Component{

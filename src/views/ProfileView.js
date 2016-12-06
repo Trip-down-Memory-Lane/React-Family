@@ -84,14 +84,17 @@ class ProfileView extends React.Component {
 
     onLoadPicturesSuccess(data) {
         let userPictures = [];
-
+        // console.log('DATA: .');
+        // console.log(data);
         console.log('on load pictures success');
         for (let pic of data) {
            // userPictures.push(pic.imageUrl);
-           // console.log(pic);
+           //  console.log('PICTURE MY: ');
+           //  console.log(pic._id);
             let picture = {};
             picture.original = pic.imageUrl;
             picture.thumbnail =pic.imageUrl;
+            picture.id=pic._id;
             if (pic.hasOwnProperty('description')) {
                 picture.description = pic.description;
             }
