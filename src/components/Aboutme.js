@@ -22,6 +22,8 @@ class AboutMe extends React.Component {
        //toDO
 
     render() {
+        console.log('IME');
+        console.log(this.props.name);
         return (
             <div>
                 <Button style={{"fontSize":"20px"}} color="danger" onClick={this.toggle}> {this.props.buttonLabel}{this.props.name}</Button>

@@ -75,12 +75,12 @@ class GuestView extends React.Component {
              UserController.loadUserPictures(iid, this.onLoadPicturesSuccess);
     }
 
-    componentWillReceiveProps() {
-        let userId = this.props.userId;
-
-        UserController.loadUserInfo(userId, this.onLoadUserInfoSuccess);
-        UserController.loadUserPictures(userId, this.onLoadPicturesSuccess);
-    }
+    // componentWillReceiveProps() {
+    //     let userId = this.props.userId;
+    //
+    //     UserController.loadUserInfo(userId, this.onLoadUserInfoSuccess);
+    //     UserController.loadUserPictures(userId, this.onLoadPicturesSuccess);
+    // }
 
     onLoadUserInfoSuccess(data) {
 
@@ -121,12 +121,12 @@ class GuestView extends React.Component {
         //
         // this.setState({images:userPictures})
     }
-    onChange(event){
-        let userId = this.props.userId;
-
-        UserController.loadUserInfo(userId, this.onLoadUserInfoSuccess);
-        UserController.loadUserPictures(userId, this.onLoadPicturesSuccess);
-    }
+    // onChange(event){
+    //     let userId = this.props.userId;
+    //
+    //     UserController.loadUserInfo(userId, this.onLoadUserInfoSuccess);
+    //     UserController.loadUserPictures(userId, this.onLoadPicturesSuccess);
+    // }
     // onSearchUserSuccess(response){
     //     console.log(response);
     //     UserController.fillSearchResults(response, onFillSearchResultsSuccess);
@@ -151,8 +151,8 @@ class GuestView extends React.Component {
 // }
 
     render() {
-        // console.log('PARAMS');
-        // console.log(this.props);
+         console.log('PARAMS');
+         console.log(this.props.firstName);
 
         return (
             <div>

@@ -49,30 +49,28 @@ export default class CatalogPage extends Component {
         this.onLoadUserPicturesSuccess = this.onLoadUserPicturesSuccess.bind(this);
 
         this.onSubmit = this.onSubmit.bind(this);
-        this.onChange = this.onChange.bind(this);
+        //this.onChange = this.onChange.bind(this);
         this.updateInfo=this.updateInfo.bind(this);
     }
     updateInfo(data){
         console.log('MY DATA');
         console.log(data);
+        console.log(this.state.pictures);
         //ne znam metoda dali raboti: proverqva dali id-to na snimkata e razli4no ot id-to na pratenite iztriti
         //ako e razli4no go pulni v this.state.pictures;
-        // let updatedPictures=this.state.marked.filter(function (element) {
-        //     let isIdMatch=true;
-        //     for(let pic of data){
-        //         if(element.id==pic.id){
-        //             isIdMatch=false;
-        //             break;
-        //         }
-        //     }
-        //     if(isIdMatch){
-        //         return false;
-        //     }
-        // });
+        let updatedPictures=[];
+        for(let pic of data){
+            for(let old of this.state.pictures){
+                if(old.id!=pic){
+                    updatedPictures.push(old)
+                }
+            }
+        }
+        console.log(updatedPictures);
 
-        // this.setState({
-       //     pictures:updatedPictures
-       // })
+        this.setState({
+           pictures:updatedPictures
+       })
     }
 
     componentWillMount() {
@@ -137,13 +135,13 @@ export default class CatalogPage extends Component {
     //
     //     this.setState({images: userPictures})
     // }
-    onChange(event){
-        event.preventDefault();
-        //console.log('GUEST VIEW CHANGING');
-        this.setState({
-            search: event.target.value,
-        });
-    }
+    // onChange(event){
+    //     event.preventDefault();
+    //     //console.log('GUEST VIEW CHANGING');
+    //     this.setState({
+    //         search: event.target.value,
+    //     });
+    // }
     onSearchUserSuccess(response){
         //console.log(response);
         UserController.fillSearchResults(response, onFillSearchResultsSuccess);
