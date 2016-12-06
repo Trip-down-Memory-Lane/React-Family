@@ -73,16 +73,17 @@ class UserController {
             .then(callback);
     }
 
-    static addPicture(pictureUrl, description) {
+    static addPicture(pictureUrl, description, callback) {
 
         KinveyRequester.addPictureRequest(pictureUrl, description)
-            .then(addPictureSuccess.bind(this))
+            .then(callback)
             .catch();
 
-        function addPictureSuccess() {
-            ViewManager.renderMessage('Picture successfully added.', 'success');
-            console.log('Picture added');
-        }
+        // function addPictureSuccess(response) {
+        //     console.log(response);
+        //     ViewManager.renderMessage('Picture successfully added.', 'success');
+        //     console.log('Picture added');
+        // }
     }
 
     static loadUserPictures(userId, callback) {

@@ -2,6 +2,7 @@ import React from 'react';
 import {Button, Modal, ModalHeader, ModalBody, ModalFooter, Input} from 'reactstrap';
 import $ from 'jquery'
 import UserController from '../controllers/UserController'
+import ViewManager from '../controllers/ViewManager';
 
 class AddPhotoButton extends React.Component {
     constructor(props) {
@@ -13,6 +14,7 @@ class AddPhotoButton extends React.Component {
 
         this.toggle = this.toggle.bind(this);
         this.addPhoto = this.addPhoto.bind(this);
+        this.onAddPictureSuccess = this.onAddPictureSuccess.bind(this);
     }
 
     addPhoto(e) {
@@ -26,17 +28,28 @@ class AddPhotoButton extends React.Component {
         console.log(picUrl);
         let description=$('#description').val();
 
-        let newPhoto = {
-            original: picUrl,
-            description: description,
-            thumbnail: picUrl
 
-        };
-        this.props.pictures.push(newPhoto);
-        UserController.addPicture(picUrl, description);
+        UserController.addPicture(picUrl, description, this.onAddPictureSuccess);
 
         this.toggle()
 
+    }
+
+    onAddPictureSuccess(response){
+        console.log(response);
+
+        let newPhoto = {
+            id: response._id,
+            original: response.imageUrl,
+            description: response.description,
+            thumbnail: response.imageUrl,
+        };
+        this.props.pictures.push(newPhoto);
+
+        console.log(newPhoto);
+
+        ViewManager.renderMessage('Picture successfully added.', 'success');
+        console.log('Picture added');
     }
 
     toggle() {
