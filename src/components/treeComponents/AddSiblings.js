@@ -65,7 +65,7 @@ export default class AddSiblingsForm extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        console.log(this.state);
+        // console.log(this.state);
         // let siblings = this.rootParent.children;
         // for(let sibling of this.state.siblings) {
         //     siblings.push(this.state.siblings[sibling]);
@@ -81,7 +81,7 @@ export default class AddSiblingsForm extends Component {
             <form onSubmit={this.handleSubmit}>
                 <FormGroup tag="fieldset">
                     <legend>Your Siblings</legend>
-                    <Button onClick={this.addSiblingToState} color="info">Add Child</Button>
+                    <Button onClick={this.addSiblingToState} color="info">Add Sibling</Button>
                     {this.getSiblings().map(x => <SiblingsChildrenForm id={x.id} key={x.id} type="siblings" updateParentState={this.updateState} />)}
                     <Button color="success">Submit</Button>
                 </FormGroup>

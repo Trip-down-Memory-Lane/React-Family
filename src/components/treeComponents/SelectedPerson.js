@@ -42,20 +42,13 @@ export default class SelectedPerson extends Component {
         switch (this.state.editForm) {
             case`parents`: return <AddParentsForm nodeRoot={this.nodeRoot} />;
             case`siblings`: return <AddSiblings rootParent={this.rootParent} nodeRoot={this.nodeRoot} type="siblings"/>;
-            case`children`: return <AddChildren  nodeRoot={this.nodeRoot} type="children"/>;
+            case`children`: return <AddChildren rootParent={this.rootParent} nodeRoot={this.nodeRoot} type="children"/>;
         }
     }
 
     static preventEventPropagation(event) {
         event.stopPropagation();
     }
-
-    // Called FamilyTree's refreshTreeState(), received from props. When user wants to remove SelectedPerson view, it triggers refreshFamilyState, which sets
-    // body width to 10 000px, which is large enough for the tree to fit inside.
-    // componentWillUnmount() {
-    //     console.log(`unmounting`);
-    //     this.props.refreshFamilyTreeState();
-    // }
 
     isThisPersonTreeRoot() {
         if (this.isTreeRoot) {

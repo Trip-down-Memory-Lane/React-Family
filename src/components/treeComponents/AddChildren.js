@@ -1,12 +1,15 @@
 import React, {Component} from "react";
-import SiblingsChildrenForm from "./SiblingsChildrenForm";
 import {Button, FormGroup} from "reactstrap";
+
+import SiblingsChildrenForm from "./SiblingsChildrenForm";
 import Consts from "../../constants/constant";
+import TreeController from "../../controllers/TreeController";
 
 export default class AddChildrenForm extends Component {
     constructor(props) {
         super(props);
         this.nodeRoot = props.nodeRoot;
+        // this.rootParent = props.rootParent;
         this.state = {
             childrenCount: 1,
             children: {
@@ -21,12 +24,6 @@ export default class AddChildrenForm extends Component {
         this.updateState = this.updateState.bind(this);
         this.getChildren = this.getChildren.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-    }
-
-    handleSubmit(event) {
-        event.preventDefault();
-        //TODO: children submit.
-        console.log(this.state);
     }
 
     addChildToState(event) {
@@ -66,6 +63,16 @@ export default class AddChildrenForm extends Component {
                 children: children
             }
         });
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        let children = [];
+        for (let child in this.state.children) {
+            children.push(this.state.children[child]);
+        }
+
+        TreeController.addChildren(this.nodeRoot, children);
     }
 
     render() {

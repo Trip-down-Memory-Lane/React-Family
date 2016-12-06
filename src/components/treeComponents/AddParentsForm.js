@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import Consts from "../../constants/constant";
 import {Button, FormGroup, Label, Input} from "reactstrap";
+import TreeController from "../../controllers/TreeController";
 
 export default class AddParentsForm extends Component {
     constructor(props) {
@@ -53,19 +54,15 @@ export default class AddParentsForm extends Component {
 
     handleSubmit(event) {
         event.preventDefault();
-        // if (this.state.rootParent === Consts.initialUsername()) {
-        //     alert(`Please select root parent!`);
-        // } else {
-        //     let rootParent = this.state[this.state.rootParent];
-        //     let spouse = rootParent === this.state.father? this.state.mother : this.state.father;
-        //     let child = this.nodeRoot;
-        //     let newTreeRoot = {rootParent, spouse, children: [child]};
-        //
-        //     console.log(`Parents added successfully`);
-        //     KinveyRequester.addParents(newTreeRoot)
-        //         .then(() => console.log(`Parents added successfully`))
-        //         .css(() => console.log(`error`));
-        // }
+        if (this.state.rootParent === Consts.initialUsername()) {
+            alert(`Please select root parent!`);
+        } else {
+            let rootParent = this.state[this.state.rootParent];
+            let spouse = rootParent === this.state.father? this.state.mother : this.state.father;
+            let child = this.nodeRoot;
+            console.log(`AddParents Submit: `, rootParent, spouse, child);
+            TreeController.addParents(rootParent, spouse, child);
+        }
     }
 
     //TODO: Implement required for Mather of Father input

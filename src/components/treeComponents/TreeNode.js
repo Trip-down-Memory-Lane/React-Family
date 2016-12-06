@@ -6,7 +6,10 @@ class TreeNode extends Component {
     /*
     * Props must look like this:
     * props:
-    *     nodeRoot: <JSON> representing tree node.
+    *   -key: id of every person ( for react's virtual DOM )
+    *   -nodeRoot: JSON representing tree node.
+    *   -isTreeRoot: This has to be true for the first time TreeNode is invoked.
+    *   -selectPerson function from FamilyTree. It shows Selected Person and must be passed down the line to Person.
     */
 
     constructor(props) {
@@ -31,18 +34,20 @@ class TreeNode extends Component {
     set isLoggedInUser(rootName) { this._isLoggedInUser = rootName === `SoloChild`; } //TODO: Replace with: sessionStorage.getItem(`username`)
     get isLoggedInUser() { return this._isLoggedInUser; }
 
-    addSpouseIfExists(spouse) {
+    addSpouseIfExists() {
+        let spouse = this.state.spouse;
         if (spouse) {
             return (
                 <Person
                     selectPerson={() => console.log(`spouse`)} // handles error
                     type="spouse"
-                    name={this.state.spouse.name} />
+                    person={this.state.spouse} />
             );
         }
     }
 
-    addChildrenIfExist(children) {
+    addChildrenIfExist() {
+        let children = this.state.children;
         if (children)
             return (
                 <div className="children">
@@ -61,7 +66,7 @@ class TreeNode extends Component {
         );
     }
 
-    addNodeRoot(rootName) {
+    addNodeRoot() {
         let id;
         if (this.isLoggedInUser) {
             id = `currentUser`;
@@ -70,11 +75,10 @@ class TreeNode extends Component {
             <Person
                 selectPerson={this.props.selectPerson}
                 rootParent={this.props.rootParent}
-                nodeRoot={this.state.nodeRoot}
+                person={this.state.nodeRoot}
                 isTreeRoot={this.isTreeRoot}
                 type="nodeRoot"
-                id={id}
-                name={rootName} />
+                isLoggedInUser={id} />
         );
     }
 
@@ -83,10 +87,10 @@ class TreeNode extends Component {
             return (
                 <div className="node" id={this.props.id}>
                     <div className="parents">
-                        {this.addNodeRoot(this.state.nodeRoot.name)}
-                        {this.addSpouseIfExists(this.state.spouse)}
+                        {this.addNodeRoot()}
+                        {this.addSpouseIfExists()}
                     </div>
-                    {this.addChildrenIfExist(this.state.children)}
+                    {this.addChildrenIfExist()}
                 </div>
             );
         } else {
