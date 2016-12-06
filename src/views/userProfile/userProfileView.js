@@ -53,8 +53,26 @@ export default class CatalogPage extends Component {
         this.updateInfo=this.updateInfo.bind(this);
     }
     updateInfo(data){
-        // console.log('UPDATE INFO');
-        // console.log(data);
+        console.log('MY DATA');
+        console.log(data);
+        //ne znam metoda dali raboti: proverqva dali id-to na snimkata e razli4no ot id-to na pratenite iztriti
+        //ako e razli4no go pulni v this.state.pictures;
+        // let updatedPictures=this.state.marked.filter(function (element) {
+        //     let isIdMatch=true;
+        //     for(let pic of data){
+        //         if(element.id==pic.id){
+        //             isIdMatch=false;
+        //             break;
+        //         }
+        //     }
+        //     if(isIdMatch){
+        //         return false;
+        //     }
+        // });
+
+        // this.setState({
+       //     pictures:updatedPictures
+       // })
     }
 
     componentWillMount() {

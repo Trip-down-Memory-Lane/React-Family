@@ -14,7 +14,7 @@ import MainPage from '../App';
 
 import Authenticator from '../utils/authentication';
 import Path from '../constants/constant';
-
+import Advert from '../views/MyView'
 class ViewManager{
     static changeView() {
         ReactDOM.render(
@@ -27,7 +27,7 @@ class ViewManager{
                 <Route path="home/password"
                        component={RegisterView}
                        onEnter={(a, b) => Authenticator.requireAuth(Path.loginView())} />
-
+                <Route path="/advert" component={Advert}/>
 
                 <Route path="/home" component={MainPage}>
                     <Route path="/home/profile/:userId"

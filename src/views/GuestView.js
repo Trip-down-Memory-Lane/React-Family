@@ -172,7 +172,7 @@ class GuestView extends React.Component {
 
                             <div style={{"padding": "6%"}}>
 
-                                <Gallery userId={this.props.userId} pictures={this.props.pictures}></Gallery>
+                                <Gallery updateInfo={this.props.updateInfo} userId={this.props.userId} pictures={this.props.pictures}></Gallery>
                             </div>
                         </div>
                         <div className="row">
