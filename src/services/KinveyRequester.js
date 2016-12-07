@@ -116,6 +116,8 @@ class KinveyRequester {
         //https://baas.kinvey.com/user/kid_SkHaVTqGx?query={"$or":[{"firstName":"Petyo"}, {"lastName":"Ivanov"}]}
 
         let tokens = [];
+        //
+        // console.log(names);
 
         let tmpName;
         for (let name of names){
@@ -143,7 +145,7 @@ class KinveyRequester {
         return $.ajax({
             method: "POST",
             url: credentials.baseUrl + 'appdata/' + credentials.appKey + '/searchResults',
-            headers: Authenticator.getKinveyAuthHeaders(),
+            headers: Authenticator.getKinveyUserAuthHeaders(),
             data: data,
         });
     }

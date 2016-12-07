@@ -161,7 +161,7 @@ class UserController {
     }
 
     static searchUser(searchData, callback){
-        searchData = searchData.split('\s+');
+        searchData = searchData.split(/\s+/);
 
         let tokens = [];
         for (let token of searchData){
