@@ -106,8 +106,13 @@ export default class EditProfileView extends Component {
     }
 
     onEditSuccess(response){
+        console.log('EDIT SUCCCES');
         ViewManager.renderMessage('Profile edited.', 'success');
-        this.context.router.push('/home/profile/' + sessionStorage.getItem('userId'));
+        if(this.state.imgUrl!="http://www.clipartbest.com/cliparts/9Tp/ona/9Tponakbc.png"){
+
+            this.context.router.push('/home/profile/'+sessionStorage.getItem('userId') );
+        }else
+            this.context.router.push('/upgrade' );
     }
 
     render() {

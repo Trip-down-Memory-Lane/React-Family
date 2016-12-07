@@ -15,6 +15,8 @@ import MainPage from '../App';
 import Authenticator from '../utils/authentication';
 import Path from '../constants/constant';
 import Advert from '../views/Advert'
+import Upgrade from '../views/userProfile/Upgrade'
+
 class ViewManager{
     static changeView() {
         ReactDOM.render(
@@ -23,7 +25,7 @@ class ViewManager{
                        onEnter={Authenticator.isLoggedIn}/>
                 <Route path="register"
                        component={RegisterView} />
-
+                <Route path="/upgrade" component={Upgrade}/>
                 <Route path="home/password"
                        component={RegisterView}
                        onEnter={(a, b) => Authenticator.requireAuth(Path.loginView())} />
