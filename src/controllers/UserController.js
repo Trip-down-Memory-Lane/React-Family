@@ -3,7 +3,6 @@ import Path from '../constants/constant';
 import {browserHistory} from 'react-router';
 import ViewManager from './ViewManager';
 import isEmail from '../../node_modules/validator/lib/isEmail';
-import $ from 'jquery'
 
 class UserController {
 
@@ -12,14 +11,10 @@ class UserController {
             .loginUser(username, password)
             .then(loginSuccess.bind(this)).catch(function () {
             ViewManager.renderMessage('Please fill correctly all fields', 'success');
-            $('#message').show();
-            $('#message').fadeOut(5000,function () {
-                $( this ).hide()
-            })
+
         });
 
         function loginSuccess(userInfo) {
-            console.log('login success');
             UserController.saveAuthInSession(userInfo);
 
             if (sessionStorage.getItem('firstTimeLogin')) {
@@ -31,19 +26,13 @@ class UserController {
 
                 browserHistory.push('/home/edit');
                 ViewManager.renderMessage('Login successful.', 'success');
-                $('#message').show()
-                $('#message').fadeOut(5000,function () {
-                    $( this ).hide()
-                })
+
             }
             else {
-                let userId = sessionStorage.getItem('userId');
+
                 browserHistory.push('/advert');
                 ViewManager.renderMessage('Login successful.', 'success');
-                $('#message').show()
-                $('#message').fadeOut(5000,function () {
-                    $( this ).hide()
-                })
+
             }
         }
     }
@@ -97,23 +86,10 @@ class UserController {
     static loadUserPictures(userId, callback) {
         KinveyRequester.getUserPicturesRequest(userId)
             .then(callback).catch(function (err) {
-            console.log('ERROR');
-            console.log(err);
+
         });
 
 
-        // console.log('AAAAAAAAA');
-        // //let userId = sessionStorage.getItem('userId');
-        //
-        // let userPictures = KinveyRequester.getUserPictures(userId);
-        // console.log('BBBBBBBBBBBB');
-        // let picturesUrls = [];
-        // for (let i = 0; i < userPictures.length; i++) {
-        //     picturesUrls.push(userPictures[i])
-        // }
-        //
-        // console.log('CCCCCCCCCCCCC');
-        // return picturesUrls;
     }
 
     static loadUserInfo(userId, callback){
@@ -149,11 +125,7 @@ class UserController {
     static saveFirstTimeLogin() {
         sessionStorage.setItem('firstTimeLogin', true);
     }
-
-    // static loadUsers(callback){
-    //     KinveyRequester.getAllUsers()
-    //         .then(callback);
-    // }
+    
 
     static loadUsers(callback){
         KinveyRequester.getSearchResultUsers()

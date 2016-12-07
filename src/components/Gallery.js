@@ -4,7 +4,6 @@ import "../../node_modules/react-image-gallery/styles/css/image-gallery.css";
 import $ from 'jquery';
 import AddPhotoButton from '../components/AddPhotoButton'
 import DeletePhotoButton from '../components/DeletePhotoButton'
-import UserController from '../controllers/UserController'
 
 class Gallery extends React.Component {
     constructor(props) {
@@ -24,11 +23,9 @@ class Gallery extends React.Component {
 
     showDeleteButton() {
 
-        //console.log('PICTURE CLICKED');
         this.setState({
             deleteButton: <DeletePhotoButton></DeletePhotoButton>
         });
-        //console.log(this.state.deleteButton);
 
     }
 
@@ -57,12 +54,7 @@ class Gallery extends React.Component {
         }
 
     }
-    componentWillMount() {
-        // console.log('USER ID');
-        // console.log(this.props.userId);
-        // UserController.loadUserInfo(this.props.params.userId, this.onLoadUserInfoSuccess);
-        // UserController.loadUserPictures(this.props.params.userId, this.onLoadUserPicturesSuccess)
-    }
+
 
 
     render() {
@@ -77,7 +69,7 @@ class Gallery extends React.Component {
                     items={this.props.pictures}
                     autoPlay={true}
                     onClick={this.showDeleteButton}
-                    showFullscreenButton={false}
+                    showFullscreenButton={true}
                     slideInterval={3500}
                     onImageLoad={this.handleImageLoad}/>
                 <div className="container">

@@ -14,7 +14,7 @@ import MainPage from '../App';
 
 import Authenticator from '../utils/authentication';
 import Path from '../constants/constant';
-import Advert from '../views/MyView'
+import Advert from '../views/Advert'
 class ViewManager{
     static changeView() {
         ReactDOM.render(

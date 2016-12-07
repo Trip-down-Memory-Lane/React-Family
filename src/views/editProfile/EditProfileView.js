@@ -60,7 +60,6 @@ export default class EditProfileView extends Component {
     }
 
     onResetPasswordSuccess(){
-        console.log('success');
         ViewManager.renderMessage('Email for password reset was sent to your registered email address.', 'success');
         this.context.router.push('home/profile/' + sessionStorage.getItem('userId'));
     }
@@ -78,7 +77,6 @@ export default class EditProfileView extends Component {
     }
 
     onLoadSuccess(response){
-        console.log(response);
         this.setState({
             currentImageUrl: response.profilePicture,
             imgUrl: response.profilePicture,

@@ -16,7 +16,6 @@ class NavigationBar extends React.Component {
     }
 
     render() {
-        let userId = sessionStorage.getItem('userId');
         let username = sessionStorage.getItem('username');
         return (
             <div style={{"fontSize": "25px", "fontFamily": "Comic Sans MS"}}>

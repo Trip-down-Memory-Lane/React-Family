@@ -1,6 +1,6 @@
 import React from 'react';
 import { Alert } from 'reactstrap';
-
+import $ from 'jquery'
 export default class Message extends React.Component {
     constructor(props) {
         super(props);
@@ -8,6 +8,10 @@ export default class Message extends React.Component {
         this.state = {
             visible: true
         }
+        $('#message').show()
+        $('#message').fadeOut(5000,function () {
+            $( this ).hide()
+        })
     }
 
     onDismiss = () => {

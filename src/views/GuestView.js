@@ -25,11 +25,7 @@ class GuestView extends React.Component {
     }
 
     updatePics(e) {
-        //console.log('UPDATE PICS');
       let iid=(this.props.params.userId);
-        let userId = this.props.userId;
-        //console.log(iid);
-        //
         UserController.loadUserInfo(iid, this.onLoadUserInfoSuccess);
         UserController.loadUserPictures(iid, this.onLoadPicturesSuccess);
     }
@@ -41,11 +37,8 @@ class GuestView extends React.Component {
     onLoadPicturesSuccess(data) {
         let userPictures = [];
 
-        // console.log('pictures');
-        // console.log(data);
         for (let pic of data) {
-            // userPictures.push(pic.imageUrl);
-            // console.log(pic);
+
             let picture = {};
             picture.original = pic.imageUrl;
             picture.thumbnail =pic.imageUrl;
@@ -56,43 +49,14 @@ class GuestView extends React.Component {
             userPictures.push(picture);
         }
         this.props.updateInfo(data);
-        //
-        // this.setState({images:userPictures})
+
     }
 
-    // onChange(event){
-    //     let userId = this.props.userId;
-    //
-    //     UserController.loadUserInfo(userId, this.onLoadUserInfoSuccess);
-    //     UserController.loadUserPictures(userId, this.onLoadPicturesSuccess);
-    // }
-    // onSearchUserSuccess(response){
-    //     console.log(response);
-    //     UserController.fillSearchResults(response, onFillSearchResultsSuccess);
-    //
-    //     function onFillSearchResultsSuccess(response){
-    //         browserHistory.push('/home/users');
-    //     }
-    // }
-    // onSubmit(event){
-    //     event.preventDefault();
-    //
-    //     UserController.searchUser(this.state.search, this.onSearchUserSuccess);
-    // }
 
 
-// shouldComponentUpdate(){
-//         //this.updatePics()
-//     let userId = this.props.userId;
-//     //
-//     //      UserController.loadUserInfo(userId, this.props.onLoadUserInfoSuccess);
-//     //      UserController.loadUserPictures(userId, this.props.onLoadPicturesSuccess);
-// }
 
     render() {
 
-        console.log(this.props.userId);
-        console.log(this.props.treeId);
         return (
             <div>
                 <div className="row" id="profileContainer">
@@ -129,7 +93,7 @@ class GuestView extends React.Component {
                             </div>
 
                             <div className="col-md-6">
-                                {this.props.basicInfo}
+                            <h1></h1>
                             </div>
                         </div>
                     </div>

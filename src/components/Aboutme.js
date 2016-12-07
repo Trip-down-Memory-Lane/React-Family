@@ -26,7 +26,7 @@ class AboutMe extends React.Component {
         // console.log(this.props.name);
         return (
             <div>
-                <Button style={{"fontSize":"20px"}} color="danger" onClick={this.toggle}>{this.props.name}</Button>
+                <Button style={{"fontSize":"20px"}} color="primary" onClick={this.toggle}>{this.props.name}</Button>
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                     <ModalHeader style={{"paddingTop":"5%"}} toggle={this.toggle}>ABOUT ME</ModalHeader>
                     <ModalBody>
