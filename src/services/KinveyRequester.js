@@ -78,8 +78,6 @@ class KinveyRequester {
     static getUserPicturesRequest(userId){
         let query = `?query={"_acl":{"creator":"${userId}"}}`;
 
-        let urlRequest = credentials.baseUrl + 'appdata/' + credentials.appKey + '/pictures' + query;
-
         return $.ajax({
             method: "GET",
             url: credentials.baseUrl + 'appdata/' + credentials.appKey + '/pictures' + query,

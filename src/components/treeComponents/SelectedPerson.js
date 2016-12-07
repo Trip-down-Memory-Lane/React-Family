@@ -22,7 +22,6 @@ export default class SelectedPerson extends Component {
     }
 
     componentWillReceiveProps(props) {
-        console.log(`SelectedPerson WIllReceiveProps.`, props.nodeRoot);
         this.setState({
             nodeRoot: props.nodeRoot
         });
@@ -40,7 +39,7 @@ export default class SelectedPerson extends Component {
     selectEditForm(type) {
         this.setState((prevState) => {
             return {
-                dropdownOpen: prevState.dropdownOpen,
+                dropdownOpen: false,
                 editForm: type
             }
         });
@@ -67,6 +66,7 @@ export default class SelectedPerson extends Component {
                     type="children"
                     loadTree={this.props.loadTree} />
             );
+            default: break;
         }
     }
 

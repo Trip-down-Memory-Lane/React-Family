@@ -5,81 +5,6 @@ import TreeNode from "./TreeNode";
 import Measure from "react-measure";
 import SelectedPerson from "./SelectedPerson";
 
-function createRooTest() {
-    return {
-        name: `TreeRoot`,
-        personIds: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
-        _id: 1,
-        spouse: {name:`TreeRoot Spouse`},
-        children: [
-            {
-                name: `SoloChild`,
-                _id: 2
-            },
-            {
-                name: `FamilyChild`,
-                _id: 3,
-                spouse: {name: `FamilyChild Souse`},
-                children: [
-                    {
-                        name: `SoloGrandChild 1`,
-                        _id: 4
-                        /*children: [
-                            {
-                                name: `SoloChild`,
-                                _id: 5
-                            },
-                            {
-                                name: `FamilyChild`,
-                                _id: 6,
-                                spouse: {name: `FamilyChild Souse`},
-                                children: [
-                                    {
-                                        name: `SoloGrandChild 1`,
-                                        _id: 7
-                                    },
-                                    {
-                                        name: `SoloGrandChild 2`,
-                                        _id: 8,
-                                        spouse: {name: `SoloGrandChild 2 spouse`}
-                                    }
-                                ]
-                            }
-                        ]*/
-                    },
-                    {
-                        name: `SoloGrandChild 2`,
-                        _id: 9,
-                        spouse: {name: `SoloGrandChild 2 spouse`}
-                        /*children: [
-                            {
-                                name: `SoloChild`,
-                                _id: 10
-                            },
-                            {
-                                name: `FamilyChild`,
-                                _id: 11,
-                                spouse: {name: `FamilyChild Souse`},
-                                children: [
-                                    {
-                                        name: `SoloGrandChild 1`,
-                                        _id: 12
-                                    },
-                                    {
-                                        name: `SoloGrandChild 2`,
-                                        _id: 13,
-                                        spouse: {name: `SoloGrandChild 2 spouse`}
-                                    }
-                                ]
-                            }
-                        ]*/
-                    }
-                ]
-            }
-        ]
-    }
-}
-
 const measureBlacklist = [`height`, `top`, `right`, `bottom`];
 
 export default class FamilyTree extends Component {
@@ -91,8 +16,6 @@ export default class FamilyTree extends Component {
     constructor(props) {
         super(props);
         this.treeWidth = null;
-        // this.state.treeRoot = props.treeRoot;
-        // this.state.treeRoot = createRooTest();//TODO: replace with props.tree for production.
         this.state = {
             personSelected: false,
             nodeRoot: props.nodeRoot
@@ -105,13 +28,10 @@ export default class FamilyTree extends Component {
     }
 
     setContainerToTreeWidth(dimensions) {
-        // console.log(`wrapper width when measuring`, $(`#wrapper`).width());
-        // console.log(`measure dimensions`, dimensions.width);
         this.treeWidth = dimensions.width;
     }
 
     componentWillReceiveProps(props) {
-        console.log(`FamilyTree WIllReceiveProps.`, props.nodeRoot);
         this.setState({
             nodeRoot: props.nodeRoot
         });
@@ -146,16 +66,20 @@ export default class FamilyTree extends Component {
 
     }
     componentDidUpdate() {
-
         let totalWidth = 0;
         let firstTierChildren = $(`#treeRoot > .children > .node`);
         for (let child of firstTierChildren) {
             totalWidth += $(child).width() + 40;
-            console.log(totalWidth);
         }
         totalWidth += 40;
-        console.log(`FAMILYTREE: DID UPDATE!`, totalWidth);
-        $(`#wrapper`).width(totalWidth);
+        if (totalWidth < 300) {
+            $(`#wrapper`).width(300 + totalWidth);
+        } else {
+            $(`#wrapper`).width(totalWidth);
+        }
+
+
+
 
     }
 

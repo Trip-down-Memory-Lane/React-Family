@@ -12,9 +12,6 @@ body,
 footer {
     height:20px;
 }
-#treeRoot {
-    overflow:hidden;
-}
 #content {
     text-align: center;
     height: calc(100% - 20px);
@@ -23,9 +20,14 @@ footer {
     #content > div {
         display: inline-block;
     }
+#treeRoot > .parents > .nodeRoot {
+    background:none;
+    margin-top:-22px;
+}
 #treeRoot > .parents > .nodeRoot,
 #treeRoot > .parents > .spouse {
     padding-top:0;
+    margin-top:-22px;
 }
 
 .node#root {
@@ -45,7 +47,10 @@ footer {
     /*padding:20px;*/
 }
 .nodeRoot {
-    padding: 20px 0;
+    padding: 20px 0 0 0;
+}
+.parents {
+    padding-bottom:20px;
 }
 .spouse {
     padding: 20px 0 0 60px;
@@ -101,8 +106,12 @@ body {
     transition: all 0.3s ease-in-out;
     box-shadow: 0 0 10px gray inset;
 }*/
-.soloChild > .nodeRoot,
-.parents .nodeRoot {
+.nodeRoot,
+.spouse {
+    margin-top:-22px;
+}
+.nodeRoot,
+.parents {
     background-size: cover;
     background: url("../../public/treePictures/vertical.png") no-repeat center center;
 }
@@ -126,6 +135,20 @@ body {
 }*/
 .children {
     border-top:5px solid black;
+    padding-top:22px;
+}
+.parents {
+    margin-top: 22px;
+}
+.nodeRoot,
+.spouse {
+    margin-top: -22px;
+}
+.spouse {
+    padding-top:0;
+}
+.parents > .nodeRoot {
+    margin-top: -44px;
 }
 
 /* Edit Tree*/

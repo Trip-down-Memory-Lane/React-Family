@@ -1,7 +1,6 @@
 import TreeRequester from "../services/TreeRequester";
 import UserController from "./UserController";
 
-let treeId = null;
 export default class TreeController {
     static children = undefined;
     static parentId = undefined;
@@ -45,7 +44,6 @@ export default class TreeController {
         };
 
         return TreeRequester.putNewRoot(newRoot);
-            // .then((response) => console.log(`parents posted successfully!`, response));
     }
 
     static addRelative(parent, children) {
@@ -95,9 +93,9 @@ export default class TreeController {
     static add(tree, key, parentId, relatives) {
         for (let prop in tree) {
             if (!tree.hasOwnProperty(prop)) continue;
-            if (typeof tree[prop] == 'object') {
+            if (typeof tree[prop] === 'object') {
                 TreeController.add(tree[prop], key, parentId, relatives);
-            } else if (prop == key && tree[key] == parentId) {
+            } else if (prop === key && tree[key] === parentId) {
                 tree[`children`] = relatives;
             }
         }

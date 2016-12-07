@@ -13,6 +13,7 @@ export default class EditProfileForm extends Component{
 
                     <img src={this.props.currentImageUrl}
                          style={{"width":"30%"}}
+                         alt="alt"
                     />
 
                     <div className="form-group">
@@ -96,4 +97,3 @@ export default class EditProfileForm extends Component{
 
 }
 
-{/*<button className="btn btn-primary"><Link to="/home/password">Reset password</Link></button>*/}

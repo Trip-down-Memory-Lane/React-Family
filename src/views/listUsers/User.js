@@ -16,4 +16,3 @@ export default class User extends Component{
     }
 }
 
-{/*<img src={this.props.profilePicture} alt="profile picture"/>*/}

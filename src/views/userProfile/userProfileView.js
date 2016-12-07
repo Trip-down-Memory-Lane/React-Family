@@ -57,7 +57,7 @@ export default class userProfileView extends Component {
         let updatedPictures=[];
         for(let pic of data){
             for(let old of this.state.pictures){
-                if(old.id!=pic){
+                if(old.id!==pic){
                     updatedPictures.push(old)
                 }
             }

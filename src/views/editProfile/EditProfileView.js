@@ -96,6 +96,7 @@ export default class EditProfileView extends Component {
             lastName: this.state.lastName,
             basicInfo: this.state.basicInfo,
             profilePicture: this.state.imgUrl,
+            treeId: sessionStorage.getItem(`treeId`)
         };
         UserController.editUser(
             sessionStorage.getItem('userId'),

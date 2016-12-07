@@ -25,7 +25,6 @@ export default class AddChildrenForm extends Component {
     }
 
     componentWillReceiveProps(props) {
-        console.log(`AddChildren WIllReceiveProps.`, props.nodeRoot);
         this.setState({
             nodeRoot: props.nodeRoot
         });
@@ -51,6 +50,7 @@ export default class AddChildrenForm extends Component {
         let arr = [];
         let children = this.state.children;
         for (let child in children) {
+            if(!children.hasOwnProperty(child)) continue;
             arr.push(children[child]);
         }
         return arr;

@@ -65,7 +65,7 @@ class GuestView extends React.Component {
                             <SearchForm value={this.props.search} onSubmit={this.props.onSubmit} onChange={this.props.onChange}/>
                         </div>
                         <div style={{"paddingLeft": "20%", "paddingRight": "20%"}}>
-                            <Link to={"/home/profile/" + this.props.userId + '/' + this.props.treeId }>
+                            <Link to={"/tree"}>
                                 <ViewTreeButton/>
                             </Link>
                         </div>

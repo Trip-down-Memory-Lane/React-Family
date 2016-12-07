@@ -1,11 +1,4 @@
 import React, {Component} from "react";
-import $ from "jquery";
-
-
-import emptyTrees from "../utils/_DEV_empty_trees_table";
-
-
-import Footer from "../components/Footer.js"
 import FamilyTree from "../components/treeComponents/FamilyTree";
 import TreeController from "../controllers/TreeController";
 
@@ -28,10 +21,6 @@ export default class FamilyTreeView extends Component {
         this.initTree = this.initTree.bind(this);
         this.loadTree = this.loadTree.bind(this);
         this.createTree = this.createTree.bind(this);
-
-        // this.handleMouseDown = this.handleMouseDown.bind(this);
-        // this.handleMouseMove = this.handleMouseMove.bind(this);
-        // this.handleMouseUp = this.handleMouseUp.bind(this);
     }
 
     componentWillMount() {
@@ -59,7 +48,6 @@ export default class FamilyTreeView extends Component {
     }
 
     createTree(userData) {
-        console.log(`CREATING TREE!!`, userData.treeId);
         TreeController.createTree(userData)
             .then((response) => {
                 this.setTreeData(response);
@@ -74,7 +62,6 @@ export default class FamilyTreeView extends Component {
     }
 
     updateState(tree) {
-        // this.userData.treeId = tree.treeId;
         this.setState(prevState => {
             return {
                 clickX: prevState.clickX,
@@ -87,12 +74,10 @@ export default class FamilyTreeView extends Component {
 
     isLoading() {
         if (this.state.info) {
-            console.log(`loading`);
             return (
                 <div id="wrapper">{this.state.info}</div>
             );
         } else {
-            // console.log(`FamilyTreeView RENDERING!!`, this.state.tree);
             return (
                 <div
                     onMouseMove={this.handleMouseMove}
@@ -106,40 +91,6 @@ export default class FamilyTreeView extends Component {
             );
         }
     }
-
-    // handleMouseDown(event) {
-    //     let pageX = event.pageX;
-    //     let pageY = event.pageY;
-    //     this.setState(prevState => {
-    //         return {componentWillRecieveProps
-    //             clickX: pageX,
-    //             clickY: pageY,
-    //             clicked: true
-    //         }
-    //     });
-    // }
-    //
-    // handleMouseMove(event) {
-    //     if (this.state.clicked) {
-    //         this.updateScrollPosition(event);
-    //     }
-    //
-    // }
-    //
-    // handleMouseUp() {
-    //     this.setState(prevState => {
-    //         return {
-    //             clickX: prevState.clickX,
-    //             clicked: false
-    //         }
-    //     })
-    // }
-    //
-    // updateScrollPosition(event) {
-    //     $(document).css(`cursor`, `row-resize`);
-    //     $(window).scrollLeft($(window).scrollLeft() + (this.state.clickX - event.pageX));
-    //     $(window).scrollTop($(window).scrollTop() + (this.state.clickY - event.pageY));
-    // }
 
     render() {
         return this.isLoading();

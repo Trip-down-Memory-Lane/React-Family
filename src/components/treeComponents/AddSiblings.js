@@ -51,6 +51,7 @@ export default class AddSiblingsForm extends Component {
         let arr = [];
         let siblings = this.state.siblings;
         for (let sibling in siblings) {
+            if (!siblings.hasOwnProperty(sibling)) continue;
             arr.push(siblings[sibling]);
         }
         return arr;
@@ -74,6 +75,7 @@ export default class AddSiblingsForm extends Component {
         event.preventDefault();
         let siblings = [];
         for (let sibling in this.state.siblings) {
+            if (!this.state.siblings.hasOwnProperty(sibling)) continue;
             siblings.push(this.state.siblings[sibling]);
         }
         console.log(`siblings: `, siblings);

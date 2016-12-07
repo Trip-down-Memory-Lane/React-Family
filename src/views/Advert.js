@@ -9,13 +9,6 @@ import {Link} from 'react-router';
 import "../styles/circleButton.css"
 
 class Advert extends React.Component {
-    constructor(props) {
-        super(props);
-
-    }
-
-
-
     render() {
 
         let userId = sessionStorage.getItem('userId');
