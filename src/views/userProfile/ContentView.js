@@ -1,16 +1,16 @@
 import React from 'react';
-import Gallery from '../components/Gallery'
-import Avatar from '../components/ProfileInfo'
-import AboutMe from '../components/Aboutme'
-import UserController from '../controllers/UserController'
-import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
+import Gallery from '../../components/Gallery'
+import Avatar from '../../components/ProfileInfo'
+import AboutMe from '../../components/Aboutme'
+import UserController from '../../controllers/UserController'
+import '../../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 
 import {Link} from 'react-router';
-import ViewTreeButton from '../components/CreateTreeButton'
-import '../styles/profileView.css';
-import '../../public/loginHelper/img/backgrounds/Tree.png'
+import ViewTreeButton from '../../components/CreateTreeButton'
+import '../../styles/profileView.css';
+import '../../../public/loginHelper/img/backgrounds/Tree.png'
 import $ from 'jquery'
-import SearchForm from '../views/search/SearchForm'
+import SearchForm from '../../views/search/SearchForm'
 
 class GuestView extends React.Component {
     constructor(props) {

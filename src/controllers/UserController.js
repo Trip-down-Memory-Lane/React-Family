@@ -49,7 +49,7 @@ class UserController {
             function registerSuccess(success) {
                 UserController.saveFirstTimeLogin();
                 browserHistory.push(Path.loginView());
-                ViewManager.renderMessage('Thank yoy for your registration. Please login to proceed.', 'success');
+                ViewManager.renderMessage('Thank you for your registration. Please login to proceed.', 'success');
             }
         }
     }
@@ -125,7 +125,7 @@ class UserController {
     static saveFirstTimeLogin() {
         sessionStorage.setItem('firstTimeLogin', true);
     }
-    
+
 
     static loadUsers(callback){
         KinveyRequester.getSearchResultUsers()

@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import UserController from '../../controllers/UserController';
-import GuestView from '../GuestView'
+import GuestView from './ContentView'
 import {browserHistory} from 'react-router';
 
 export default class userProfileView extends Component {
