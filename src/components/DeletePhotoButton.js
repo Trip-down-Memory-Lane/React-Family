@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button, Modal, ModalHeader, ModalBody, ModalFooter, Input} from 'reactstrap';
+import {Button, Modal, ModalHeader, ModalBody, ModalFooter} from 'reactstrap';
 import $ from 'jquery'
 import UserController from '../controllers/UserController'
 
@@ -20,8 +20,6 @@ class DeletePhotoButton extends React.Component {
 
     deletePhoto(e) {
         e.preventDefault();
-        console.log('MARKED BEFORE');
-        console.log(this.state.marked);
         this.props.updateInfo(this.state.marked);
         UserController.deletePictures(this.state.marked, this.onDeleteSuccess );
 
@@ -29,11 +27,7 @@ class DeletePhotoButton extends React.Component {
     }
 
     onDeleteSuccess(deleted, response){
-        console.log('DELETE :');
-        console.log(deleted);
-        console.log('RESPONSE');
-        console.log(response);
-        console.log('deleted');
+
     }
 
     toggle() {
@@ -50,8 +44,7 @@ class DeletePhotoButton extends React.Component {
 
     markForDelete(e) {
         let id = (e.target.id);
-        console.log('PIC ID');
-        console.log(id);
+
         this.state.marked.push(id);
         if ($(e.target).parent().children().length === 1) {
             ($(e.target).parent().append($('<div>MARKED</div>')));
@@ -76,13 +69,7 @@ class DeletePhotoButton extends React.Component {
                 <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                     <ModalHeader toggle={this.toggle} />
                     <ModalBody >
-                        {/*<Button outline color="primary" style={{"backgroundColor":"#337ab7","color":"white"}} onClick={this.deletePhoto}>CHOOSE PICTURE</Button>*/}
 
-                        {/*{*/}
-                        {/*for (let i = 0; i < this.props.pictures.length; i++) {*/}
-                        {/*<img href={this.props.pictures[i]} key={i}/>*/}
-                        {/*}*/}
-                        {/*}*/}
                         <div>
                             {
                                 this.props.pictures.map((p, i) => {
@@ -103,7 +90,6 @@ class DeletePhotoButton extends React.Component {
                                                  onClick={this.markForDelete}
                                                  key={i}
                                                  id={p.id}
-
                                                  src={ path}
                                             />
 

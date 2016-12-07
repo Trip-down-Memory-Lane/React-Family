@@ -60,7 +60,6 @@ export default class EditProfileView extends Component {
     }
 
     onResetPasswordSuccess(){
-        console.log('success');
         ViewManager.renderMessage('Email for password reset was sent to your registered email address.', 'success');
         this.context.router.push('home/profile/' + sessionStorage.getItem('userId'));
     }
@@ -78,7 +77,6 @@ export default class EditProfileView extends Component {
     }
 
     onLoadSuccess(response){
-        console.log(response);
         this.setState({
             currentImageUrl: response.profilePicture,
             imgUrl: response.profilePicture,
@@ -92,20 +90,23 @@ export default class EditProfileView extends Component {
     onSubmitHandler(event) {
         event.preventDefault();
 
+        let userInfo = {
+            email: this.state.email,
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            basicInfo: this.state.basicInfo,
+            profilePicture: this.state.imgUrl,
+        };
         UserController.editUser(
             sessionStorage.getItem('userId'),
-            this.state.imgUrl,
-            this.state.email,
-            this.state.firstName,
-            this.state.lastName,
-            this.state.basicInfo,
+            userInfo,
             this.onEditSuccess
         );
     }
 
     onEditSuccess(response){
         ViewManager.renderMessage('Profile edited.', 'success');
-        this.context.router.push('home/profile/' + sessionStorage.getItem('userId'));
+        this.context.router.push('/home/profile/' + sessionStorage.getItem('userId'));
     }
 
     render() {

@@ -22,17 +22,18 @@ class KinveyRequester {
 
         return $.ajax({
             method: "POST",
-            url: credentials.baseUrl + "user/" + credentials.appKey + "/",
+            url: credentials.baseUrl + "user/" + credentials.appKey,
             headers: credentials.kinveyAppAuthHeaders,
             data: data,
         });
     }
 
     static getUserInfo(userId){
+
         return $.ajax({
             method: "GET",
             url: credentials.baseUrl + "user/" + credentials.appKey + "/" + userId,
-            headers: Authenticator.getKinveyAuthHeaders()
+            headers: Authenticator.getKinveyUserAuthHeaders()
         })
     }
 
@@ -61,7 +62,7 @@ class KinveyRequester {
         return $.ajax({
             method: "POST",
             url: credentials.baseUrl + "user/" + credentials.appKey + "/_logout",
-            headers: Authenticator.getKinveyAuthHeaders(),
+            headers: Authenticator.getKinveyUserAuthHeaders(),
         });
     }
 
@@ -75,8 +76,9 @@ class KinveyRequester {
     }
 
     static getUserPicturesRequest(userId){
-        //console.log('IN KINVEY');
-        let query = `?query={"_acl.creator":"${userId}"}`;
+        let query = `?query={"_acl":{"creator":"${userId}"}}`;
+
+        let urlRequest = credentials.baseUrl + 'appdata/' + credentials.appKey + '/pictures' + query;
 
         return $.ajax({
             method: "GET",
@@ -94,7 +96,6 @@ class KinveyRequester {
     }
 
     static resetPasswordRequest(email){
-        //https://baas.kinvey.com/rpc/kid_SkHaVTqGx/redelcheva@gmail.com/user-password-reset-initiate
 
         let url = credentials.baseUrl + 'rpc/' + credentials.appKey + '/' + email + '/user-password-reset-initiate';
 
@@ -107,7 +108,6 @@ class KinveyRequester {
 
     static searchUserRequest(names){
 
-        //https://baas.kinvey.com/user/kid_SkHaVTqGx?query={"$or":[{"firstName":"Petyo"}, {"lastName":"Ivanov"}]}
 
         let tokens = [];
 
@@ -122,7 +122,6 @@ class KinveyRequester {
         tokens = tokens.join(',');
 
         let urlRequest = credentials.baseUrl + 'user/' + credentials.appKey + `?query={"$or":[${tokens}]}`;
-        // console.log(urlRequest);
 
         return $.ajax({
             method: "GET",
@@ -133,11 +132,10 @@ class KinveyRequester {
 
     static fillSearchResultsRequest(results){
         let data = {results: results};
-        //console.log(data);
         return $.ajax({
             method: "POST",
             url: credentials.baseUrl + 'appdata/' + credentials.appKey + '/searchResults',
-            headers: Authenticator.getKinveyAuthHeaders(),
+            headers: Authenticator.getKinveyUserAuthHeaders(),
             data: data,
         });
     }
@@ -160,8 +158,6 @@ class KinveyRequester {
 
     static deletePictureRequest(toBeDeleted){
 
-        // {"key":"value"}
-
         let query = '?query=';
         for (let pic of toBeDeleted){
             query += `{"_id":"${pic}"}|`;
@@ -178,10 +174,7 @@ class KinveyRequester {
         })
     }
 
-    /*
-    * PUTs the new parentRoot, containing the whole family-tree inside {userId}/treeRoot
-    * TODO: in later stages if we implement search on user registration, another request must be sent to separate collection for the unregistered newRoot.
-    * */
+
     static addParents(data) {
         return $.ajax({
             method: "PUT",

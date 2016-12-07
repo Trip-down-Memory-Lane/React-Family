@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-import UserProfile from './UserProfile';
 import UserController from '../../controllers/UserController';
-import GuestView from '../GuestView'
+import GuestView from './ContentView'
 import {browserHistory} from 'react-router';
 
-export default class CatalogPage extends Component {
+export default class userProfileView extends Component {
 
     constructor(props) {
         super(props);
@@ -40,6 +39,7 @@ export default class CatalogPage extends Component {
             firstName: '',
             lastName: '',
             basicInfo: '',
+            profilePicture: '',
             pictures: images,
             search:'',
             treeId: '',
@@ -53,11 +53,7 @@ export default class CatalogPage extends Component {
         this.updateInfo=this.updateInfo.bind(this);
     }
     updateInfo(data){
-        console.log('MY DATA');
-        console.log(data);
-        console.log(this.state.pictures);
-        //ne znam metoda dali raboti: proverqva dali id-to na snimkata e razli4no ot id-to na pratenite iztriti
-        //ako e razli4no go pulni v this.state.pictures;
+
         let updatedPictures=[];
         for(let pic of data){
             for(let old of this.state.pictures){
@@ -66,7 +62,6 @@ export default class CatalogPage extends Component {
                 }
             }
         }
-        console.log(updatedPictures);
 
         this.setState({
            pictures:updatedPictures
@@ -78,10 +73,7 @@ export default class CatalogPage extends Component {
         UserController.loadUserPictures(this.props.params.userId, this.onLoadUserPicturesSuccess)
     }
 
-    // componentDidMount(){
-    //     UserController.loadUserInfo(this.props.params.userId, this.onLoadUserInfoSuccess);
-    //     UserController.loadUserPictures(this.props.params.userId, this.onLoadUserPicturesSuccess)
-    // }
+
 
     onLoadUserInfoSuccess(response) {
         this.setState({
@@ -89,6 +81,7 @@ export default class CatalogPage extends Component {
             firstName: response.firstName,
             lastName: response.lastName,
             basicInfo: response.basicInfo,
+            profilePicture: response.profilePicture,
             treeId: response.treeId,
         });
     }
@@ -98,8 +91,7 @@ export default class CatalogPage extends Component {
 
 
         for (let pic of data) {
-            // userPictures.push(pic.imageUrl);
-            // console.log(pic);
+
             let picture = {};
             picture.original = pic.imageUrl;
             picture.thumbnail =pic.imageUrl;
@@ -113,31 +105,8 @@ export default class CatalogPage extends Component {
         this.setState({pictures:userPictures})
     }
 
-    // onLoadUserPicturesSuccess(response) {
-    //     let userPictures = [];
-    //
-    //     console.log('on load pictures success');
-    //     for (let pic of response) {
-    //
-    //         let picture = {};
-    //         let path=pic.imageUrl;
-    //         if(!pic.imageUrl.startsWith('h')){
-    //
-    //             path='/'+path
-    //         }
-    //         picture.original =path;
-    //         picture.thumbnail =path;
-    //         if (pic.hasOwnProperty('description')) {
-    //             picture.description = pic.description;
-    //         }
-    //         userPictures.push(picture);
-    //     }
-    //
-    //     this.setState({images: userPictures})
-    // }
     onChange(event){
         event.preventDefault();
-        //console.log('GUEST VIEW CHANGING');
         this.setState({
             search: event.target.value,
         });
@@ -152,7 +121,6 @@ export default class CatalogPage extends Component {
         UserController.fillSearchResults(response, onFillSearchResultsSuccess);
 
         function onFillSearchResultsSuccess(response){
-            //console.log(response);
             browserHistory.push('/home/users');
         }
     }
@@ -181,6 +149,7 @@ export default class CatalogPage extends Component {
                     firstName={this.state.firstName}
                     lastName={this.state.lastName}
                     basicInfo={this.state.basicInfo}
+                    profilePicture={this.state.profilePicture}
                 />
             </div>
         )

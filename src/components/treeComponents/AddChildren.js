@@ -1,7 +1,5 @@
 import React, {Component} from "react";
 import {Button, FormGroup} from "reactstrap";
-import $ from "jquery";
-
 import SiblingsChildrenForm from "./SiblingsChildrenForm";
 import Consts from "../../constants/constant";
 import TreeController from "../../controllers/TreeController";
@@ -9,7 +7,6 @@ import TreeController from "../../controllers/TreeController";
 export default class AddChildrenForm extends Component {
     constructor(props) {
         super(props);
-        // this.rootParent = props.rootParent;
         this.state = {
             nodeRoot: props.nodeRoot,
             childrenCount: 1,

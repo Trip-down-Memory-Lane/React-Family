@@ -14,7 +14,7 @@ import MainPage from '../App';
 
 import Authenticator from '../utils/authentication';
 import Path from '../constants/constant';
-import Advert from '../views/MyView'
+import Advert from '../views/Advert'
 class ViewManager{
     static changeView() {
         ReactDOM.render(
@@ -34,7 +34,7 @@ class ViewManager{
                            component={UserProfile}
                            onEnter={(a, b) => Authenticator.requireAuth(Path.loginView())} />
 
-                    <Route path="/home/tree"
+                    <Route path="/home/profile/:userId/:treeId"
                            component={FamilyTreeView}
                            onEnter={(a, b) => Authenticator.requireAuth(Path.loginView())} />
 

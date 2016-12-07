@@ -4,7 +4,7 @@ class Avatar extends Component{
 
     render(){
         return(
-                <img style={{"paddingBottom":"3%"}} width="95%" height="95%" src="loginHelper/img/backgrounds/baby.jpg" role="presentation"/>
+            <img style={{"paddingBottom":"3%"}} width="50%" height="95%" src={this.props.src} role="presentation"/>
         )
     }
 

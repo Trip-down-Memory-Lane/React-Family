@@ -4,16 +4,17 @@ import {browserHistory} from 'react-router';
 import ViewManager from './ViewManager';
 import isEmail from '../../node_modules/validator/lib/isEmail';
 
-
 class UserController {
 
     static login(username, password) {
         KinveyRequester
             .loginUser(username, password)
-            .then(loginSuccess.bind(this));
+            .then(loginSuccess.bind(this)).catch(function () {
+            ViewManager.renderMessage('Please fill correctly all fields', 'success');
+
+        });
 
         function loginSuccess(userInfo) {
-            console.log('login success');
             UserController.saveAuthInSession(userInfo);
 
             if (sessionStorage.getItem('firstTimeLogin')) {
@@ -23,13 +24,15 @@ class UserController {
                 UserController.addPicture('loginHelper/img/backgrounds/22.jpg');
                 UserController.addPicture('loginHelper/img/backgrounds/image2.jpg');
 
-                browserHistory.push('home/edit');
+                browserHistory.push('/home/edit');
                 ViewManager.renderMessage('Login successful.', 'success');
+
             }
             else {
-                let userId = sessionStorage.getItem('userId');
+
                 browserHistory.push('/advert');
                 ViewManager.renderMessage('Login successful.', 'success');
+
             }
         }
     }
@@ -46,7 +49,7 @@ class UserController {
             function registerSuccess(success) {
                 UserController.saveFirstTimeLogin();
                 browserHistory.push(Path.loginView());
-                ViewManager.renderMessage('Thank yoy for your registration. Please login to proceed.', 'success');
+                ViewManager.renderMessage('Thank you for your registration. Please login to proceed.', 'success');
             }
         }
     }
@@ -83,23 +86,10 @@ class UserController {
     static loadUserPictures(userId, callback) {
         KinveyRequester.getUserPicturesRequest(userId)
             .then(callback).catch(function (err) {
-            console.log('ERROR');
-            console.log(err);
+
         });
 
 
-        // console.log('AAAAAAAAA');
-        // //let userId = sessionStorage.getItem('userId');
-        //
-        // let userPictures = KinveyRequester.getUserPictures(userId);
-        // console.log('BBBBBBBBBBBB');
-        // let picturesUrls = [];
-        // for (let i = 0; i < userPictures.length; i++) {
-        //     picturesUrls.push(userPictures[i])
-        // }
-        //
-        // console.log('CCCCCCCCCCCCC');
-        // return picturesUrls;
     }
 
     static loadUserInfo(userId, callback){
@@ -126,6 +116,7 @@ class UserController {
     }
 
     static saveAuthInSession(userInfo) {
+        console.log(userInfo._kmd.authtoken);
         sessionStorage.setItem('authToken', userInfo._kmd.authtoken);
         sessionStorage.setItem('userId', userInfo._id);
         sessionStorage.setItem('username', userInfo.username);
@@ -135,10 +126,6 @@ class UserController {
         sessionStorage.setItem('firstTimeLogin', true);
     }
 
-    // static loadUsers(callback){
-    //     KinveyRequester.getAllUsers()
-    //         .then(callback);
-    // }
 
     static loadUsers(callback){
         KinveyRequester.getSearchResultUsers()
@@ -146,7 +133,7 @@ class UserController {
     }
 
     static searchUser(searchData, callback){
-        searchData = searchData.split('\s+');
+        searchData = searchData.split(/\s+/);
 
         let tokens = [];
         for (let token of searchData){
@@ -180,4 +167,4 @@ class UserController {
     }
 }
 
-export default  UserController;
+export default UserController;

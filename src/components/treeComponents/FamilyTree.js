@@ -135,28 +135,28 @@ export default class FamilyTree extends Component {
     }
 
     componentWillMount() {
-        // console.log(`FAMILYTREE: WILL MOUNT!`);
         $(`#wrapper`).width(10000);
-        // console.log(`wrapper width: `, $(`#wrapper`).width());
     }
     componentWillUpdate() {
-        // console.log(`FAMILYTREE: WILL UPDATE!`);
         $(`#wrapper`).width(10000);
-        // console.log(`wrapper width: `, $(`#wrapper`).width());
     }
 
     componentDidMount() {
-        // console.log(`FAMILYTREE: DID MOUNT!`);
         $(`#wrapper`).width(this.treeWidth);
 
-        // // console.log(`wrapper width: `, $(`#wrapper`).width());
     }
     componentDidUpdate() {
-        console.log(`FAMILYTREE: DID UPDATE!`, $(`#treeRoot`)[0].scrollWidth);
-        // $(`#wrapper`).width($(`#treeRoot`)[0].scrollWidth);
-        $(`#wrapper`).width(this.treeWidth + 300);
 
-        // console.log(`wrapper width: `, $(`#wrapper`).width());
+        let totalWidth = 0;
+        let firstTierChildren = $(`#treeRoot > .children > .node`);
+        for (let child of firstTierChildren) {
+            totalWidth += $(child).width() + 40;
+            console.log(totalWidth);
+        }
+        totalWidth += 40;
+        console.log(`FAMILYTREE: DID UPDATE!`, totalWidth);
+        $(`#wrapper`).width(totalWidth);
+
     }
 
     isPersonSelected() {
@@ -173,8 +173,6 @@ export default class FamilyTree extends Component {
     }
 
     render() {
-        // console.log(`FAMILITREE RENDERING`, this.state.treeRoot);
-        // console.log(`wrapper width: `, $(`#wrapper`).width());
         return(
             <div>
                 {this.isPersonSelected()}
