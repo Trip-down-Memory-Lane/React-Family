@@ -17,13 +17,13 @@ class AboutMe extends React.Component {
         });
     }
     componentDidMount(){
-        console.log('BEFORE RENDER')
+        // console.log('BEFORE RENDER')
     }
        //toDO
 
     render() {
-        console.log('IME');
-        console.log(this.props.name);
+        // console.log('IME');
+        // console.log(this.props.name);
         return (
             <div>
                 <Button style={{"fontSize":"20px"}} color="danger" onClick={this.toggle}>{this.props.name}</Button>

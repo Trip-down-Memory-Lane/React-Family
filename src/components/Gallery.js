@@ -43,7 +43,7 @@ class Gallery extends React.Component {
             else {
 
                 return <div>
-                    <AddPhotoButton  pictures={this.props.pictures}></AddPhotoButton>
+                    <AddPhotoButton  pictures={this.props.pictures} />
                     <DeletePhotoButton updateInfo={this.props.updateInfo}  pictures={this.props.pictures}/>
                 </div>
             }
@@ -83,14 +83,8 @@ class Gallery extends React.Component {
                 <div className="container">
                     <div className="row" style={{"paddingRight": "75%"}}>
                         {AddPhotoBut}
-
                     </div>
-                    <div >
-                        SOME TEXTSOME TEXTSOME TEXTSOME TEXTSOME TEXTSOME TEXTSOME TEXTSOME TEXTSOME TEXT
-                    </div>
-
                 </div>
-
             </div>
 
         );

@@ -80,12 +80,12 @@ class GuestView extends React.Component {
     // }
 
     onLoadUserInfoSuccess(data) {
-
-        this.setState({
-            firstName: data.firstName,
-            lastName: data.lastName,
-            basicInfo: data.basicInfo
-        });
+        //
+        // this.setState({
+        //     firstName: data.firstName,
+        //     lastName: data.lastName,
+        //     basicInfo: data.basicInfo
+        // });
 
         // console.log('úser info');
         // console.log(data);
@@ -183,7 +183,7 @@ class GuestView extends React.Component {
                                     "paddingRight": "10%",
                                     "backgroundColor": ""
                                 }}>
-                                    <Avatar />
+                                    <Avatar src={this.props.profilePicture}/>
                                     <AboutMe name={this.props.firstName + ' ' + this.props.lastName} basicInfo={this.props.basicInfo} />
                                 </div>
                             </div>

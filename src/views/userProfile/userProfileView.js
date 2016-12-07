@@ -40,6 +40,7 @@ export default class userProfileView extends Component {
             firstName: '',
             lastName: '',
             basicInfo: '',
+            profilePicture: '',
             pictures: images,
             search:'',
             treeId: '',
@@ -89,6 +90,7 @@ export default class userProfileView extends Component {
             firstName: response.firstName,
             lastName: response.lastName,
             basicInfo: response.basicInfo,
+            profilePicture: response.profilePicture,
             treeId: response.treeId,
         });
     }
@@ -181,6 +183,7 @@ export default class userProfileView extends Component {
                     firstName={this.state.firstName}
                     lastName={this.state.lastName}
                     basicInfo={this.state.basicInfo}
+                    profilePicture={this.state.profilePicture}
                 />
             </div>
         )
