@@ -18,48 +18,10 @@ class GuestView extends React.Component {
         $('.backstretch').remove();
         $('body').css('background', '#d0e5e2')
 
-        // const images = [
-        //     {
-        //         original: 'loginHelper/img/backgrounds/11.jpg',
-        //         thumbnail: 'loginHelper/img/backgrounds/11.jpg',
-        //         originalclassName: 'featured-slide',
-        //         thumbnailclassName: 'featured-thumb',
-        //         originalAlt: 'original-alt',
-        //         thumbnailAlt: 'thumbnail-alt',
-        //         thumbnailLabel: 'Optional',
-        //         description: 'My Sweet Family...',
-        //         srcSet: 'Optional srcSet (responsive images src)',
-        //         sizes: ''
-        //     },
-        //     {
-        //         original: 'loginHelper/img/backgrounds/22.jpg',
-        //         description: 'My Sweet Family 2...',
-        //
-        //         thumbnail: 'loginHelper/img/backgrounds/22.jpg',
-        //     },
-        //     {
-        //         original: 'loginHelper/img/backgrounds/image2.jpg',
-        //         description: 'My Sweet Family 3...',
-        //
-        //         thumbnail: 'loginHelper/img/backgrounds/image2.jpg',
-        //     }
-        // ];
-
-        // this.state = {
-        //
-        //     firstName: '',
-        //     lastName: '',
-        //     basicInfo: '',
-        //     search:''
-        // };
         this.updatePics = this.updatePics.bind(this);
-        //this.onLoadSuccess = this.onLoadSuccess.bind(this);
 
-        // From Roli
         this.onLoadUserInfoSuccess = this.onLoadUserInfoSuccess.bind(this);
         this.onLoadPicturesSuccess = this.onLoadPicturesSuccess.bind(this);
-        // this.onChange = this.onChange.bind(this);
-        // this.onSubmit = this.onSubmit.bind(this);
     }
 
     updatePics(e) {
@@ -72,29 +34,8 @@ class GuestView extends React.Component {
         UserController.loadUserPictures(iid, this.onLoadPicturesSuccess);
     }
 
-    // componentWillReceiveProps() {
-    //     let userId = this.props.userId;
-    //
-    //     UserController.loadUserInfo(userId, this.onLoadUserInfoSuccess);
-    //     UserController.loadUserPictures(userId, this.onLoadPicturesSuccess);
-    // }
-
     onLoadUserInfoSuccess(data) {
-        //
-        // this.setState({
-        //     firstName: data.firstName,
-        //     lastName: data.lastName,
-        //     basicInfo: data.basicInfo
-        // });
-
-        // console.log('úser info');
-        // console.log(data);
         this.props.updateInfo(data);
-        // this.setState({
-        //     firstName: data.firstName,
-        //     lastName: data.lastName,
-        //     basicInfo: data.basicInfo
-        // });
     }
 
     onLoadPicturesSuccess(data) {
@@ -149,10 +90,9 @@ class GuestView extends React.Component {
 // }
 
     render() {
-         // console.log('PARAMS');
-         // console.log(this.props.firstName);
 
-
+        console.log(this.props.userId);
+        console.log(this.props.treeId);
         return (
             <div>
                 <div className="row" id="profileContainer">
@@ -161,7 +101,7 @@ class GuestView extends React.Component {
                             <SearchForm value={this.props.search} onSubmit={this.props.onSubmit} onChange={this.props.onChange}/>
                         </div>
                         <div style={{"paddingLeft": "20%", "paddingRight": "20%"}}>
-                            <Link to="/home/tree">
+                            <Link to={"/home/profile/" + this.props.userId + '/' + this.props.treeId }>
                                 <ViewTreeButton/>
                             </Link>
                         </div>
