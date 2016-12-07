@@ -8,9 +8,8 @@ import TreeController from "../../controllers/TreeController";
 export default class AddSiblingsForm extends Component {
     constructor(props) {
         super(props);
-        this.rootParent = props.rootParent;
-        this.nodeRoot = props.nodeRoot;
         this.state = {
+            rootParent: props.rootParent,
             siblingsCount: 1,
             siblings: {
                 0: {
@@ -24,6 +23,12 @@ export default class AddSiblingsForm extends Component {
         this.updateState = this.updateState.bind(this);
         this.getSiblings = this.getSiblings.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    componentWillReceiveProps(props) {
+        this.setState({
+            rootParent: props.rootParent
+        });
     }
 
     addSiblingToState(event) {
@@ -71,9 +76,17 @@ export default class AddSiblingsForm extends Component {
         for (let sibling in this.state.siblings) {
             siblings.push(this.state.siblings[sibling]);
         }
-
-        TreeController.addRelative(this.rootParent, siblings)
-            .then(this.props.setTreeData);
+        console.log(`siblings: `, siblings);
+        TreeController.addRelative(this.state.rootParent, siblings)
+            .then((response) => {
+                TreeController.handleRelative(response)
+                    .then(() => {
+                        let userData = {
+                            treeId: sessionStorage.getItem(`treeId`)
+                        };
+                        this.props.loadTree(userData);
+                    })
+            });
     }
 
     render() {

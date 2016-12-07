@@ -23,7 +23,6 @@ export default class TreeController {
     }
 
     static loadTree(id) {
-        treeId = id;
         return TreeRequester.getTree(id);
     }
 
@@ -54,10 +53,9 @@ export default class TreeController {
         console.log(`parent children: `, parent.children);
         let parentId = parent.id;
         if (parent.children) {
-            console.log(`Previous children`, parent.children);
             children.push.apply(children, parent.children);
         }
-
+        console.log(children);
         TreeController.children = children;
         TreeController.parentId = parentId;
 
@@ -81,6 +79,8 @@ export default class TreeController {
                 spouse: spouse,
                 children: nestedChildren,
             });
+
+            console.log(`processed children`, childrenObjs);
         }
 
         TreeController.add(tree, `id`, TreeController.parentId, childrenObjs);

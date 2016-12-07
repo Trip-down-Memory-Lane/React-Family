@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import {Button, FormGroup} from "reactstrap";
+import $ from "jquery";
 
 import SiblingsChildrenForm from "./SiblingsChildrenForm";
 import Consts from "../../constants/constant";
@@ -8,9 +9,9 @@ import TreeController from "../../controllers/TreeController";
 export default class AddChildrenForm extends Component {
     constructor(props) {
         super(props);
-        this.nodeRoot = props.nodeRoot;
         // this.rootParent = props.rootParent;
         this.state = {
+            nodeRoot: props.nodeRoot,
             childrenCount: 1,
             children: {
                 0: {
@@ -24,6 +25,13 @@ export default class AddChildrenForm extends Component {
         this.updateState = this.updateState.bind(this);
         this.getChildren = this.getChildren.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    componentWillReceiveProps(props) {
+        console.log(`AddChildren WIllReceiveProps.`, props.nodeRoot);
+        this.setState({
+            nodeRoot: props.nodeRoot
+        });
     }
 
     addChildToState(event) {
@@ -69,15 +77,19 @@ export default class AddChildrenForm extends Component {
         event.preventDefault();
         let children = [];
         for (let child in this.state.children) {
+            if(!this.state.children.hasOwnProperty(child)) continue;
             children.push(this.state.children[child]);
         }
 
-        TreeController.addRelative(this.nodeRoot, children)
+        TreeController.addRelative(this.state.nodeRoot, children)
             .then((response) => {
                 TreeController.handleRelative(response)
                     .then((response) => {
                         console.log(`addedChild response `, response);
-                        this.props.setTreeData(response);
+                        let userData = {
+                            treeId: sessionStorage.getItem(`treeId`)
+                        };
+                        this.props.loadTree(userData);
                     });
             });
     }

@@ -69,6 +69,7 @@ export default class FamilyTreeView extends Component {
 
     setTreeData(response) {
         let tree = TreeController.buildTree(response);
+        sessionStorage.setItem(`treeId`, tree.treeId);
         this.updateState(tree);
     }
 
@@ -91,19 +92,16 @@ export default class FamilyTreeView extends Component {
                 <div id="wrapper">{this.state.info}</div>
             );
         } else {
-            console.log(`FamilyTreeView RENDERING!!`, this.state.tree);
+            // console.log(`FamilyTreeView RENDERING!!`, this.state.tree);
             return (
-                <div id="wrapper">
-                    <div
-                        onMouseMove={this.handleMouseMove}
-                        onMouseDown={this.handleMouseDown}
-                        onMouseUp={this.handleMouseUp}
-                        id="content">
-                        <FamilyTree
-                            treeRoot={this.state.tree}
-                            setTreeData={this.setTreeData} />
-                    </div>
-                    <Footer/>
+                <div
+                    onMouseMove={this.handleMouseMove}
+                    onMouseDown={this.handleMouseDown}
+                    onMouseUp={this.handleMouseUp}
+                    id="wrapper">
+                    <FamilyTree
+                        nodeRoot={this.state.tree}
+                        loadTree={this.loadTree} />
                 </div>
             );
         }

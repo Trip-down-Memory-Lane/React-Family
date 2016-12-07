@@ -62,11 +62,15 @@ export default class AddParentsForm extends Component {
             let child = this.nodeRoot;
             console.log(`AddParents Submit: `, rootParent, spouse, child);
             TreeController.addParents(rootParent, spouse, child)
-                .then(this.props.setTreeData);
+                .then(() => {
+                    let userData = {
+                        treeId: sessionStorage.getItem(`treeId`)
+                    };
+                    this.props.loadTree(userData);
+                });
         }
     }
 
-    //TODO: Implement required for Mather of Father input
     render() {
         return(
             <form onSubmit={this.handleSubmit}>

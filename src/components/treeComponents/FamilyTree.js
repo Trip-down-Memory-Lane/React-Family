@@ -91,12 +91,11 @@ export default class FamilyTree extends Component {
     constructor(props) {
         super(props);
         this.treeWidth = null;
-        console.log(`FamilyTre CONSTRUCTOR`);
         // this.state.treeRoot = props.treeRoot;
         // this.state.treeRoot = createRooTest();//TODO: replace with props.tree for production.
         this.state = {
             personSelected: false,
-            treeRoot: props.treeRoot
+            nodeRoot: props.nodeRoot
         };
 
         this.isPersonSelected = this.isPersonSelected.bind(this);
@@ -106,13 +105,15 @@ export default class FamilyTree extends Component {
     }
 
     setContainerToTreeWidth(dimensions) {
+        // console.log(`wrapper width when measuring`, $(`#wrapper`).width());
+        // console.log(`measure dimensions`, dimensions.width);
         this.treeWidth = dimensions.width;
     }
 
     componentWillReceiveProps(props) {
-        console.log(`familytreeWIllReceiveProps.`);
+        console.log(`FamilyTree WIllReceiveProps.`, props.nodeRoot);
         this.setState({
-            treeRoot: props.treeRoot
+            nodeRoot: props.nodeRoot
         });
     }
 
@@ -129,34 +130,40 @@ export default class FamilyTree extends Component {
         this.setState({
             personSelected: false,
             isTreeRoot: null,
-            rootParent: null,
-            nodeRoot: null
+            rootParent: null
         });
     }
 
     componentWillMount() {
-        console.log(`FAMILYTREE: WILL MOUNT!`);
+        // console.log(`FAMILYTREE: WILL MOUNT!`);
         $(`#wrapper`).width(10000);
+        // console.log(`wrapper width: `, $(`#wrapper`).width());
     }
     componentWillUpdate() {
-        console.log(`FAMILYTREE: WILL UPDATE!`);
+        // console.log(`FAMILYTREE: WILL UPDATE!`);
         $(`#wrapper`).width(10000);
+        // console.log(`wrapper width: `, $(`#wrapper`).width());
     }
 
     componentDidMount() {
-        console.log(`FAMILYTREE: DID MOUNT!`);
+        // console.log(`FAMILYTREE: DID MOUNT!`);
         $(`#wrapper`).width(this.treeWidth);
+
+        // // console.log(`wrapper width: `, $(`#wrapper`).width());
     }
     componentDidUpdate() {
-        console.log(`FAMILYTREE: DID UPDATE!`);
-        $(`#wrapper`).width(this.treeWidth);
+        console.log(`FAMILYTREE: DID UPDATE!`, $(`#treeRoot`)[0].scrollWidth);
+        // $(`#wrapper`).width($(`#treeRoot`)[0].scrollWidth);
+        $(`#wrapper`).width(this.treeWidth + 300);
+
+        // console.log(`wrapper width: `, $(`#wrapper`).width());
     }
 
     isPersonSelected() {
         if(this.state.personSelected) {
             return (
                 <SelectedPerson
-                    setTreeData={this.props.setTreeData}
+                    loadTree={this.props.loadTree}
                     isTreeRoot={this.state.isTreeRoot}
                     rootParent={this.state.rootParent}
                     nodeRoot={this.state.nodeRoot}
@@ -166,21 +173,22 @@ export default class FamilyTree extends Component {
     }
 
     render() {
-        console.log(`FAMILITREE RENDERING`, this.state.treeRoot);
+        // console.log(`FAMILITREE RENDERING`, this.state.treeRoot);
+        // console.log(`wrapper width: `, $(`#wrapper`).width());
         return(
-            <Measure
-                onMeasure={this.setContainerToTreeWidth}
-                blacklist={measureBlacklist}>
-                <div>
-                    {this.isPersonSelected()}
+            <div>
+                {this.isPersonSelected()}
+                <Measure
+                    onMeasure={this.setContainerToTreeWidth}
+                    blacklist={measureBlacklist}>
                     <TreeNode
-                        key={this.state.treeRoot.id}
+                        key={this.state.nodeRoot.id}
                         id="treeRoot"
-                        nodeRoot={this.state.treeRoot}
+                        nodeRoot={this.state.nodeRoot}
                         isTreeRoot={true}
                         selectPerson={this.selectPerson} />
-                </div>
-            </Measure>
+                </Measure>
+            </div>
         );
     }
 }

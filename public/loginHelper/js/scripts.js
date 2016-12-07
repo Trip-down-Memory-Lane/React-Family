@@ -4,12 +4,12 @@ jQuery(document).ready(function() {
     /*
         Fullscreen background
     */
-	$.backstretch([
-		"loginHelper/img/backgrounds/image2.jpg",
-		"loginHelper/img/backgrounds/image3.jpg",
-	    "loginHelper/img/backgrounds/image.jpg",
-	    "loginHelper/img/backgrounds/image4.jpg",
-	], {duration: 3000, fade: 750});
+	// $.backstretch([
+	// 	"loginHelper/img/backgrounds/image2.jpg",
+	// 	"loginHelper/img/backgrounds/image3.jpg",
+	//     "loginHelper/img/backgrounds/image.jpg",
+	//     "loginHelper/img/backgrounds/image4.jpg",
+	// ], {duration: 3000, fade: 750});
 
 
     /*

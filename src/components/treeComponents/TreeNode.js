@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import "../../styles/TreeNode.css";
 import Person from "./Person";
+import $ from "jquery";
 
 class TreeNode extends Component {
     /*
@@ -113,12 +114,8 @@ class TreeNode extends Component {
     }
 
     render() {
-        console.log(`TreeNode RENDERING`, this.state.nodeRoot);
-        return(
-            <div>
-                {this.addNode(this.state.nodeRoot)}
-            </div>
-        );
+        // console.log(`TreeNode RENDERING`, $(`#wrapper`).width());
+        return this.addNode(this.state.nodeRoot);
     }
 }
 

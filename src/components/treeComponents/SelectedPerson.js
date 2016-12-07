@@ -9,15 +9,23 @@ export default class SelectedPerson extends Component {
         super(props);
         this.isTreeRoot = props.isTreeRoot;
         this.rootParent = props.rootParent;
-        this.nodeRoot = props.nodeRoot;
         this.state = {
             dropdownOpen: false,
-            editForm: null
+            editForm: null,
+            nodeRoot: props.nodeRoot
         };
 
         this.toggle = this.toggle.bind(this);
         this.selectEditForm = this.selectEditForm.bind(this);
         this.isThisPersonTreeRoot = this.isThisPersonTreeRoot.bind(this);
+        this.addRelativeForm = this.addRelativeForm.bind(this);
+    }
+
+    componentWillReceiveProps(props) {
+        console.log(`SelectedPerson WIllReceiveProps.`, props.nodeRoot);
+        this.setState({
+            nodeRoot: props.nodeRoot
+        });
     }
 
     toggle() {
@@ -42,22 +50,22 @@ export default class SelectedPerson extends Component {
         switch (this.state.editForm) {
             case`parents`: return (
                 <AddParentsForm
-                    nodeRoot={this.nodeRoot}
-                    setTreeData={this.props.setTreeData} />
+                    nodeRoot={this.state.nodeRoot}
+                    loadTree={this.props.loadTree} />
             );
             case`siblings`: return (
                 <AddSiblings
                     rootParent={this.rootParent}
-                    nodeRoot={this.nodeRoot}
+                    nodeRoot={this.state.nodeRoot}
                     type="siblings"
-                    setTreeData={this.props.setTreeData} />
+                    loadTree={this.props.loadTree} />
             );
             case`children`: return (
                 <AddChildren
                     rootParent={this.rootParent}
-                    nodeRoot={this.nodeRoot}
+                    nodeRoot={this.state.nodeRoot}
                     type="children"
-                    setTreeData={this.props.setTreeData} />
+                    loadTree={this.props.loadTree} />
             );
         }
     }

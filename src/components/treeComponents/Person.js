@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import $ from "jquery";
 
 export default class Person extends Component {
     /*
@@ -47,6 +48,7 @@ export default class Person extends Component {
     }
 
     render() {
+        // console.log(`Peron RENDERING`, $(`#wrapper`).width());
         return(
             <div onClick={this.select} className={this.props.type} id={this.props.isLoggedInUser}>
                 <div className="person">
