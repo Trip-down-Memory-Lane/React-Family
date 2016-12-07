@@ -49,8 +49,11 @@ class Advert extends React.Component {
                 <div className="row" id="profileContainer" style={{"width":"50%"}}  >
                    {/*<img style={{"width":"100%","height":"100%","marginLeft":"10%"}}  src="/profile/loginHelper/img/backgrounds/Tree2.jpeg"></img>*/}
                     <Link to={"/home/profile/"+userId }>
-                        <a> <Button style={{"marginTop":"30%","marginLeft":"80%"}} color="primary" size="lg" >
-                      YOUR PROFILE</Button></a>
+
+                        <a>
+                            <Button style={{"marginTop":"30%","marginLeft":"80%"}} color="primary" size="lg" >
+
+                     GO TO YOUR PROFILE</Button></a>
                     </Link>
 
 

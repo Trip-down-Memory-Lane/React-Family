@@ -3,14 +3,20 @@ import Path from '../constants/constant';
 import {browserHistory} from 'react-router';
 import ViewManager from './ViewManager';
 import isEmail from '../../node_modules/validator/lib/isEmail';
-import Authenticator from '../utils/authentication';
+import $ from 'jquery'
 
 class UserController {
 
     static login(username, password) {
         KinveyRequester
             .loginUser(username, password)
-            .then(loginSuccess.bind(this));
+            .then(loginSuccess.bind(this)).catch(function () {
+            ViewManager.renderMessage('Please fill correctly all fields', 'success');
+            $('#message').show();
+            $('#message').fadeOut(5000,function () {
+                $( this ).hide()
+            })
+        });
 
         function loginSuccess(userInfo) {
             console.log('login success');
@@ -25,11 +31,19 @@ class UserController {
 
                 browserHistory.push('/home/edit');
                 ViewManager.renderMessage('Login successful.', 'success');
+                $('#message').show()
+                $('#message').fadeOut(5000,function () {
+                    $( this ).hide()
+                })
             }
             else {
                 let userId = sessionStorage.getItem('userId');
                 browserHistory.push('/advert');
                 ViewManager.renderMessage('Login successful.', 'success');
+                $('#message').show()
+                $('#message').fadeOut(5000,function () {
+                    $( this ).hide()
+                })
             }
         }
     }
@@ -181,4 +195,4 @@ class UserController {
     }
 }
 
-export default  UserController;
+export default UserController;
