@@ -4,7 +4,7 @@ import UserController from '../../controllers/UserController';
 import GuestView from '../GuestView'
 import {browserHistory} from 'react-router';
 
-export default class CatalogPage extends Component {
+export default class userProfileView extends Component {
 
     constructor(props) {
         super(props);

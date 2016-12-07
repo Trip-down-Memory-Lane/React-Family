@@ -68,8 +68,8 @@ class GuestView extends React.Component {
         let userId = this.props.userId;
         //console.log(iid);
         //
-            UserController.loadUserInfo(iid, this.onLoadUserInfoSuccess);
-             UserController.loadUserPictures(iid, this.onLoadPicturesSuccess);
+        UserController.loadUserInfo(iid, this.onLoadUserInfoSuccess);
+        UserController.loadUserPictures(iid, this.onLoadPicturesSuccess);
     }
 
     // componentWillReceiveProps() {
@@ -152,6 +152,7 @@ class GuestView extends React.Component {
          // console.log('PARAMS');
          // console.log(this.props.firstName);
 
+
         return (
             <div>
                 <div className="row" id="profileContainer">
@@ -170,7 +171,7 @@ class GuestView extends React.Component {
 
                             <div style={{"padding": "6%"}}>
 
-                                <Gallery updateInfo={this.props.updateInfo} userId={this.props.userId} pictures={this.props.pictures}></Gallery>
+                                <Gallery updateInfo={this.props.updateInfo} userId={this.props.userId} pictures={this.props.pictures} />
                             </div>
                         </div>
                         <div className="row">
@@ -183,15 +184,12 @@ class GuestView extends React.Component {
                                     "backgroundColor": ""
                                 }}>
                                     <Avatar />
-                                    <AboutMe name={this.props.firstName + ' ' + this.props.lastName}></AboutMe>
+                                    <AboutMe name={this.props.firstName + ' ' + this.props.lastName} basicInfo={this.props.basicInfo} />
                                 </div>
                             </div>
 
                             <div className="col-md-6">
-                                <div></div>
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-                                eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-
+                                {this.props.basicInfo}
                             </div>
                         </div>
                     </div>

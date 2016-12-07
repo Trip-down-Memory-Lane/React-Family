@@ -22,17 +22,19 @@ class KinveyRequester {
 
         return $.ajax({
             method: "POST",
-            url: credentials.baseUrl + "user/" + credentials.appKey + "/",
+            url: credentials.baseUrl + "user/" + credentials.appKey,
             headers: credentials.kinveyAppAuthHeaders,
             data: data,
         });
     }
 
     static getUserInfo(userId){
+        console.log(credentials.baseUrl + "user/" + credentials.appKey + "/" + userId);
+
         return $.ajax({
             method: "GET",
             url: credentials.baseUrl + "user/" + credentials.appKey + "/" + userId,
-            headers: Authenticator.getKinveyAuthHeaders()
+            headers: Authenticator.getKinveyUserAuthHeaders()
         })
     }
 
@@ -61,7 +63,7 @@ class KinveyRequester {
         return $.ajax({
             method: "POST",
             url: credentials.baseUrl + "user/" + credentials.appKey + "/_logout",
-            headers: Authenticator.getKinveyAuthHeaders(),
+            headers: Authenticator.getKinveyUserAuthHeaders(),
         });
     }
 
@@ -75,8 +77,12 @@ class KinveyRequester {
     }
 
     static getUserPicturesRequest(userId){
-        //console.log('IN KINVEY');
-        let query = `?query={"_acl.creator":"${userId}"}`;
+        console.log('IN KINVEY');
+        console.log(userId);
+        let query = `?query={"_acl":{"creator":"${userId}"}}`;
+
+        let urlRequest = credentials.baseUrl + 'appdata/' + credentials.appKey + '/pictures' + query;
+        console.log(urlRequest);
 
         return $.ajax({
             method: "GET",

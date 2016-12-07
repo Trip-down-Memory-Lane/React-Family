@@ -3,7 +3,7 @@ import Path from '../constants/constant';
 import {browserHistory} from 'react-router';
 import ViewManager from './ViewManager';
 import isEmail from '../../node_modules/validator/lib/isEmail';
-
+import Authenticator from '../utils/authentication';
 
 class UserController {
 
@@ -23,7 +23,7 @@ class UserController {
                 UserController.addPicture('loginHelper/img/backgrounds/22.jpg');
                 UserController.addPicture('loginHelper/img/backgrounds/image2.jpg');
 
-                browserHistory.push('home/edit');
+                browserHistory.push('/home/edit');
                 ViewManager.renderMessage('Login successful.', 'success');
             }
             else {
@@ -126,6 +126,7 @@ class UserController {
     }
 
     static saveAuthInSession(userInfo) {
+        console.log(userInfo._kmd.authtoken);
         sessionStorage.setItem('authToken', userInfo._kmd.authtoken);
         sessionStorage.setItem('userId', userInfo._id);
         sessionStorage.setItem('username', userInfo.username);

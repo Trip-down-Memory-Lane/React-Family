@@ -108,7 +108,7 @@ export default class EditProfileView extends Component {
 
     onEditSuccess(response){
         ViewManager.renderMessage('Profile edited.', 'success');
-        this.context.router.push('home/profile/' + sessionStorage.getItem('userId'));
+        this.context.router.push('/home/profile/' + sessionStorage.getItem('userId'));
     }
 
     render() {
