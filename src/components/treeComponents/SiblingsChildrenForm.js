@@ -32,7 +32,7 @@ export default class SiblingsChildrenForm extends Component {
 
     render() {
         return(
-            <input key={this.props.id} type="text" onKeyUp={this.handleNameInput} placeholder={this.getPlaceholder()} />
+            <input key={this.props.id} type="text" onKeyUp={this.handleNameInput} placeholder={this.getPlaceholder()} required/>
         )
     }
 }

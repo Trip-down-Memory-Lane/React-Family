@@ -52,6 +52,10 @@ export default class FamilyTree extends Component {
             isTreeRoot: null,
             rootParent: null
         });
+
+        this.props.loadTree({
+            treeId: sessionStorage.getItem(`treeId`)
+        });
     }
 
     componentWillMount() {

@@ -5,7 +5,7 @@ import changeView from '../controllers/ViewManager'
 import Path from '../constants/constant'
 import RegisterButton from '../components/RegisterButton'
 import UserController from '../controllers/UserController';
-
+import $ from 'jquery'
 class LoginView extends Component {
 
     constructor(props) {

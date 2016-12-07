@@ -79,6 +79,7 @@ export default class FamilyTreeView extends Component {
             );
         } else {
             return (
+
                 <div
                     onMouseMove={this.handleMouseMove}
                     onMouseDown={this.handleMouseDown}
